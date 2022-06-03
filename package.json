@@ -1,0 +1,28 @@
+{
+  "name": "keystone-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "keystone --PORT=4000 dev",
+    "start": "keystone start",
+    "build": "keystone build",
+    "postinstall": "keystone postinstall",
+    "reset:db": "keystone dev --reset-db",
+    "migrate": "keystone prisma migrate deploy"
+  },
+  "dependencies": {
+    "@keystone-6/auth": "^1.0.1",
+    "@keystone-6/core": "^1.0.1",
+    "@keystone-6/fields-document": "^1.0.1",
+    "@sendgrid/mail": "^7.6.2",
+    "dotenv-safe": "^8.2.0",
+    "handlebars": "^4.7.7",
+    "nodemailer": "^6.7.3",
+    "nodemailer-mailgun-transport": "^2.1.4",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "typescript": "^4.5.4"
+  },
+  "engines": {
+    "node": "^14.15 || ^16.13"
+  }
+}
