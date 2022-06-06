@@ -11,6 +11,7 @@ const mg = require("nodemailer-mailgun-transport")
 const handlebars = require("handlebars")
 const fs = require("fs")
 const path = require("path")
+var postmark = require("postmark");
 
 const setInitialPasswordTemplate = fs.readFileSync(path.join(__dirname, "./emails/set-initial-password.hbs"), "utf8")
 if (!sessionSecret) {
@@ -46,6 +47,8 @@ let transport = nodemailer.createTransport(
   }) : mailTrapTransport
 )
 let portalUrl = process.env.NODE_ENV == 'production' ? 'https://portal.hhlearning.com' : 'http://localhost:3001'
+var client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
+
 const { withAuth } = createAuth({
   listKey: "User",
   identityField: "email",
@@ -64,12 +67,22 @@ const { withAuth } = createAuth({
       const htmlToSend = template({linkUrl: `${portalUrl}/reset-password/${encodeURIComponent(identity)}/${token}`})
       
       const mailOptions = {
-        to: identity,
-        from: process.env.MAIL_FROM_ADDRESS,
-        subject: "Hilger Report Card portal password",
-        html: htmlToSend
+        To: 'mike@enxo.co',
+        From: process.env.MAIL_FROM_ADDRESS,
+        Subject: "Hilger Report Card portal password",
+        HtmlBody: htmlToSend,
+        MessageStream: "outbound"
       }
-      
+      const response = await client.sendEmailWithTemplate({
+        "From": process.env.MAIL_FROM_ADDRESS,
+        "To": identity,
+        "TemplateAlias": "password-reset",
+        "TemplateModel": {
+          "action_url": `${portalUrl}/reset-password/${encodeURIComponent(identity)}/${token}`
+        }
+      });
+      console.log('response', response)
+      return
       smtpTransport.sendMail(mailOptions, function(error, response) {
         if (error) {
           console.log(error)
