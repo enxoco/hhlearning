@@ -1,8 +1,0 @@
-mutation UpdateCourse($id: Int!, $courseName: String!, $feedback: String!, $grade: String!){
-  updateCourse(courseName:$courseName, feedback:$feedback, grade: $grade, id: $id) {
-    id
-    courseName
-    grade
-    feedback
-  }
-}

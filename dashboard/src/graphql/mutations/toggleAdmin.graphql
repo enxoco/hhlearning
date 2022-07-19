@@ -1,3 +1,0 @@
-mutation ToggleAdmin($adminStatus: Boolean!, $teacherId: Float!) {
-  toggleAdmin(adminStatus: $adminStatus, teacherId: $teacherId)
-}
