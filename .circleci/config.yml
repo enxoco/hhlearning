@@ -3,15 +3,13 @@ orbs:
   node: circleci/node@5.0.2
 jobs:
   build:
-    working_directory: ~/project/hilger_admin_react
     executor: node/default
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-          app-dir: ~/project/hilger_admin_react/react-frontend
       - run:
-          command: cd react-frontend && REACT_APP_SALT='7CQxaV8ksmBBKNKKytddNRuKUk3C0S' REACT_APP_SALT_LENGTH=5 yarn build
+          command: yarn build
           name: Build app
       - persist_to_workspace:
           root: ~/project
@@ -26,8 +24,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            sed -i 's/React App/Hilger Portal/' ~/project/hilger_admin_react/react-frontend/build/index.html &&
-            scp -P25052 -r ~/project/hilger_admin_react/react-frontend/build/* $SSH_USER@$SSH_HOST:/home/murph/portal.hhlearning.com/
+            scp -P8202 -r * $SSH_USER@$SSH_HOST:/home/murphy/hilger_keystone
 workflows:
   version: 2
   build-and-deploy:
