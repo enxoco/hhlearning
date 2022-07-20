@@ -1,6 +1,6 @@
 {
   "name": "react-frontend",
-  "proxy": "http://localhost:3000/",
+  "proxy": "http://app:3000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

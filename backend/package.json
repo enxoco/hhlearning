@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "keystone --PORT=4000 dev",
+    "dev": "keystone dev",
+    "docker": "docker-compose up --build",
     "start": "keystone start",
     "build": "keystone build",
-    "postinstall": "keystone postinstall",
+    "postinstall": "if-env SKIP_POSTINSTALL=1 && echo 'skipped' || keystone postinstall",
     "reset:db": "keystone dev --reset-db",
     "migrate": "keystone prisma migrate deploy"
   },
@@ -19,7 +20,8 @@
     "dotenv-safe": "^8.2.0",
     "hashids": "^2.2.10",
     "postmark": "^3.0.11",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "if-env": "^1.0.4"
   },
   "engines": {
     "node": "^14.15 || ^16.13"
