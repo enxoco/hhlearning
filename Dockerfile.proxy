@@ -1,0 +1,20 @@
+# FROM trafex/php-nginx as prod
+FROM trafex/php-nginx as prod
+# Copy our React build files
+# Install composer from the official image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Run composer install to install the dependencies
+# COPY ./frontend/build /var/www/html
+COPY ./composer.json /var/www/html/composer.json
+COPY ./composer.lock /var/www/html/composer.lock
+USER root
+# RUN mkdir /var/www/html/parents
+RUN mkdir -p /var/www/html/archived-reports
+RUN chown -R nobody:nobody /var/www/html/archived-reports
+RUN apk add --no-cache php81-pdo php81-pdo_pgsql php81-bcmath php81-gd php81-iconv
+USER nobody
+
+
+WORKDIR /var/www/html
+RUN composer install --optimize-autoloader --no-interaction --no-progress
