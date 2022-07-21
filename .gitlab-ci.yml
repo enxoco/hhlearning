@@ -39,6 +39,7 @@ cache:
 
 # Build our backend api server and push it to production
 build_backend:
+    # Map our environment variables.
     variables:
       PORT: PORT
       SESSION_SECRET: SESSION_SECRET
@@ -49,6 +50,7 @@ build_backend:
       MAIL_FROM_DOMAIN: hhlearning.com
       POSTMARK_API_KEY: POSTMARK_API_KEY
       REACT_APP_SALT: REACT_APP_SALT
+      REACT_APP_SALT_LENGTH: REACT_APP_SALT_LENGTH
       ADMIN_TOKEN: ADMIN_TOKEN
     script:
         - |
