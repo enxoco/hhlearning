@@ -41,6 +41,15 @@ cache:
 build_backend:
     variables:
       PORT: PORT
+      SESSION_SECRET: SESSION_SECRET
+      DOMAIN: https://portal.hhlearning.com
+      DB_CONNECTION_STRING: DB_CONNECTION_STRING
+      NODE_ENV: production
+      MAIL_FROM_ADDRESS: MAIL_FROM_ADDRESS
+      MAIL_FROM_DOMAIN: hhlearning.com
+      POSTMARK_API_KEY: POSTMARK_API_KEY
+      REACT_APP_SALT: REACT_APP_SALT
+      ADMIN_TOKEN: ADMIN_TOKEN
     script:
         - |
           cd backend
