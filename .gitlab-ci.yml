@@ -39,5 +39,5 @@ build_backend:
     script:
         - cd backend
         - yarn build
-        scp -P$SSH_PORT -r *$SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
+        - scp -P$SSH_PORT -r *$SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
 
