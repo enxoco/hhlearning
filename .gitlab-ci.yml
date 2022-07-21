@@ -40,7 +40,7 @@ cache:
 # Build our backend api server and push it to production
 build_backend:
     variables:
-      - PORT
+      PORT: PORT
     script:
         - |
           cd backend
