@@ -24,6 +24,8 @@ services:
 cache:
   paths:
     - node_modules/
+    - backend/node_modules
+    - frontend/node_modules
 
 # test_async:
 #   script:
@@ -35,11 +37,14 @@ cache:
 #     - npm install
 #     - node ./specs/start.js ./specs/db-postgres.spec.js
 
+# Build our backend api server and push it to production
 build_backend:
+    variables:
+      - PORT
     script:
         - |
           cd backend
           yarn
           yarn build
-          scp -P$SSH_PORT -r *$SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
+          scp -P$SSH_PORT -r * $SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
 
