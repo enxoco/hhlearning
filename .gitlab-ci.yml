@@ -34,15 +34,15 @@ cache:
 deploy_backend:
   stage: deploy_backend
   before_script:
-      - apt-get -y update
-      - apt-get -y install openssh-server
-      - cd ~
-      - mkdir -m 0700 ~/.ssh
-      - ssh-keyscan -H tn.enxo.co -p 8202 > ~/.ssh/known_hosts
-      - chmod 600 ~/.ssh/known_hosts
-      - cat $PRIVATE_KEY_FILE > ~/.ssh/id_rsa
-      - chmod 600 ~/.ssh/id_rsa
-      - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - apt-get -y update
+    - apt-get -y install openssh-server
+    - cd ~
+    - mkdir -m 0700 ~/.ssh
+    - ssh-keyscan -H tn.enxo.co -p 8202 > ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - cat $PRIVATE_KEY_FILE > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - echo "Starting deploy"
     - |
