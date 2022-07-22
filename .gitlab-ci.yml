@@ -34,7 +34,6 @@ build_backend:
 deploy_backend:
   stage: deploy_backend
   before_script:
-    before_script:
       - apt-get -y update
       - apt-get -y install openssh-server
       - cd ~
@@ -44,8 +43,8 @@ deploy_backend:
       - cat $PRIVATE_KEY_FILE > ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa
       - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    script:
-      - echo "Starting deploy"
-      - |
-        ssh murph@$SSH_HOST -p $SSH_PORT 'bash -s' < $CI_PROJECT_DIR/deploy.sh
-        echo "Deployment successful"
+  script:
+    - echo "Starting deploy"
+    - |
+      ssh murph@$SSH_HOST -p $SSH_PORT 'bash -s' < $CI_PROJECT_DIR/deploy.sh
+      echo "Deployment successful"
