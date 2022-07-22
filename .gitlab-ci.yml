@@ -56,6 +56,6 @@ build_backend:
         - |
           cd backend
           yarn
-          yarn build
+          SESSION_SECRET=$SESSION_SECRET yarn build
           scp -P$SSH_PORT -r * $SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
 
