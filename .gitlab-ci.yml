@@ -46,5 +46,5 @@ deploy_backend:
   script:
     - echo "Starting deploy"
     - |
-      ssh murph@$SSH_HOST -p $SSH_PORT 'bash -s' < $CI_PROJECT_DIR/deploy.sh
+      ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/deploy.sh
       echo "Deployment successful"
