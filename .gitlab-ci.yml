@@ -9,7 +9,7 @@ cache:
     - backend/node_modules
     - frontend/node_modules
 
-Verify that our backend server will build properly
+#Verify that our backend server will build properly
 build_backend:
   stage: test_build_backend
     # Map our environment variables.
