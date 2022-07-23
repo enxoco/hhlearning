@@ -1,7 +1,7 @@
 
 image: node:16
 stages:
-  # - test_build_backend
+  - test_build_backend
   - deploy_backend
 cache:
   paths:
@@ -9,27 +9,27 @@ cache:
     - backend/node_modules
     - frontend/node_modules
 
-# Verify that our backend server will build properly
-# build_backend:
-#   stage: test_build_backend
-#     # Map our environment variables.
-#   variables:
-#     PORT: PORT
-#     SESSION_SECRET: SESSION_SECRET
-#     DOMAIN: https://portal.hhlearning.com
-#     DB_CONNECTION_STRING: DB_CONNECTION_STRING
-#     NODE_ENV: production
-#     MAIL_FROM_ADDRESS: MAIL_FROM_ADDRESS
-#     MAIL_FROM_DOMAIN: hhlearning.com
-#     POSTMARK_API_KEY: POSTMARK_API_KEY
-#     REACT_APP_SALT: REACT_APP_SALT
-#     REACT_APP_SALT_LENGTH: REACT_APP_SALT_LENGTH
-#     ADMIN_TOKEN: ADMIN_TOKEN
-#   script:
-#     - |
-#       cd backend
-#       yarn
-#       SESSION_SECRET=$SESSION_SECRET yarn build
+Verify that our backend server will build properly
+build_backend:
+  stage: test_build_backend
+    # Map our environment variables.
+  variables:
+    PORT: PORT
+    SESSION_SECRET: SESSION_SECRET
+    DOMAIN: https://portal.hhlearning.com
+    DB_CONNECTION_STRING: DB_CONNECTION_STRING
+    NODE_ENV: production
+    MAIL_FROM_ADDRESS: MAIL_FROM_ADDRESS
+    MAIL_FROM_DOMAIN: hhlearning.com
+    POSTMARK_API_KEY: POSTMARK_API_KEY
+    REACT_APP_SALT: REACT_APP_SALT
+    REACT_APP_SALT_LENGTH: REACT_APP_SALT_LENGTH
+    ADMIN_TOKEN: ADMIN_TOKEN
+  script:
+    - |
+      cd backend
+      yarn
+      yarn build
 
 deploy_backend:
   stage: deploy_backend
