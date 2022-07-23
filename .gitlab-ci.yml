@@ -45,6 +45,5 @@ deploy_backend:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - echo "Starting deploy"
-    - |
-      ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/deploy.sh
-      echo "Deployment successful"
+    - ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/deploy.sh
+    - echo "Deployment successful"
