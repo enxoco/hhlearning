@@ -9,7 +9,7 @@ var postmark = require("postmark");
 var client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
 require("dotenv-safe").config()
-let portalUrl = process.env.NODE_ENV == 'production' ? 'https://portal.hhlearning.com' : 'http://localhost:3001'
+let portalUrl = process.env.PORTAL_URL
 
 export default withAuth(
   config({
