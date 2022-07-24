@@ -2,8 +2,8 @@
 image: node:16
 stages:
   - test_build_backend
-  - deploy_backend
   - test_build_frontend
+  - deploy_backend
   - deploy_frontend
 cache:
   paths:
@@ -27,7 +27,7 @@ deploy_backend:
     - staging
   before_script:
     - apt-get -y update
-    - apt-get -y install openssh-server
+    - apt-get -y install openssh-server rsync
     - cd ~
     - mkdir -m 0700 ~/.ssh
     - ssh-keyscan -H tn.enxo.co -p 8202 > ~/.ssh/known_hosts
@@ -37,9 +37,6 @@ deploy_backend:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - echo "Starting deploy"
-    - cd $CI_PROJECT_DIR/backend
-    - yarn 
-    - yarn build
     - rsync -avz $CI_PROJECT_DIR/backend/build murph@SSH_HOST:/home/murph/mono-repo-staging/backend
     # - ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/deploy.sh
     - echo "Deployment successful"
