@@ -2,16 +2,8 @@
 
 require_once('../vendor/autoload.php');
 require_once('./glob_recursive.php');
+require('../db-config.php');
 use Hashids\Hashids;
-
-try {
-    $db_con = new PDO('pgsql:host=database;port=5432;dbname=hhportal', 'hilger', 'password');
-    $db_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-
-} catch(PDOException $e) {
-        echo $e->getMessage();
-}
 
 $request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
 $hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
@@ -175,7 +167,7 @@ $hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
                 <ul>
                     <?php foreach ($students as $student): ?>
                     <li>
-                        <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>">View Grades</a></button>
+                        <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
                     </li>
                     <?php endforeach ?>
                 </ul>
@@ -193,7 +185,7 @@ $hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
                         $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
                         ?>
                         <li>
-                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>"><?= $semester_title; ?></a></button>
+                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>" target="_blank"><?= $semester_title; ?></a></button>
                         </li>
                     <?php
                     }

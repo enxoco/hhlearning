@@ -1,7 +1,6 @@
-import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast } from "@chakra-ui/react"
+import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast, Link } from "@chakra-ui/react"
 import { useMemo, useState } from "react"
 import { FiEdit2, FiLogIn, FiSend } from "react-icons/fi"
-import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { impersonateUser as impersonateUserAtom, loggedInUser } from "../atom"
 import Layout from "../components/Layout"
@@ -96,7 +95,7 @@ function Parents () {
                 <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
               </Tooltip> */}
               <Tooltip label="Impersonate Parent">
-              <Link to={`/parents/${row.values.portalId}`} ><IconButton icon={<FiLogIn />}></IconButton></Link>
+              <Link href={`/parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
               </Tooltip>
               <Tooltip label='Send portal link email'>
                 <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleRequestPasswordReset(row.values.email)} />
