@@ -996,6 +996,7 @@ export type Student = {
   myCourses?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   parent?: Maybe<User>;
+  portalId?: Maybe<Scalars['String']>;
 };
 
 
@@ -1103,6 +1104,7 @@ export type User = {
   phone?: Maybe<Scalars['String']>;
   phoneFather?: Maybe<Scalars['String']>;
   phoneMother?: Maybe<Scalars['String']>;
+  portalId?: Maybe<Scalars['String']>;
   role?: Maybe<Array<Role>>;
   roleCount?: Maybe<Scalars['Int']>;
   state?: Maybe<Scalars['String']>;
@@ -1487,7 +1489,7 @@ export type FetchSettingsQuery = { __typename?: 'Query', settings?: Array<{ __ty
 export type GetAllParentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllParentsQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneMother?: string | null, phoneFather?: string | null, street?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, hasPaidTuition?: boolean | null, id: string, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string }> | null }> | null };
+export type GetAllParentsQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneMother?: string | null, phoneFather?: string | null, street?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
 
 export type GetAllStudentsQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -1495,7 +1497,7 @@ export type GetAllStudentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null }> | null };
+export type GetAllStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null }> | null };
 
 export type GetAllTeachersQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -1524,21 +1526,21 @@ export type GetMyStudentsQueryVariables = Exact<{
 }>;
 
 
-export type GetMyStudentsQuery = { __typename?: 'Query', user?: { __typename: 'User', name?: string | null, students?: string | null, id: string } | null };
+export type GetMyStudentsQuery = { __typename?: 'Query', user?: { __typename: 'User', name?: string | null, students?: string | null, id: string, portalId?: string | null } | null };
 
 export type GetStudentQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetStudentQuery = { __typename?: 'Query', student?: { __typename: 'Student', id: string, firstName?: string | null, lastName?: string | null } | null };
+export type GetStudentQuery = { __typename?: 'Query', student?: { __typename: 'Student', id: string, firstName?: string | null, lastName?: string | null, portalId?: string | null } | null };
 
 export type GetStudentsByParentQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetStudentsByParentQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, firstName?: string | null, lastName?: string | null, id: string, courses?: Array<{ __typename?: 'Course', name?: string | null, grade?: string | null, feedback?: string | null }> | null }> | null };
+export type GetStudentsByParentQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, firstName?: string | null, lastName?: string | null, id: string, portalId?: string | null, courses?: Array<{ __typename?: 'Course', name?: string | null, grade?: string | null, feedback?: string | null }> | null }> | null };
 
 export type TotalCourseCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1930,9 +1932,11 @@ export const GetAllParentsDocument = gql`
     zipcode
     hasPaidTuition
     id
+    portalId
     student {
       firstName
       id
+      portalId
     }
   }
 }
@@ -1949,6 +1953,7 @@ export const GetAllStudentsDocument = gql`
     name
     firstName
     lastName
+    portalId
   }
 }
     `;
@@ -2013,6 +2018,7 @@ export const GetMyStudentsDocument = gql`
     name
     students
     id
+    portalId
   }
 }
     `;
@@ -2027,6 +2033,7 @@ export const GetStudentDocument = gql`
     id
     firstName
     lastName
+    portalId
   }
 }
     `;
@@ -2041,6 +2048,7 @@ export const GetStudentsByParentDocument = gql`
     firstName
     lastName
     id
+    portalId
     courses {
       name
       grade

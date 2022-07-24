@@ -1,6 +1,7 @@
 <?php
 
 require_once('../vendor/autoload.php');
+require_once('./glob_recursive.php');
 use Hashids\Hashids;
 
 try {
@@ -168,17 +169,35 @@ $hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
                 <p>You currently have an outstanding balance on your 2021-2022 school year's tuition. You will not be able to see your student(s) report card(s) until your tuition is paid in full. If you think you have paid this in full, or if you have questions about your balance, please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
             </div>
         <div class="container">
-
             <img src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" class="logo" />
             <p>Use the links below to view grades for your students</p>
             <div class="card">
                 <ul>
                     <?php foreach ($students as $student): ?>
                     <li>
-                        <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="print.php?student=<?= $hashids->encode($student['id']) ?>">View Grades</a></button>
+                        <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>">View Grades</a></button>
                     </li>
                     <?php endforeach ?>
                 </ul>
+            </div>
+            <hr />
+            <p>Previous Semesters</p>
+
+            <div class="card">
+                <?php
+                    $portal_id = $hashids->encode($student['id']);
+                    $archive_files = $portal_id . ".pdf";
+                    $reports = glob_recursive("../archived-reports", $archive_files,1);
+                    foreach($reports as $semester)
+                    {
+                        $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
+                        ?>
+                        <li>
+                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>"><?= $semester_title; ?></a></button>
+                        </li>
+                    <?php
+                    }
+                ?>
             </div>
         </div>
     </main>

@@ -1,6 +1,7 @@
 import { graphql } from "@graphql-ts/schema"
 import { checkbox, password, relationship, text, virtual } from "@keystone-6/core/fields"
-
+import Hashids from 'hashids'
+const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
 
 export default {
     access: {
@@ -32,6 +33,14 @@ export default {
       hasPaidTuition: checkbox({ defaultValue: false}),
       password: password({ validation: { isRequired: true } }),
       courses: relationship({ ref: "Course.teacher", many: true}),
+      portalId: virtual({
+        field: graphql.field({
+          type: graphql.String,
+          async resolve(item, contenxt: any) {
+          return await hashids.encode(+item.id)
+         }
+        })
+      }),
       students: virtual({
         field: graphql.field({
           type: graphql.String,
