@@ -1,43 +1,76 @@
-# This file is a template, and might need editing before it works on your project.
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Nodejs.gitlab-ci.yml
 
-# Official framework image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/node/tags/
-image: node:latest
-
-# Pick zero or more services to be used on all builds.
-# Only needed when using a docker container to run your tests in.
-# Check out: https://docs.gitlab.com/ee/ci/services/index.html
-services:
-  - mysql:latest
-  - redis:latest
-  - postgres:latest
-
-# This folder is cached between builds
-# https://docs.gitlab.com/ee/ci/yaml/index.html#cache
+image: node:16
+stages:
+  - test_build_backend
+  - deploy_backend
+  - test_build_frontend
+  - deploy_frontend
 cache:
   paths:
     - node_modules/
+    - backend/node_modules
+    - frontend/node_modules
 
-# test_async:
-#   script:
-#     - npm install
-#     - node ./specs/start.js ./specs/async.spec.js
-
-# test_db:
-#   script:
-#     - npm install
-#     - node ./specs/start.js ./specs/db-postgres.spec.js
-
+#Verify that our backend server will build properly
 build_backend:
-    script:
-        - cd backend
-        - yarn build
-        - scp -P$SSH_PORT -r *$SSH_USER@$SSH_HOST:/home/murph/mono-repo-staging/
+  stage: test_build_backend
+    # Map our environment variables.
+  script:
+    - |
+      cd backend
+      yarn
+      yarn build
 
+deploy_backend:
+  stage: deploy_backend
+  only:
+    - staging
+  before_script:
+    - apt-get -y update
+    - apt-get -y install openssh-server
+    - cd ~
+    - mkdir -m 0700 ~/.ssh
+    - ssh-keyscan -H tn.enxo.co -p 8202 > ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - cat $PRIVATE_KEY_FILE > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - echo "Starting deploy"
+    - cd $CI_PROJECT_DIR/backend
+    - yarn 
+    - yarn build
+    - rsync -avz $CI_PROJECT_DIR/backend/build murph@SSH_HOST:/home/murph/mono-repo-staging/backend
+    # - ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/deploy.sh
+    - echo "Deployment successful"
+  
+#Verify that our backend server will build properly
+build_frontend:
+  stage: test_build_frontend
+  script:
+    - |
+      cd frontend
+      yarn
+      yarn build
+
+deploy_frontend:
+  stage: deploy_frontend
+  only:
+    - staging
+  before_script:
+    - apt-get -y update
+    - apt-get -y install openssh-server
+    - cd ~
+    - mkdir -m 0700 ~/.ssh
+    - ssh-keyscan -H tn.enxo.co -p 8202 > ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - cat $PRIVATE_KEY_FILE > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - echo "Starting deploy"
+    - rsync -avz $CI_PROJECT_DIR/frontend/build murph@SSH_HOST:/home/murph/mono-repo-staging/frontend
+    - rsync -avz $CI_PROJECT_DIR/frontend/frontend-php murph@SSH_HOST:/home/murph/mono-repo-staging/php
+    # - ssh -p $SSH_PORT murph@$SSH_HOST 'bash -s' < $CI_PROJECT_DIR/frontend_deploy.sh
+    - echo "Deployment successful"
+  

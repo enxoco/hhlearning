@@ -4,6 +4,7 @@ query GetStudentsByParent($email: String!){
     firstName
     lastName
     id
+    portalId
     courses {
       name
       grade

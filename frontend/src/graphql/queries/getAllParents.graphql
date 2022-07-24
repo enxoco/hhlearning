@@ -12,9 +12,11 @@ query GetAllParents{
     zipcode
     hasPaidTuition
     id
+    portalId
     student {
       firstName
       id
+      portalId
     }
   }
 }

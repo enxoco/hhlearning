@@ -4,6 +4,8 @@ import { list } from "@keystone-6/core"
 import { relationship, text, virtual } from "@keystone-6/core/fields"
 import { KeystoneContext } from "@keystone-6/core/types"
 import User from "./schema/User"
+import Hashids from 'hashids'
+const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
 
 const filterStudents = ({ context }: { context: KeystoneContext }) => {
   if (context.session?.data.name) return true
@@ -60,6 +62,14 @@ export const lists: Lists = {
       }),
       firstName: text({ isFilterable: true, isOrderable: true }),
       lastName: text({ isFilterable: true, isOrderable: true }),
+      portalId: virtual({
+        field: graphql.field({
+          type: graphql.String,
+          async resolve(item, contenxt: any) {
+          return await hashids.encode(+item.id)
+         }
+        })
+      }),
       courses: relationship({
         ref: "Course.student",
         many: true,

@@ -39,9 +39,15 @@ services:
             context: ./frontend
             dockerfile: Dockerfile.frontend
         restart: on-failure
+        volumes:
+            - ./frontend/.env:/app/.env
+            - ./frontend:/app
         ports: 
             - 4000:3000
         command: yarn start
+        environment:
+            - DANGEROUSLY_DISABLE_HOST_CHECK=true
+            - HOST=0.0.0.0
     proxy:
         build: 
             context: .
@@ -57,5 +63,9 @@ services:
             - ./frontend-php/db-config.php:/var/www/html/db-config.php
             - ./frontend-php/fpdf.php:/var/www/html/fpdf.php
             - ./frontend-php/print.php:/var/www/html/print.php
+    mailcatcher:
+        image:  schickling/mailcatcher
+        ports:
+            - 1080:1080
 volumes:
     postgres_volume:

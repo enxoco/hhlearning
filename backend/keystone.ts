@@ -27,6 +27,21 @@ export default withAuth(
           (req as any).context = await createContext(req, res);
           next()          
         })
+        // app.post("/portal-link", async (req, res) => {
+        //   const context = (req as any).context as KeystoneContext
+
+        //   const { id, email } = req.body()
+
+        //   const emailSend = await () => {
+        //     await client.sendEmail({
+        //       "From": process.env.MAIL_FROM_ADDRESS,
+        //       "To": req.body?.email,
+        //       "Subject": "Hilger Parent portal report cards",
+        //       "HtmlBody": `Reports cards for ${students.length} students have successfully been archived.`,
+        //       "MessagStream": "outbound"
+        //     })
+        //   }
+        // })
         // This route should take an in a token and an email address.
         // The email address is used to send a notification when the archive process
         // has been completed.
