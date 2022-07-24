@@ -5,7 +5,7 @@ require_once('./vendor/autoload.php');
 require ('./db-config.php');
 use Hashids\Hashids;
 
-$hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
+$hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
 
 /* This script is designed to print report cards for teachers/administrators.  If a student id is passed to the 'print' parameter, then only a report
 *  for that student will be printed.  Else, we pass in the 'all' parameter and all reports are printed.*/

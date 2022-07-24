@@ -9,6 +9,7 @@ var postmark = require("postmark");
 var client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
 require("dotenv-safe").config()
+let portalUrl = process.env.NODE_ENV == 'production' ? 'https://portal.hhlearning.com' : 'http://localhost:3001'
 
 export default withAuth(
   config({
@@ -23,29 +24,28 @@ export default withAuth(
         app.get("/reset-password/:email/:token", (req, res) => {
           res.send(req.params.token)
         })
-        app.use('/archive', async (req, res, next) => {
+        app.use('/rest/archive', async (req, res, next) => {
           (req as any).context = await createContext(req, res);
           next()          
         })
-        // app.post("/portal-link", async (req, res) => {
-        //   const context = (req as any).context as KeystoneContext
 
-        //   const { id, email } = req.body()
+        // This route requires an email and id
+        app.post("/rest/portal-link", async (req, res) => {
 
-        //   const emailSend = await () => {
-        //     await client.sendEmail({
-        //       "From": process.env.MAIL_FROM_ADDRESS,
-        //       "To": req.body?.email,
-        //       "Subject": "Hilger Parent portal report cards",
-        //       "HtmlBody": `Reports cards for ${students.length} students have successfully been archived.`,
-        //       "MessagStream": "outbound"
-        //     })
-        //   }
-        // })
+          const response = await client.sendEmailWithTemplate({
+            "From": process.env.MAIL_FROM_ADDRESS,
+            "To": req.body.email,
+            "TemplateAlias": "portal-link",
+            "TemplateModel": {
+              "action_url": `${portalUrl}/parents/${hashids.encode(req.body.id)}`
+            }
+          });
+          res.json({status: 'success'})
+        })
         // This route should take an in a token and an email address.
         // The email address is used to send a notification when the archive process
         // has been completed.
-        app.post("/archive", async (req, res) => {
+        app.post("/rest/archive", async (req, res) => {
           
           if (req.body?.token == process.env.ADMIN_TOKEN) {
             console.log('matching token')

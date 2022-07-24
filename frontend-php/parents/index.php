@@ -6,7 +6,7 @@ require('../db-config.php');
 use Hashids\Hashids;
 
 $request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
-$hashids = new Hashids('7CQxaV8ksmBBKNKKytddNRuKUk3C0S', 5);
+$hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
     $parent_id = $hashids->decode($request)[0];
     $query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
     $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);

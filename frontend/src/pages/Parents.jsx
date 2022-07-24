@@ -16,6 +16,30 @@ function Parents () {
   const [, setUser] = useRecoilState(loggedInUser)
   const [, fetchPasswordReset] = useForgotPasswordMutation()
   const toast = useToast()
+  
+  const handleSendPortalLink = async (id, email) => {
+    (async () => {
+      const rawResponse = await fetch('/rest/portal-link', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id, email})
+      });
+      const content = await rawResponse.json();
+    
+      console.log(content);
+      toast({
+        title: 'Portal link email sent.',
+        description: "Email sent to " + email,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top'
+      })
+    })();
+  }
 
   async function handleRequestPasswordReset(email){
     const result = await fetchPasswordReset({email})
@@ -98,7 +122,7 @@ function Parents () {
               <Link href={`/parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
               </Tooltip>
               <Tooltip label='Send portal link email'>
-                <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleRequestPasswordReset(row.values.email)} />
+                <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleSendPortalLink(row.values.id, row.values.email)} />
               </Tooltip>
             </HStack>
           </>
