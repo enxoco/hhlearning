@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, useBreakpointValue } from "@chakra-ui/react"
+import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, useBreakpointValue, Text } from "@chakra-ui/react"
 import { useEffect, useState } from 'react'
 import Layout from "../components/Layout"
 import { useFetchSettingsQuery, useUpdateSettingsMutation } from "../generated/graphql"
@@ -11,6 +11,7 @@ function Settings() {
   const [retrievedSettings, fetchSettings] = useFetchSettingsQuery()
   const [updatedSetting, doUpdateSetting] = useUpdateSettingsMutation()
   const [semester, setSemester] = useState(null)
+  const [ archiveRunning, setArchiveRunning] = useState(false)
 
   const handleSemesterInput = (e) => {
     setSemester(e.target.value)
@@ -18,6 +19,33 @@ function Settings() {
 
   const handleUpdateSemester = () => {
     doUpdateSetting({id: 1, value: semester})
+  }
+
+  const handleArchiveSemester = () => {
+    (async () => {
+      setArchiveRunning(true)
+
+      const rawResponse = await fetch('/rest/archive', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({token: process.env.REACT_APP_ADMIN_TOKEN, email: "mikeconrad@onmail.com"})
+      });
+      const content = await rawResponse.body;
+    
+      console.log(content);
+      // toast({
+      //   title: 'Portal link email sent.',
+      //   description: "Email sent to " + email,
+      //   status: 'success',
+      //   duration: 9000,
+      //   isClosable: true,
+      //   position: 'top'
+      // })
+      setArchiveRunning(false)
+    })();
   }
   useEffect(() => {
     setSemester(retrievedSettings.data?.settings.filter(a => a.name == 'Semester')[0])
@@ -35,6 +63,18 @@ function Settings() {
                 <Button onClick={handleUpdateSemester}>Save</Button>
               </HStack>
             </FormControl>
+
+
+          </Box>
+          <Box overflowX="auto">
+            <FormControl>
+              <FormLabel>Archive Semester</FormLabel>
+              <HStack>
+                <Text>Click the button below to run an archive operation.  This will run through all of the students and save the latest version of their grades for this semester on the server.  You will receive an email once the operation has been completed.</Text>
+                <Button onClick={handleArchiveSemester} isLoading={archiveRunning}>Archive</Button>
+              </HStack>
+            </FormControl>
+            
 
           </Box>
         </Box>

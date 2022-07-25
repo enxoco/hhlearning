@@ -1,8 +1,9 @@
 import { config } from "@keystone-6/core"
-import { KeystoneContext } from "@keystone-6/core/types"
 import { session, withAuth } from "./auth"
 import { lists } from "./schema"
+
 import Hashids from 'hashids'
+import { runFullArchive } from "./routes/rest";
 const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
 const bodyParser = require("body-parser");
 var postmark = require("postmark");
@@ -24,10 +25,11 @@ export default withAuth(
         app.get("/reset-password/:email/:token", (req, res) => {
           res.send(req.params.token)
         })
-        app.use('/rest/archive', async (req, res, next) => {
+        app.use('/rest', async (req, res, next) => {
           (req as any).context = await createContext(req, res);
           next()          
         })
+        app.post('/rest/archive', runFullArchive)
 
         // This route requires an email and id
         app.post("/rest/portal-link", async (req, res) => {
@@ -47,36 +49,7 @@ export default withAuth(
         // has been completed.
         app.post("/rest/archive", async (req, res) => {
           
-          if (req.body?.token == process.env.ADMIN_TOKEN) {
-            console.log('matching token')
-            const context = (req as any).context as KeystoneContext
 
-            const students = await context.query.Student.findMany({
-              query: `id`
-            })
-            res.writeHead(200, {
-              'Content-Type': 'application/json',
-              'Transfer-Encoding': 'chunked'
-            })
-          
-            res.write('[')
-            res.write(JSON.stringify({status: 'started'}))
-            console.log('students', students)
-            for (const student of students){
-              const id = hashids.encode(student.id)
-              console.log('running archive')
-              await fetch('https://portal.hhlearning.com/print.php?student=' + id)
-            }
-            await client.sendEmail({
-              "From": process.env.MAIL_FROM_ADDRESS,
-              "To": req.body?.email,
-              "Subject": "Hilger Parent portal report cards saved",
-              "HtmlBody": `Reports cards for ${students.length} students have successfully been archived.`,
-              "MessagStream": "outbound"
-            })
-            res.write(JSON.stringify({status: 'email sent'}) + ']')
-            res.end()
-          }
         })
       },
     },
