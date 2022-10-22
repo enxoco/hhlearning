@@ -68,7 +68,7 @@ function ParentTable({ columns, data }) {
 
   // Use the state and functions returned from useTable to build your UI
   const initialState = {
-    hiddenColumns: ["id"],
+    hiddenColumns: ["id", "portalId"],
   }
   const {
     getTableProps,

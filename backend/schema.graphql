@@ -157,6 +157,7 @@ type User {
     skip: Int! = 0
   ): [Course!]
   coursesCount(where: CourseWhereInput! = {}): Int
+  portalId: String
   students: String
   student(
     where: StudentWhereInput! = {}
@@ -406,6 +407,7 @@ type Student {
   name: String
   firstName: String
   lastName: String
+  portalId: String
   courses(
     where: CourseWhereInput! = {}
     orderBy: [CourseOrderByInput!]! = []

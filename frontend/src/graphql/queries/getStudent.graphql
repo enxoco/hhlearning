@@ -4,5 +4,6 @@ query GetStudent($id: ID!) {
         id
         firstName
         lastName
+        portalId
     }
 }

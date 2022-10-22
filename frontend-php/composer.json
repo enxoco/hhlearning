@@ -1,0 +1,7 @@
+{
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "mpdf/mpdf": "^8.1",
+        "hashids/hashids": "^4.1"
+    }
+}

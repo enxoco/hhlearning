@@ -1,4 +1,4 @@
-import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast } from "@chakra-ui/react"
+import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast, Link } from "@chakra-ui/react"
 import { useMemo, useState } from "react"
 import { FiEdit2, FiLogIn, FiSend } from "react-icons/fi"
 import { useRecoilState } from "recoil"
@@ -16,11 +16,35 @@ function Parents () {
   const [, setUser] = useRecoilState(loggedInUser)
   const [, fetchPasswordReset] = useForgotPasswordMutation()
   const toast = useToast()
+  
+  const handleSendPortalLink = async (id, email) => {
+    (async () => {
+      const rawResponse = await fetch('/rest/portal-link', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id, email})
+      });
+      const content = await rawResponse.json();
+    
+      console.log(content);
+      toast({
+        title: 'Portal link email sent.',
+        description: "Email sent to " + email,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top'
+      })
+    })();
+  }
 
   async function handleRequestPasswordReset(email){
     const result = await fetchPasswordReset({email})
     toast({
-      title: 'Password reset email sent.',
+      title: 'Portal link email sent.',
       description: "Email sent to " + email,
       status: 'success',
       duration: 9000,
@@ -50,6 +74,10 @@ function Parents () {
         accessor: "id",
       },
       {
+        Header: () => null,
+        accessor: "portalId"
+      },
+      {
         Header: () => "First Name",
         accessor: "name",
       },
@@ -75,23 +103,7 @@ function Parents () {
           </Text>
         ),
       },
-      {
-        Header: "Has Paid Tuition",
-        accessor: "hasPaidTuition",
-        canFilter: false,
-        filter: false,
-        Cell: ({ row }) => (
-          // Use Cell to render an expander for each row.
-          // We can use the getToggleRowExpandedProps prop-getter
-          // to build the expander.
-          <>
-            <Switch defaultChecked={row.values.hasPaidTuition} onChange={(e) => {
-              
-              toggleTuitionStatus(e, row.values)
-            }} />
-          </>
-        ),
-      },
+
       {
         Header: () => null,
         id: "actions",
@@ -107,12 +119,29 @@ function Parents () {
                 <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
               </Tooltip> */}
               <Tooltip label="Impersonate Parent">
-                <IconButton icon={<FiLogIn />} onClick={() => impersonate(row.values)}></IconButton>
+              <Link href={`/parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
               </Tooltip>
-              <Tooltip label='Send password reset email'>
-                <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Password reset" onClick={() => handleRequestPasswordReset(row.values.email)} />
+              <Tooltip label='Send portal link email'>
+                <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleSendPortalLink(row.values.id, row.values.email)} />
               </Tooltip>
             </HStack>
+          </>
+        ),
+      },
+      {
+        Header: "Has Paid Tuition",
+        accessor: "hasPaidTuition",
+        canFilter: false,
+        filter: false,
+        Cell: ({ row }) => (
+          // Use Cell to render an expander for each row.
+          // We can use the getToggleRowExpandedProps prop-getter
+          // to build the expander.
+          <>
+            <Switch defaultChecked={row.values.hasPaidTuition} onChange={(e) => {
+              
+              toggleTuitionStatus(e, row.values)
+            }} />
           </>
         ),
       },
