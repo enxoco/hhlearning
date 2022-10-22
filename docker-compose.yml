@@ -10,6 +10,8 @@ services:
             POSTGRES_USER: hilger
         ports:
             - 5432:5432
+        networks:
+            - hilger
     app:
         build:
             context: ./backend
@@ -17,7 +19,9 @@ services:
             dockerfile: Dockerfile.backend
         restart: on-failure
         ports:
-            - 3000:3000
+            - $PORT:$PORT
+        networks:
+            - hilger
         volumes:
             - ./backend/src:/app/src
             - ./backend/keystone.ts:/app/keystone.ts
@@ -27,13 +31,15 @@ services:
             - ./backend/auth.ts:/app/auth.ts
             - ./backend/schema.ts:/app/schema.ts
             - ./backend/schema:/app/schema
-            - ./backend/.env:/app/.env
-            - ./backend/.env.example:/app/.env.example
+            - ./.env:/app/.env
+            - ./.env.example:/app/.env.example
             - ./backend/migrations:/app/migrations
     adminer:
         image: adminer
         ports:
             - 8080:8080
+        networks:
+            - hilger
     frontend:
         build:
             context: ./frontend
@@ -44,6 +50,8 @@ services:
             - ./frontend:/app
         ports: 
             - 4000:3000
+        networks:
+            - hilger
         command: yarn start
         environment:
             - DANGEROUSLY_DISABLE_HOST_CHECK=true
@@ -54,6 +62,8 @@ services:
             dockerfile: Dockerfile.proxy
         ports:
             - 8081:8080
+        networks:
+            - hilger
         volumes:
             - ./dockerConfig/nginx.conf:/etc/nginx/nginx.conf
             - ./frontend-php/font:/var/www/html/font
@@ -69,3 +79,11 @@ services:
             - 1080:1080
 volumes:
     postgres_volume:
+networks:
+    hilger:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24
+                  gateway: 172.16.238.1
