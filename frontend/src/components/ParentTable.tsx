@@ -1,8 +1,6 @@
-import { Box, Button, Divider, HStack, Input, Select, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, VStack } from "@chakra-ui/react"
-import { matchSorter } from "match-sorter"
+import { Button, HStack, Input, Select, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, VStack } from "@chakra-ui/react"
 import { useEffect, useMemo, useState } from "react"
 import { IoArrowDown, IoArrowUp } from "react-icons/io5"
-import { Link } from "react-router-dom"
 import { useFilters, usePagination, useSortBy, useTable } from "react-table"
 // Create an editable cell renderer
 const EditableCell = ({ value: initialValue }) => {

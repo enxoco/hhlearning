@@ -1,43 +1,57 @@
-import { Button, HStack, Input, Select, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
-import { matchSorter } from "match-sorter"
-import { useEffect, useMemo, useState } from "react"
-import { IoArrowDown, IoArrowUp } from "react-icons/io5"
-import { Link } from "react-router-dom"
-import { useFilters, usePagination, useSortBy, useTable } from "react-table"
+import {
+  Button,
+  HStack,
+  Input,
+  Select,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import { matchSorter } from "match-sorter";
+import { useEffect, useMemo, useState } from "react";
+import { IoArrowDown, IoArrowUp } from "react-icons/io5";
+import { useFilters, usePagination, useSortBy, useTable } from "react-table";
 // Create an editable cell renderer
 const EditableCell = ({ value: initialValue }) => {
   // We need to keep and update the state of the cell normally
-  const [, setValue] = useState(initialValue)
+  const [, setValue] = useState(initialValue);
 
   // If the initialValue is changed external, sync it up with our state
   useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
+    setValue(initialValue);
+  }, [initialValue]);
 
-  return `${initialValue}`
-}
+  return `${initialValue}`;
+};
 // Define a default UI for filtering
-function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }) {
-  const count = preFilteredRows.length
+function DefaultColumnFilter({
+  column: { filterValue, preFilteredRows, setFilter },
+}) {
+  const count = preFilteredRows.length;
 
   return (
     <Input
       maxW="300px"
       value={filterValue || ""}
       onChange={(e) => {
-        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+        setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
       }}
       placeholder={`Search ${count} students...`}
     />
-  )
+  );
 }
 
 function fuzzyTextFilterFn(rows, id, filterValue) {
-  return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] })
+  return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
 }
 
 // Let the table remove the filter if the string is empty
-fuzzyTextFilterFn.autoRemove = (val) => !val
+fuzzyTextFilterFn.autoRemove = (val) => !val;
 function StudentTable({ columns, data }) {
   const filterTypes = useMemo(
     () => ({
@@ -47,13 +61,17 @@ function StudentTable({ columns, data }) {
       // "startWith"
       text: (rows, id, filterValue) => {
         return rows.filter((row) => {
-          const rowValue = row.values[id]
-          return rowValue !== undefined ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase()) : true
-        })
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
       },
     }),
     []
-  )
+  );
 
   const defaultColumn = useMemo(
     () => ({
@@ -63,12 +81,12 @@ function StudentTable({ columns, data }) {
       Cell: EditableCell,
     }),
     []
-  )
+  );
 
   // Use the state and functions returned from useTable to build your UI
   const initialState = {
     hiddenColumns: ["id", "firstName", "lastName"],
-  }
+  };
   const {
     getTableProps,
     getTableBodyProps,
@@ -99,7 +117,7 @@ function StudentTable({ columns, data }) {
     useFilters,
     useSortBy,
     usePagination
-  )
+  );
 
   // Render the UI for your table
   return (
@@ -114,17 +132,29 @@ function StudentTable({ columns, data }) {
                     <HStack spacing="1" {...column.getSortByToggleProps()}>
                       <Text mr={10}>{column.render("Header")}</Text>
                       {column.canFilter ? column.render("Filter") : null}
-                      {column.canSort ? <Button>{column.isSorted ? column.isSortedDesc ? <IoArrowDown /> : <IoArrowUp /> : <IoArrowUp />}</Button> : null}
+                      {column.canSort ? (
+                        <Button>
+                          {column.isSorted ? (
+                            column.isSortedDesc ? (
+                              <IoArrowDown />
+                            ) : (
+                              <IoArrowUp />
+                            )
+                          ) : (
+                            <IoArrowUp />
+                          )}
+                        </Button>
+                      ) : null}
                     </HStack>
                   </Th>
-                )
+                );
               })}
             </Tr>
           ))}
         </Thead>
         <Tbody {...getTableBodyProps()}>
           {page.map((row) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <Tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
@@ -132,10 +162,10 @@ function StudentTable({ columns, data }) {
                     <Td {...cell.getCellProps()}>
                       {cell.render("Cell", { editable: false })}
                     </Td>
-                  )
+                  );
                 })}
               </Tr>
-            )
+            );
           })}
         </Tbody>
       </Table>
@@ -165,8 +195,8 @@ function StudentTable({ columns, data }) {
             type="number"
             defaultValue={pageIndex + 1}
             onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
             }}
             style={{ width: "100px" }}
           />
@@ -175,8 +205,9 @@ function StudentTable({ columns, data }) {
           maxW="200px"
           value={pageSize}
           onChange={(e) => {
-            setPageSize(Number(e.target.value))
-          }}>
+            setPageSize(Number(e.target.value));
+          }}
+        >
           {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
@@ -185,7 +216,7 @@ function StudentTable({ columns, data }) {
         </Select>
       </HStack>
     </TableContainer>
-  )
+  );
 }
 
-export default StudentTable
+export default StudentTable;

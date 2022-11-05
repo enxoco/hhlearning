@@ -1,6 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue, Image } from "@chakra-ui/react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Logo } from "../components/Logo"
 import { PasswordField } from "../components/PasswordField"
 import { useLoginMutation } from "../generated/graphql"
 import useDocumentTitle from "../utils/useDocumentTitle"
@@ -40,7 +41,7 @@ function Login() {
                 <AlertTitle>{login.data?.authenticateUserWithPassword?.message === "Authentication failed." ? "Login failed.  Please check your password" : "Error logging in"}</AlertTitle>
               </Alert>
             ) : null}
-            <Image src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" width={300} />
+            <Logo />
             <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>Log in to your account</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have a password yet?</Text>

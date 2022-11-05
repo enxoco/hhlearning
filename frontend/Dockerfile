@@ -1,4 +1,12 @@
-FROM node:16-alpine AS build
+FROM node:16-alpine AS dev
+WORKDIR /app
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn
+
+COPY . .
+
+FROM dev AS build
 
 # set working directory
 WORKDIR /app

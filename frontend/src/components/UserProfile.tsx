@@ -1,5 +1,4 @@
-import { Avatar, Box, HStack, Text } from '@chakra-ui/react'
-import * as React from 'react'
+import { Box, HStack, Text } from '@chakra-ui/react'
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
  

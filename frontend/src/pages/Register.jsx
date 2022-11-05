@@ -1,6 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Container, FormControl, FormLabel, Heading, Input, Stack, useBreakpointValue, useColorModeValue, Image } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Logo } from "../components/Logo"
 import { PasswordField } from "../components/PasswordField"
 import { useLoginMutation, useRegisterMutation } from "../generated/graphql"
 import useDocumentTitle from "../utils/useDocumentTitle"
@@ -45,7 +46,7 @@ function Register() {
       <Stack spacing="8">
         <Stack spacing="6">
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center" alignItems={"center"}>
-            <Image src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" width={300} />
+            <Logo />
             <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>Create Account</Heading>
           </Stack>
         </Stack>

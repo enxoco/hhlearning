@@ -1,5 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue, Image } from "@chakra-ui/react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Logo } from "../../components/Logo"
 import { useForgotPasswordMutation } from "../../generated/graphql"
 import useDocumentTitle from "../../utils/useDocumentTitle"
 
@@ -8,6 +10,7 @@ function ForgotPassword() {
   const [{data, error, fetching}, doPasswordReset] = useForgotPasswordMutation()
   const [email, setEmail] = useState(null)
   const [status, setStatus] = useState(null)
+  const navigate = useNavigate()
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
   }
@@ -26,7 +29,7 @@ function ForgotPassword() {
       <Stack spacing="8">
         <Stack spacing="6">
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center" alignItems={"center"}>
-            <Image src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" width={300} />
+            <Logo />
             <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>Request new password</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">Enter the email address associated with your account. </Text>

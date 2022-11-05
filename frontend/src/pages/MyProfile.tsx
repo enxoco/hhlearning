@@ -1,6 +1,5 @@
 import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, useColorModeValue, Text, Heading, useToast, Divider } from "@chakra-ui/react"
 import { useState } from "react"
-import { PersonalInfoCard } from "../components/AddressCard"
 import Layout from "../components/Layout"
 import { useUpdatePasswordMutation } from "../generated/graphql"
 import { loggedInUser } from "../atom"
@@ -26,7 +25,7 @@ export const MyProfile = () => {
 
   const toast = useToast()
   return (
-    <Layout customTitle="My Profile" description="">
+    <Layout customTitle="My Profile" description="" children={undefined}>
       {/* <PersonalInfoCard maxW={{ lg: "3xl" }} /> */}
       <Box as="form" bg="bg-surface" boxShadow={useColorModeValue("sm", "sm-dark")} borderRadius="lg" maxW={{ lg: "3xl" }}>
         <Stack spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>

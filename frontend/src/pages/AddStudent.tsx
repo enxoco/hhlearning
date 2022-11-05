@@ -7,7 +7,7 @@ import { useBulkAddStudentsMutation } from "../generated/graphql"
 
 const AddStudent = () => {
 
-  const [bulkNames, setBulkNames] = useState([])
+  const [bulkNames, setBulkNames] = useState<string[]>([])
   const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation()
 
 
