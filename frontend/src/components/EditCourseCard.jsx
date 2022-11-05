@@ -1,14 +1,13 @@
 import { DeleteIcon } from '@chakra-ui/icons'
 import { Badge, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, IconButton, Input, Stack, Textarea, useColorModeValue, useToast } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {useRecoilState} from 'recoil'
 import {showNewCourseCard} from '../atom'
 import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '../generated/graphql'
 import Hashids from 'hashids'
 const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
 
-const EditStudentCard = ({name, grade, feedback, id, student, hideNewCourseCard, teacher, teacherName}) => {
+const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherName}) => {
 
     const [courseName, setCourseName] = useState(name)
     const [courseGrade, setCourseGrade] = useState(grade)

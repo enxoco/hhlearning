@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services: 
     database:
@@ -13,6 +13,7 @@ services:
         networks:
             - hilger
     app:
+        container_name: app
         build:
             context: ./backend
             target: dev
@@ -41,10 +42,15 @@ services:
         networks:
             - hilger
     frontend:
+        container_name: frontend
+        restart: on-failure
+        depends_on:
+            - app
         build:
             context: ./frontend
-            dockerfile: Dockerfile.frontend
-        restart: on-failure
+            target: dev
+        volumes:
+            - ./frontend:/app
         ports: 
             - 4000:3000
         networks:

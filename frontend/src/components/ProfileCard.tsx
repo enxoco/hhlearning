@@ -15,7 +15,6 @@ import {
     Textarea,
     useColorModeValue,
   } from '@chakra-ui/react'
-  import * as React from 'react'
   
   export const ProfileCard = (props: BoxProps) => (
     <Box

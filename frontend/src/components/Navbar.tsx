@@ -8,7 +8,6 @@ import {
     useDisclosure,
     Image
   } from '@chakra-ui/react'
-  import * as React from 'react'
 
   import { Sidebar } from './Sidebar'
   import { ToggleButton } from './ToggleButton'
