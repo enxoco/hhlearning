@@ -161,7 +161,7 @@ $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH')
                 <p>You currently have an outstanding balance on your 2021-2022 school year's tuition. You will not be able to see your student(s) report card(s) until your tuition is paid in full. If you think you have paid this in full, or if you have questions about your balance, please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
             </div>
         <div class="container">
-            <img src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" class="logo" />
+            <img src="../logo.png" class="logo" />
             <p>Use the links below to view grades for your students</p>
             <div class="card">
                 <ul>
