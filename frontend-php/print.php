@@ -158,24 +158,22 @@ if (isset($_REQUEST['student']) && $_REQUEST['student'] === 'YyaBPKJcQ8PQ1qJ2kYu
     }
   else
     {
-    $student_id = $hashids->decode($_REQUEST['student'])[0];
-    $statement = $db_con->prepare('SELECT "User".name as teacher,
-            "Course".name AS "cName",
-            "Course".id AS "cId",
-            "Course".grade AS "cGrade",
-            "Course".feedback AS "cFeedback",
-            "Student"."firstName" AS "sFirst",
-            "Student"."lastName" AS "sLast",
-            "Student".id AS "sId"
-                FROM "Course"
-                    INNER JOIN "User" on "Course"."teacher" = "User".id
-                    INNER JOIN "Student" on "Course"."student" = "Student".id
-                        WHERE "Course".student = :student_id
-                            ORDER BY "Course".student');
-    $statement->bindParam(':student_id', $student_id, PDO::PARAM_STR);
-    $statement->execute();
-
-
+        $student_id = $hashids->decode($_REQUEST['student'])[0];
+        $statement = $db_con->prepare('SELECT "User".name as teacher,
+                "Course".name AS "cName",
+                "Course".id AS "cId",
+                "Course".grade AS "cGrade",
+                "Course".feedback AS "cFeedback",
+                "Student"."firstName" AS "sFirst",
+                "Student"."lastName" AS "sLast",
+                "Student".id AS "sId"
+                    FROM "Course"
+                        INNER JOIN "User" on "Course"."teacher" = "User".id
+                        INNER JOIN "Student" on "Course"."student" = "Student".id
+                            WHERE "Course".student = :student_id
+                                ORDER BY "Course".student');
+        $statement->bindParam(':student_id', $student_id, PDO::PARAM_STR);
+        $statement->execute();
     }
 
 

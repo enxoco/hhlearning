@@ -7,11 +7,15 @@ use Hashids\Hashids;
 
 $request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
 $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
-    $parent_id = $hashids->decode($request)[0];
-    $query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
-    $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
-    $query->execute();
-    $students = $query->fetchAll(PDO::FETCH_ASSOC);
+$parent_id = $hashids->decode($request)[0];
+$query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
+$query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
+$query->execute();
+$students = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+// Now fetch courses for this student so we know if there is anything to show.
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -166,9 +170,27 @@ $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH')
             <div class="card">
                 <ul>
                     <?php foreach ($students as $student): ?>
-                    <li>
-                        <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
-                    </li>
+                        <?php
+                        $query = $db_con->prepare('SELECT COUNT("id") FROM "Course" WHERE "Course".student = :student_id');
+                        $query->bindParam(':student_id', $student["id"], PDO::PARAM_STR);
+                        $query->execute();
+                        $courses = $query->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                    <?php
+                    if ($courses[0]["count"] == 0) {
+                        ?>
+                        <li style="text-align: center;">
+                            <?= $student['firstName'] . ' ' . $student['lastName'] . ' does not currently have any grades for this semester.' ?>
+                        </li>
+                        <?php 
+                    } else { 
+                        ?>
+                        <li>
+                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
+                        </li>
+                        <?php
+                        }
+                        ?>
                     <?php endforeach ?>
                 </ul>
             </div>
@@ -192,7 +214,7 @@ $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH')
                 ?>
             </div>
         </div>
-    </main>
+    </main> 
 </body>
 
 </html>

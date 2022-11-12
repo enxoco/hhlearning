@@ -32,6 +32,7 @@ services:
             - ./backend/auth.ts:/app/auth.ts
             - ./backend/schema.ts:/app/schema.ts
             - ./backend/schema:/app/schema
+            - ./backend/routes:/app/routes
             - ./.env:/app/.env
             - ./.env.example:/app/.env.example
             - ./backend/migrations:/app/migrations
@@ -69,13 +70,8 @@ services:
             - hilger
         volumes:
             - ./dockerConfig/nginx.conf:/etc/nginx/nginx.conf
-            - ./frontend-php/font:/var/www/html/font
-            - ./frontend-php/makefont:/var/www/html/makefont
-            - ./frontend-php/parents:/var/www/html/parents
-            - ./frontend-php/static:/var/www/html/static
-            - ./frontend-php/db-config.php:/var/www/html/db-config.php
-            - ./frontend-php/fpdf.php:/var/www/html/fpdf.php
-            - ./frontend-php/print.php:/var/www/html/print.php
+            - ./frontend-php/:/var/www/html/
+            - .env:/var/www/html/
     mailcatcher:
         image:  schickling/mailcatcher
         ports:
