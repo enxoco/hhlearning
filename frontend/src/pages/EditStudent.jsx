@@ -9,8 +9,7 @@ import AddStudentCard from "../components/AddStudentCard"
 import EditStudentCard from "../components/EditCourseCard"
 import Layout from "../components/Layout"
 import { useCheckLoginQuery, useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "../generated/graphql"
-import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
+import { hashids } from "../utils/hashids"
 
 const EditStudent = () => {
   let { id } = useParams()

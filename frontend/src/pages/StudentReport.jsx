@@ -1,7 +1,6 @@
 import { Box, Button, Heading, HStack, Image, Skeleton, Stack, Text, useColorModeValue, VStack } from "@chakra-ui/react"
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
-import ReactToPrint from "react-to-print"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
@@ -84,11 +83,6 @@ const StudentReport = () => {
   }
   return (
     <Layout>
-      <Stack spacing="4" direction={{ base: "column", lg: "row" }} justify="end" align={{ base: "start", lg: "center" }}>
-        <HStack spacing="3">
-          <ReactToPrint trigger={() => <Button variant={"primary"}>Print</Button>} content={() => componentRef.current} />
-        </HStack>
-      </Stack>
       <Skeleton isLoaded={studentData?.data}>
         <Stack spacing="5">
           {!fetching && loggedInUser && !studentData.fetching && coursesParsed ? (

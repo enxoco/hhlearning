@@ -7,8 +7,7 @@ import Layout from "../components/Layout"
 import StudentTable from "../components/StudentTable"
 import { useGetAllStudentsQuery, useDeleteStudentMutation } from "../generated/graphql"
 import { exportCSVFile } from "../utils/csvExport"
-import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
+import { hashids } from "../utils/hashids"
 
 const Students = () => {
   const [studentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0 } })

@@ -4,8 +4,7 @@ import { useState, useRef } from 'react'
 import {useRecoilState} from 'recoil'
 import {showNewCourseCard} from '../atom'
 import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '../generated/graphql'
-import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
+import { hashids } from "../utils/hashids"
 
 const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherName}) => {
 

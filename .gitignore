@@ -3,3 +3,4 @@ node_modules
 keystone.db
 *.logsendgrid.env
 .env
+frontend-php/archived-reports

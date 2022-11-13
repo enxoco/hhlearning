@@ -6,9 +6,7 @@ import Layout from "../components/Layout"
 import { Stat } from "../components/Stat"
 import { Link } from "react-router-dom"
 import { useGetMyCoursesCountByTeacherQuery, useStudentsCountQuery, useTotalCourseCountQuery } from "../generated/graphql"
-import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
-
+import { hashids } from "../utils/hashids"
 const Dashboard = () => {
   const [studentCountQuery] = useStudentsCountQuery()
   const [user] = useRecoilState(loggedInUser)

@@ -47,7 +47,7 @@ function DefaultColumnFilter({
 }
 
 function fuzzyTextFilterFn(rows, id, filterValue) {
-  return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+  return matchSorter(rows, filterValue, { keys: [(row: [index: string]) => row.values[id]] });
 }
 
 // Let the table remove the filter if the string is empty

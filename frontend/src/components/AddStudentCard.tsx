@@ -32,7 +32,7 @@ const AddStudentCard = ({student}) => {
 
     } else {
         updateStudentInfo({
-            id: +id,
+            id: id,
             firstName: firstName,
             lastName: lastName,
           })

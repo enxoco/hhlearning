@@ -1,26 +1,14 @@
-FROM node:16-alpine AS dev
-WORKDIR /app
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn
+ARG NODE_IMAGE=node:16.13.1-alpine
 
-COPY . .
+FROM $NODE_IMAGE AS base
+RUN apk --no-cache add dumb-init
+RUN mkdir -p /home/node/app && chown node:node /home/node/app
+WORKDIR /home/node/app
+USER node
+RUN mkdir tmp
 
-FROM dev AS build
-
-# set working directory
-WORKDIR /app
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install app dependencies
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn
-
-# add app
-COPY . ./
-
-# start app
-CMD ["yarn", "start"]
+FROM base AS dependencies
+COPY --chown=node:node ./package.json ./
+COPY --chown=node:node ./yarn.lock ./
+RUN yarn --frozen-lockfile
+COPY --chown=node:node . .

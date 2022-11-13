@@ -49,14 +49,15 @@ services:
             - app
         build:
             context: ./frontend
-            target: dev
+            target: dependencies
         volumes:
             - ./frontend:/app
         ports: 
             - 4000:3000
+            - 3010:3010
         networks:
             - hilger
-        command: yarn start
+        command: yarn dev
         environment:
             - DANGEROUSLY_DISABLE_HOST_CHECK=true
             - HOST=0.0.0.0

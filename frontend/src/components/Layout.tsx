@@ -1,10 +1,18 @@
 import { Box, Container, Flex, Heading, Spinner, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
+import { Children, ReactElement } from "react"
 import { ImpersonateUserBanner } from "../components/ImpersonatedUserBanner"
 import { Navbar } from "../components/Navbar"
 import { Sidebar } from "../components/Sidebar"
 import useDocumentTitle from "../utils/useDocumentTitle"
 import { ParentNoticeBanner } from "./ParentNoticeBanner"
-const Layout = ({ children, customTitle, description }) => {
+
+interface ILayoutProps {
+  children: ReactElement | ReactElement[];
+  customTitle?: string;
+  description?: string;
+
+}
+const Layout = ({ children, customTitle, description }: ILayoutProps) => {
 
   const isDesktop = useBreakpointValue({ base: false, lg: true })
 

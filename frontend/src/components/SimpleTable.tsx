@@ -18,12 +18,7 @@ import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loggedInUser as loggedInUserAtom } from "../atom";
 // Create an editable cell renderer
-import Hashids from "hashids";
-console.log("salt length", +process.env.REACT_APP_SALT_LENGTH);
-const hashids = new Hashids(
-  process.env.REACT_APP_SALT,
-  +process.env.REACT_APP_SALT_LENGTH
-);
+import { hashids } from "../utils/hashids"
 
 function SimpleTable({ studentProp, searchTerm }) {
   const [loggedInUser] = useRecoilState(loggedInUserAtom);

@@ -7,7 +7,7 @@ import { useBulkAddStudentsMutation } from "../generated/graphql"
 
 const AddStudent = () => {
 
-  const [bulkNames, setBulkNames] = useState<string[]>([])
+  const [bulkNames, setBulkNames] = useState<string>("")
   const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation()
 
 
@@ -23,11 +23,11 @@ const AddStudent = () => {
       data.push({ firstName, lastName })
     }
     addBulkStudents({ data })
-    setBulkNames([])
+    setBulkNames("")
   }
 
   return (
-    <Layout>
+    <Layout customTitle="Students">
       <Stack spacing="4" direction={{ base: "column", lg: "row" }} justify="space-between" align={{ base: "start", lg: "center" }}>
         <HStack spacing="3">
           <Button variant="secondary" leftIcon={<FiDownloadCloud fontSize="1.25rem" />}>
@@ -45,7 +45,7 @@ const AddStudent = () => {
             </Text>
           </Stack>
         </Box>
-    <AddStudentCard />
+      <AddStudentCard student={null} />
       </Stack>
 
       <Stack spacing="5">

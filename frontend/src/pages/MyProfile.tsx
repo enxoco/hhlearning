@@ -1,10 +1,10 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, useColorModeValue, Text, Heading, useToast, Divider } from "@chakra-ui/react"
+import { Box, Button, FormControl, Heading, Stack, Text, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
-import Layout from "../components/Layout"
-import { useUpdatePasswordMutation } from "../generated/graphql"
-import { loggedInUser } from "../atom"
 import { useRecoilState } from "recoil"
+import { loggedInUser } from "../atom"
+import Layout from "../components/Layout"
 import { PasswordField } from "../components/PasswordField"
+import { useUpdatePasswordMutation } from "../generated/graphql"
 
 export const MyProfile = () => {
   const [me] = useRecoilState(loggedInUser)
@@ -25,8 +25,7 @@ export const MyProfile = () => {
 
   const toast = useToast()
   return (
-    <Layout customTitle="My Profile" description="" children={undefined}>
-      {/* <PersonalInfoCard maxW={{ lg: "3xl" }} /> */}
+    <Layout customTitle="My Profile" description="">
       <Box as="form" bg="bg-surface" boxShadow={useColorModeValue("sm", "sm-dark")} borderRadius="lg" maxW={{ lg: "3xl" }}>
         <Stack spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>
         <Heading size='xs' mb={5}>Password</Heading>

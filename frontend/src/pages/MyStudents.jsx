@@ -11,8 +11,7 @@ import StudentTable from "../components/StudentTable"
 import { useGetMyStudentsQuery, useGetStudentsByParentQuery } from "../generated/graphql"
 import { exportCSVFile } from "../utils/csvExport"
 import dynamicSort from "../utils/dynamicSort"
-import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
+import { hashids } from "../utils/hashids"
 
 const MyStudents = () => {
   const [students, setStudents] = useRecoilState(studentAtom)
