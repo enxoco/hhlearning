@@ -14,7 +14,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -1705,7 +1704,7 @@ export const LogoutDocument = gql`
     `;
 
 export function useLogoutMutation() {
-  return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+  return Urql.useMutation<LogoutMutation>(LogoutDocument);
 };
 export const RedeemMagicAuthTokenDocument = gql`
     mutation RedeemMagicAuthToken($email: String!, $token: String!) {
@@ -1844,7 +1843,7 @@ export const GetUserEmailByIdDocument = gql`
     `;
 
 export function useGetUserEmailByIdQuery(options?: Omit<Urql.UseQueryArgs<GetUserEmailByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUserEmailByIdQuery>({ query: GetUserEmailByIdDocument, ...options });
+  return Urql.useQuery<GetUserEmailByIdQuery, GetUserEmailByIdQueryVariables>({ query: GetUserEmailByIdDocument, ...options });
 };
 export const CheckLoginDocument = gql`
     query CheckLogin {
@@ -1865,7 +1864,7 @@ export const CheckLoginDocument = gql`
     `;
 
 export function useCheckLoginQuery(options?: Omit<Urql.UseQueryArgs<CheckLoginQueryVariables>, 'query'>) {
-  return Urql.useQuery<CheckLoginQuery>({ query: CheckLoginDocument, ...options });
+  return Urql.useQuery<CheckLoginQuery, CheckLoginQueryVariables>({ query: CheckLoginDocument, ...options });
 };
 export const CoursesByStudentDocument = gql`
     query CoursesByStudent($studentId: ID!) {
@@ -1885,7 +1884,7 @@ export const CoursesByStudentDocument = gql`
     `;
 
 export function useCoursesByStudentQuery(options: Omit<Urql.UseQueryArgs<CoursesByStudentQueryVariables>, 'query'>) {
-  return Urql.useQuery<CoursesByStudentQuery>({ query: CoursesByStudentDocument, ...options });
+  return Urql.useQuery<CoursesByStudentQuery, CoursesByStudentQueryVariables>({ query: CoursesByStudentDocument, ...options });
 };
 export const GetCoursesByStudentAndTeacherDocument = gql`
     query GetCoursesByStudentAndTeacher($studentId: ID!, $teacherId: ID!) {
@@ -1902,7 +1901,7 @@ export const GetCoursesByStudentAndTeacherDocument = gql`
     `;
 
 export function useGetCoursesByStudentAndTeacherQuery(options: Omit<Urql.UseQueryArgs<GetCoursesByStudentAndTeacherQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCoursesByStudentAndTeacherQuery>({ query: GetCoursesByStudentAndTeacherDocument, ...options });
+  return Urql.useQuery<GetCoursesByStudentAndTeacherQuery, GetCoursesByStudentAndTeacherQueryVariables>({ query: GetCoursesByStudentAndTeacherDocument, ...options });
 };
 export const FetchSettingsDocument = gql`
     query FetchSettings {
@@ -1915,7 +1914,7 @@ export const FetchSettingsDocument = gql`
     `;
 
 export function useFetchSettingsQuery(options?: Omit<Urql.UseQueryArgs<FetchSettingsQueryVariables>, 'query'>) {
-  return Urql.useQuery<FetchSettingsQuery>({ query: FetchSettingsDocument, ...options });
+  return Urql.useQuery<FetchSettingsQuery, FetchSettingsQueryVariables>({ query: FetchSettingsDocument, ...options });
 };
 export const GetAllParentsDocument = gql`
     query GetAllParents {
@@ -1943,7 +1942,7 @@ export const GetAllParentsDocument = gql`
     `;
 
 export function useGetAllParentsQuery(options?: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllParentsQuery>({ query: GetAllParentsDocument, ...options });
+  return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
 };
 export const GetAllStudentsDocument = gql`
     query GetAllStudents($limit: Int!, $offset: Int!) {
@@ -1959,7 +1958,7 @@ export const GetAllStudentsDocument = gql`
     `;
 
 export function useGetAllStudentsQuery(options: Omit<Urql.UseQueryArgs<GetAllStudentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllStudentsQuery>({ query: GetAllStudentsDocument, ...options });
+  return Urql.useQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>({ query: GetAllStudentsDocument, ...options });
 };
 export const GetAllTeachersDocument = gql`
     query GetAllTeachers($limit: Int!, $offset: Int!) {
@@ -1980,7 +1979,7 @@ export const GetAllTeachersDocument = gql`
     `;
 
 export function useGetAllTeachersQuery(options: Omit<Urql.UseQueryArgs<GetAllTeachersQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllTeachersQuery>({ query: GetAllTeachersDocument, ...options });
+  return Urql.useQuery<GetAllTeachersQuery, GetAllTeachersQueryVariables>({ query: GetAllTeachersDocument, ...options });
 };
 export const GetMyCoursesCountByTeacherDocument = gql`
     query GetMyCoursesCountByTeacher($id: ID!) {
@@ -1989,7 +1988,7 @@ export const GetMyCoursesCountByTeacherDocument = gql`
     `;
 
 export function useGetMyCoursesCountByTeacherQuery(options: Omit<Urql.UseQueryArgs<GetMyCoursesCountByTeacherQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetMyCoursesCountByTeacherQuery>({ query: GetMyCoursesCountByTeacherDocument, ...options });
+  return Urql.useQuery<GetMyCoursesCountByTeacherQuery, GetMyCoursesCountByTeacherQueryVariables>({ query: GetMyCoursesCountByTeacherDocument, ...options });
 };
 export const GetMyProfileDocument = gql`
     query GetMyProfile($id: ID!) {
@@ -2009,7 +2008,7 @@ export const GetMyProfileDocument = gql`
     `;
 
 export function useGetMyProfileQuery(options: Omit<Urql.UseQueryArgs<GetMyProfileQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetMyProfileQuery>({ query: GetMyProfileDocument, ...options });
+  return Urql.useQuery<GetMyProfileQuery, GetMyProfileQueryVariables>({ query: GetMyProfileDocument, ...options });
 };
 export const GetMyStudentsDocument = gql`
     query GetMyStudents($id: ID!) {
@@ -2024,7 +2023,7 @@ export const GetMyStudentsDocument = gql`
     `;
 
 export function useGetMyStudentsQuery(options: Omit<Urql.UseQueryArgs<GetMyStudentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetMyStudentsQuery>({ query: GetMyStudentsDocument, ...options });
+  return Urql.useQuery<GetMyStudentsQuery, GetMyStudentsQueryVariables>({ query: GetMyStudentsDocument, ...options });
 };
 export const GetStudentDocument = gql`
     query GetStudent($id: ID!) {
@@ -2039,7 +2038,7 @@ export const GetStudentDocument = gql`
     `;
 
 export function useGetStudentQuery(options: Omit<Urql.UseQueryArgs<GetStudentQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStudentQuery>({ query: GetStudentDocument, ...options });
+  return Urql.useQuery<GetStudentQuery, GetStudentQueryVariables>({ query: GetStudentDocument, ...options });
 };
 export const GetStudentsByParentDocument = gql`
     query GetStudentsByParent($email: String!) {
@@ -2059,7 +2058,7 @@ export const GetStudentsByParentDocument = gql`
     `;
 
 export function useGetStudentsByParentQuery(options: Omit<Urql.UseQueryArgs<GetStudentsByParentQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStudentsByParentQuery>({ query: GetStudentsByParentDocument, ...options });
+  return Urql.useQuery<GetStudentsByParentQuery, GetStudentsByParentQueryVariables>({ query: GetStudentsByParentDocument, ...options });
 };
 export const TotalCourseCountDocument = gql`
     query TotalCourseCount {
@@ -2068,7 +2067,7 @@ export const TotalCourseCountDocument = gql`
     `;
 
 export function useTotalCourseCountQuery(options?: Omit<Urql.UseQueryArgs<TotalCourseCountQueryVariables>, 'query'>) {
-  return Urql.useQuery<TotalCourseCountQuery>({ query: TotalCourseCountDocument, ...options });
+  return Urql.useQuery<TotalCourseCountQuery, TotalCourseCountQueryVariables>({ query: TotalCourseCountDocument, ...options });
 };
 export const GetUsersByRoleDocument = gql`
     query GetUsersByRole($tag: String!) {
@@ -2085,7 +2084,7 @@ export const GetUsersByRoleDocument = gql`
     `;
 
 export function useGetUsersByRoleQuery(options: Omit<Urql.UseQueryArgs<GetUsersByRoleQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUsersByRoleQuery>({ query: GetUsersByRoleDocument, ...options });
+  return Urql.useQuery<GetUsersByRoleQuery, GetUsersByRoleQueryVariables>({ query: GetUsersByRoleDocument, ...options });
 };
 export const SearchStudentsByNamePaginatedDocument = gql`
     query SearchStudentsByNamePaginated($search: String!, $limit: Int!, $offset: Int!) {
@@ -2104,7 +2103,7 @@ export const SearchStudentsByNamePaginatedDocument = gql`
     `;
 
 export function useSearchStudentsByNamePaginatedQuery(options: Omit<Urql.UseQueryArgs<SearchStudentsByNamePaginatedQueryVariables>, 'query'>) {
-  return Urql.useQuery<SearchStudentsByNamePaginatedQuery>({ query: SearchStudentsByNamePaginatedDocument, ...options });
+  return Urql.useQuery<SearchStudentsByNamePaginatedQuery, SearchStudentsByNamePaginatedQueryVariables>({ query: SearchStudentsByNamePaginatedDocument, ...options });
 };
 export const SearchStudentsByNameCountDocument = gql`
     query SearchStudentsByNameCount($search: String!) {
@@ -2115,7 +2114,7 @@ export const SearchStudentsByNameCountDocument = gql`
     `;
 
 export function useSearchStudentsByNameCountQuery(options: Omit<Urql.UseQueryArgs<SearchStudentsByNameCountQueryVariables>, 'query'>) {
-  return Urql.useQuery<SearchStudentsByNameCountQuery>({ query: SearchStudentsByNameCountDocument, ...options });
+  return Urql.useQuery<SearchStudentsByNameCountQuery, SearchStudentsByNameCountQueryVariables>({ query: SearchStudentsByNameCountDocument, ...options });
 };
 export const StudentsCountDocument = gql`
     query StudentsCount {
@@ -2124,5 +2123,5 @@ export const StudentsCountDocument = gql`
     `;
 
 export function useStudentsCountQuery(options?: Omit<Urql.UseQueryArgs<StudentsCountQueryVariables>, 'query'>) {
-  return Urql.useQuery<StudentsCountQuery>({ query: StudentsCountDocument, ...options });
+  return Urql.useQuery<StudentsCountQuery, StudentsCountQueryVariables>({ query: StudentsCountDocument, ...options });
 };

@@ -19,7 +19,7 @@ function ForgotPassword() {
     e.preventDefault()
     const results = await doPasswordReset({ email })
     setStatus("Please check your email for a password reset link.")
-    if (results.data?.authenticateUserWithPassword?.item) {
+    if (results.data.sendUserPasswordResetLink) {
       navigate("/dashboard")
     }
   }

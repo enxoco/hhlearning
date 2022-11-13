@@ -1,7 +1,7 @@
 import { Box, Button, Container, Divider, Flex, FormControl, FormLabel, Input, Stack, Switch, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import * as React from "react"
 import Layout from "../components/Layout"
-import { useState } from "react"
+import { MouseEventHandler, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { PasswordField } from "../components/PasswordField"
 import { useCreateTeacherMutation } from "../generated/graphql"
@@ -40,13 +40,17 @@ function AddTeacher() {
     setPasswordConfirmation(e.target.value)
   }
 
-  const handleFormSubmit = async () => {
-    await addTeacher({ name, email, password, admin: isAdmin })
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (name == "" || email == "" || password == "") {
+      console.log("error");
+    }
+    const createTeacherData = await addTeacher({ name, email, password, admin: isAdmin })
+    console.log("createTeat", createTeacherData)
     if (error) {
-      console.error("error", error)
       return
     }
-    navigate(0)
+    // navigate(0)
   }
   return (
     <Layout customTitle="Add Teacher" description="">
@@ -62,19 +66,19 @@ function AddTeacher() {
           <Box as="form" bg="bg-surface" boxShadow={useColorModeValue("sm", "sm-dark")} borderRadius="lg">
             <Stack spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>
               <Stack spacing="6" direction={{ base: "column", md: "row" }}>
-                <FormControl id="name">
+                <FormControl id="name" isRequired>
                   <FormLabel>Name</FormLabel>
-                  <Input defaultValue={name} onChange={handleNameUpdate} />
+                  <Input defaultValue={name} onChange={handleNameUpdate} required />
                 </FormControl>
-                <FormControl id="email" onChange={handleEmailUpdate}>
+                <FormControl id="email" onChange={handleEmailUpdate} isRequired>
                   <FormLabel>Email</FormLabel>
-                  <Input defaultValue={email} />
+                  <Input defaultValue={email} required />
                 </FormControl>
               </Stack>
 
               <Stack spacing="6" direction={{ base: "column", md: "row" }}>
-                <PasswordField onChange={handlePasswordUpdate} />
-                <PasswordField onChange={handlePasswordConfirmation} />
+                <PasswordField onChange={handlePasswordUpdate} required />
+                <PasswordField onChange={handlePasswordConfirmation} required />
               </Stack>
               <FormControl display="flex" alignItems="center">
                 <FormLabel htmlFor="isAdmin" mb="0">

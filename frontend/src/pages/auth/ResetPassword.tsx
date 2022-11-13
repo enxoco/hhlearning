@@ -58,7 +58,7 @@ function ResetPassword() {
     setStatus("Please check your email for a new password reset link.");
     setAlertStyle("success");
     doShowReset(false);
-    if (results.data?.authenticateUserWithPassword?.item) {
+    if (results.data.sendUserPasswordResetLink) {
       navigate("/dashboard");
     }
   }

@@ -1,8 +1,8 @@
 import { theme } from "@chakra-ui/pro-theme"
 import { ChakraProvider, extendTheme, Skeleton } from "@chakra-ui/react"
-import React from "react"
+import React, { lazy } from "react"
 
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom/client"
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate} from "react-router-dom"
 // import '@fontsource/inter/variable.css'
 import { RecoilRoot } from "recoil"
@@ -17,6 +17,7 @@ import EditStudent from "./pages/EditStudent"
 import Login from "./pages/Login"
 import MyStudents from "./pages/MyStudents"
 import Parents from "./pages/Parents"
+const Register = lazy(() => import("./pages/Register"));
 // import Register from "./pages/Register"
 import StudentReport from "./pages/StudentReport"
 import Students from "./pages/Students"
@@ -39,8 +40,11 @@ const myTheme = extendTheme(
   },
   theme
 )
+const rootElement = document.getElementById("root")
 
-ReactDOM.render(
+if (!rootElement) throw new Error("Failed to find root element")
+const root = ReactDOM.createRoot(rootElement)
+root.render(
   <React.StrictMode>
     <Provider value={client}>
       <ChakraProvider theme={myTheme}>
@@ -51,7 +55,7 @@ ReactDOM.render(
                 
               <Route path="/" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 
                   <Route path="/dashboard" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
                   <Route path="/students" element={<RequireAuth adminOnly={false} teacherOnly><Students /></RequireAuth>} />
@@ -76,19 +80,12 @@ ReactDOM.render(
           </RecoilRoot>
       </ChakraProvider>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
+
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
-
-
-
 /**
  * 
  * @param adminOnly = boolean - Whether or not this route should be restricted to admin users
