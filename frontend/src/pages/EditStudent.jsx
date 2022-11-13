@@ -72,7 +72,7 @@ const EditStudent = () => {
 
           {user?.isAdmin || impersonatedUser ? (
             <Tooltip label={`View full report card for ${studentData.data?.firstName || "student"}`}>
-              <ChakraLink href={"/print.php?student=" + id} data-action="view-report" target="_blank">
+              <ChakraLink href={`${import.meta.env.DEV ? "http://localhost:8081" : null}/print.php?student=${id}`} data-action="view-report" target="_blank">
                 <Button variant="outline">View report card</Button>
               </ChakraLink>
             </Tooltip>

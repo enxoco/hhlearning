@@ -36,7 +36,7 @@ export default withAuth(
 
           const response = await client.sendEmailWithTemplate({
             "From": process.env.MAIL_FROM_ADDRESS,
-            "To": req.body.email,
+            "To": process.env.NODE_ENV == "development" ? "mikeconrad@onmail.com" : req.body.email,
             "TemplateAlias": "portal-link",
             "TemplateModel": {
               "action_url": `${portalUrl}/parents/${hashids.encode(req.body.id)}`

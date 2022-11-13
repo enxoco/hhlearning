@@ -30,7 +30,7 @@ const Dashboard = () => {
         <Box bg="bg-surface" px={{ base: "4", md: "6" }} py="5" boxShadow={useColorModeValue("sm", "sm-dark")} borderTopWidth="4px" borderColor="accent">
           <Stack spacing="1" textAlign="center">
             <Text fontSize="xl" fontWeight="medium">
-              Welcome to the new Hilger {user?.isParent ? 'Parent' : 'Grading' } Portal
+              Welcome to the Hilger {user?.isParent ? 'Parent' : 'Grading' } Portal
             </Text>
             <Text color="muted" fontSize="sm"></Text> <Divider my={10} height={50} />
             {!user?.isParent ? (

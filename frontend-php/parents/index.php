@@ -1,20 +1,17 @@
 <?php
 
-require_once('../vendor/autoload.php');
-require_once('./glob_recursive.php');
-require('../db-config.php');
-use Hashids\Hashids;
+    require_once('../vendor/autoload.php');
+    require_once('./glob_recursive.php');
+    require('../db-config.php');
+    use Hashids\Hashids;
 
-$request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
-$hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
-$parent_id = $hashids->decode($request)[0];
-$query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
-$query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
-$query->execute();
-$students = $query->fetchAll(PDO::FETCH_ASSOC);
-
-
-// Now fetch courses for this student so we know if there is anything to show.
+    $request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
+    $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
+    $parent_id = $hashids->decode($request)[0];
+    $query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
+    $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
+    $query->execute();
+    $students = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -199,17 +196,19 @@ $students = $query->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="card">
                 <?php
-                    $portal_id = $hashids->encode($student['id']);
-                    $archive_files = $portal_id . ".pdf";
-                    $reports = glob_recursive("../archived-reports", $archive_files,1);
-                    foreach($reports as $semester)
-                    {
-                        $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
-                        ?>
-                        <li>
-                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>" target="_blank"><?= $semester_title; ?></a></button>
-                        </li>
-                    <?php
+                    foreach ($students as $student) {
+                        $portal_id = $hashids->encode($student['id']);
+                        $archive_files = $portal_id . ".pdf";
+                        $reports = glob_recursive("../archived-reports", $archive_files,1);
+                        foreach($reports as $semester)
+                        {
+                            $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
+                            ?>
+                            <li>
+                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>" target="_blank"><?= $semester_title; ?></a></button>
+                            </li>
+                        <?php
+                        }
                     }
                 ?>
             </div>
