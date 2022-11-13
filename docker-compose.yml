@@ -51,7 +51,8 @@ services:
             context: ./frontend
             target: dependencies
         volumes:
-            - ./frontend:/app
+            - ./frontend:/home/node/app
+            - nodeMod:/home/node/frontend/node_modules
         ports: 
             - 4000:3000
             - 3010:3010
@@ -79,6 +80,7 @@ services:
             - 1080:1080
 volumes:
     postgres_volume:
+    nodeMod:
 networks:
     hilger:
         driver: bridge
