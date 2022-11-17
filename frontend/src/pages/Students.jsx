@@ -28,6 +28,11 @@ const Students = () => {
   }
   const columns = useMemo(
     () => [
+
+      {
+        Header: () => null,
+        accessor: "portalId"
+      },
       {
         Header: () => null,
         accessor: "id",
@@ -51,7 +56,7 @@ const Students = () => {
           // to build the expander.
           <>
             <HStack spacing="1">
-              <Link to={"/student/" + hashids.encode(row.values.id)}>{row.values.name}</Link>
+              <Link to={"/student/" + row.values.portalId}>{row.values.name}</Link>
             </HStack>
           </>
         ),
@@ -67,7 +72,7 @@ const Students = () => {
           // to build the expander.
           <>
             <HStack spacing="1">
-              <Link to={"/student/" + hashids.encode(row.values.id)}>
+              <Link to={`/student/${row.values.portalId}`}>
                 <Tooltip label="Manage courses">
                   <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
                 </Tooltip>

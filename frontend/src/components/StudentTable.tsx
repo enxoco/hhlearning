@@ -85,7 +85,7 @@ function StudentTable({ columns, data }) {
 
   // Use the state and functions returned from useTable to build your UI
   const initialState = {
-    hiddenColumns: ["id", "firstName", "lastName"],
+    hiddenColumns: ["portalId", "id", "firstName", "lastName"],
   };
   const {
     getTableProps,
