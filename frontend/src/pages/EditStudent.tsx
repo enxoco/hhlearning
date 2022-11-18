@@ -1,56 +1,36 @@
-import { Box, Button, HStack, Stack, Text, Tooltip, useToast, Link as ChakraLink } from "@chakra-ui/react"
-import { useEffect, useState, useRef } from "react"
+import { Box, Button, HStack, Stack, Text, Tooltip, Link as ChakraLink } from "@chakra-ui/react"
+import { useEffect } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { impersonateUser, loggedInUser, showNewCourseCard as showNewCourseCardAtom } from "../atom"
 
 import AddStudentCard from "../components/AddStudentCard"
 import EditStudentCard from "../components/EditCourseCard"
 import Layout from "../components/Layout"
-import { useCheckLoginQuery, useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "../generated/graphql"
+import { useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "../generated/graphql"
 import { hashids } from "../utils/hashids"
 
-const EditStudent = () => {
+export default function EditStudent() {
   let { id } = useParams()
   const [user] = useRecoilState(loggedInUser)
-  const [teacher, setTeacher] = useState(user.id)
 
-  function addToast(courseName) {
-    toastIdRef.current = toast({
-      status: 'success',
-      description: `${courseName || 'Course'} saved successfully`,
-      position: 'top'
-    })
-  }
 
   // If we are reloading page then we have no state
   const [{ data: coursesData, error, fetching }, getCourses] = useGetCoursesByStudentAndTeacherQuery({
-    pause: loggedInUser?.isParent,
     variables: {
-      studentId: hashids.decode(id)[0],
-      teacherId: teacher,
+      studentId: String(hashids.decode(id)[0]),
+      teacherId: user.id,
     },
     requestPolicy: 'network-only'
   })
 
-  const [studentData] = useGetStudentQuery({ variables: { id: hashids.decode(id)[0] } })
-  const [newCourseName, setNewCourseName] = useState("")
-  const [newCourseGrade, setNewCourseGrade] = useState("")
+  const [studentData] = useGetStudentQuery({ variables: { id: String(hashids.decode(id)[0]) } })
   const [newCourse, setNewCourse] = useRecoilState(showNewCourseCardAtom)
 
   const [impersonatedUser] = useRecoilState(impersonateUser)
   const showNewCourseCard = () => {
     setNewCourse(true)
-  }
-
-  const hideNewCourseCard = () => {
-    getCourses()
-    setNewCourse(false)
-    setNewCourseName("")
-    setNewCourseGrade("")
-    
-    addToast()
   }
 
   useEffect(() => {
@@ -71,7 +51,7 @@ const EditStudent = () => {
           </Button>
 
           {user?.isAdmin || impersonatedUser ? (
-            <Tooltip label={`View full report card for ${studentData.data?.firstName || "student"}`}>
+            <Tooltip label={`View full report card for ${studentData.data?.student.firstName || "student"}`}>
               <ChakraLink href={`${import.meta.env.DEV ? "http://localhost:8081" : ""}/print.php?student=${id}`} data-action="view-report" target="_blank">
                 <Button variant="outline">View report card</Button>
               </ChakraLink>
@@ -79,7 +59,7 @@ const EditStudent = () => {
           ) : null}
         </HStack>
       </Stack>
-      {!teacher || !studentData.data ? (
+      {!studentData.data ? (
         <>loading</>
       ) : (
         <Stack spacing="5">
@@ -91,13 +71,13 @@ const EditStudent = () => {
             </Stack>
           </Box>
           {!fetching && loggedInUser && !studentData.fetching ? (
-          <AddStudentCard student={studentData?.data?.student} hideNewCourseCard={hideNewCourseCard}/>
+          <AddStudentCard student={studentData?.data?.student} />
           ) : null}
-          {!newCourse ? null : <EditStudentCard name={null} grade={null} feedback={null} id={null} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} hideNewCourseCard={hideNewCourseCard} />}
+          {!newCourse ? null : <EditStudentCard name={null} grade={null} feedback={null} id={null} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} />}
 
           {
             coursesData?.courses.map((course) => (
-              <EditStudentCard key={course.id} name={course.name} grade={course.grade} id={course.id} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} feedback={course.feedback} hideNewCourseCard={hideNewCourseCard} />
+              <EditStudentCard key={course.id} name={course.name} grade={course.grade} id={course.id} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} feedback={course.feedback} />
             ))
           }
         </Stack>
@@ -105,5 +85,3 @@ const EditStudent = () => {
     </Layout>
   )
 }
-
-export default EditStudent

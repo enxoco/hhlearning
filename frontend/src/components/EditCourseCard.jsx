@@ -16,7 +16,12 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
     const [createdCourse, createCourse] = useCreateCourseMutation()
     const [_, deleteCourse] = useDeleteCourseMutation()
     const [newCourse, setNewCourse] = useRecoilState(showNewCourseCard)
-    const toast = useToast()
+    const toast = useToast({
+      status: 'success',
+      duration: 9000,
+      position: 'top',
+      isClosable: true
+    })
     const toastIdRef = useRef()
     const handleCourseNameUpdate = (e) => {
         setCourseName(e.target.value)
@@ -67,9 +72,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
 
     function addToast(courseName) {
       toastIdRef.current = toast({
-        status: 'success',
         description: `${courseName || 'Course'} saved successfully`,
-        position: 'top',
         containerStyle
       })
     }
@@ -78,7 +81,6 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
       toastIdRef.current = toast({
         status: 'error',
         description: `${courseName || 'Course'} deleted successfully`,
-        position: 'top',
         containerStyle
       })
     }
