@@ -77,8 +77,8 @@ function AddTeacher() {
               </Stack>
 
               <Stack spacing="6" direction={{ base: "column", md: "row" }}>
-                <PasswordField onChange={handlePasswordUpdate} required />
-                <PasswordField onChange={handlePasswordConfirmation} required />
+                <PasswordField onChange={handlePasswordUpdate} isRequired />
+                <PasswordField onChange={handlePasswordConfirmation} isRequired />
               </Stack>
               <FormControl display="flex" alignItems="center">
                 <FormLabel htmlFor="isAdmin" mb="0">

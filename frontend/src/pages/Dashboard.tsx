@@ -1,7 +1,7 @@
-import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue, Link as ChakraLink } from "@chakra-ui/react"
+import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRecoilState } from "recoil"
-import { loggedInUser, studentCount } from "../atom"
+import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
 import { Stat } from "../components/Stat"
 import { Link } from "react-router-dom"
@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const [totalCourses] = useTotalCourseCountQuery()
   return (
-    <Layout pageTitle="Dashboard" description={`Hilger Online ${user?.isParent ? 'Parent' : 'Grading' } portal`}>
+    <Layout customTitle="Dashboard" description={`Hilger Online ${user?.isParent ? 'Parent' : 'Grading' } portal`}>
       {!user?.isParent ? (
               <Stack spacing={{ base: "5", lg: "6" }}>
               <SimpleGrid columns={{ base: 1, md: 3 }} gap="6">

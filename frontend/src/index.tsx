@@ -1,9 +1,9 @@
 import { theme } from "@chakra-ui/pro-theme"
-import { ChakraProvider, extendTheme, Skeleton } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import React, { lazy } from "react"
 
 import ReactDOM from "react-dom/client"
-import { BrowserRouter as Router, Route, Routes, useLocation, Navigate} from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from "react-router-dom"
 // import '@fontsource/inter/variable.css'
 import { RecoilRoot } from "recoil"
 import { createClient, Provider } from "urql"
@@ -22,8 +22,7 @@ const Register = lazy(() => import("./pages/Register"));
 import StudentReport from "./pages/StudentReport"
 import Students from "./pages/Students"
 import Teachers from "./pages/Teachers"
-import reportWebVitals from "./reportWebVitals"
-import {MyProfile} from "./pages/MyProfile"
+import { MyProfile } from "./pages/MyProfile"
 import Settings from "./pages/Settings"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "./atom"
@@ -48,36 +47,33 @@ root.render(
   <React.StrictMode>
     <Provider value={client}>
       <ChakraProvider theme={myTheme}>
-          <RecoilRoot>
-            <React.Suspense fallback='...loading' >
+        <RecoilRoot>
+          <React.Suspense fallback='...loading' >
             <Router>
               <Routes>
-                
-              <Route path="/" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
+
+                <Route path="/" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                
-                  <Route path="/dashboard" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
-                  <Route path="/students" element={<RequireAuth adminOnly={false} teacherOnly><Students /></RequireAuth>} />
-                  <Route path="/students/:id" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyStudents /></RequireAuth>} />
-                  <Route path="/student/:id" element={<RequireAuth adminOnly={false} teacherOnly><EditStudent /></RequireAuth>} />
-                  <Route path="/student/:id/report" element={<RequireAuth adminOnly={false} teacherOnly={false}><StudentReport /></RequireAuth>} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                  <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
-                  <Route path="/profile" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyProfile /></RequireAuth>} />
-                  <Route path="/add-student" element={<RequireAuth adminOnly teacherOnly><AddStudent /></RequireAuth>} />
-                  <Route path="/teachers" element={<RequireAuth adminOnly teacherOnly><Teachers /></RequireAuth>} />
-                  <Route path="/parents" element={<RequireAuth adminOnly teacherOnly><Parents /></RequireAuth>} />
-                  <Route path="/add-teacher" element={<RequireAuth adminOnly teacherOnly><AddTeacher /></RequireAuth>} />
-                  <Route path="/settings" element={<RequireAuth adminOnly teacherOnly><Settings /></RequireAuth>} />
-                
- 
 
+                <Route path="/dashboard" element={<RequireAuth adminOnly={false} teacherOnly={false}><Dashboard /></RequireAuth>} />
+                <Route path="/students" element={<RequireAuth adminOnly={false} teacherOnly><Students /></RequireAuth>} />
+                <Route path="/students/:id" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyStudents /></RequireAuth>} />
+                <Route path="/student/:id" element={<RequireAuth adminOnly={false} teacherOnly><EditStudent /></RequireAuth>} />
+                <Route path="/student/:id/report" element={<RequireAuth adminOnly={false} teacherOnly={false}><StudentReport /></RequireAuth>} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+                <Route path="/profile" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyProfile /></RequireAuth>} />
+                <Route path="/add-student" element={<RequireAuth adminOnly teacherOnly><AddStudent /></RequireAuth>} />
+                <Route path="/teachers" element={<RequireAuth adminOnly teacherOnly><Teachers /></RequireAuth>} />
+                <Route path="/parents" element={<RequireAuth adminOnly teacherOnly><Parents /></RequireAuth>} />
+                <Route path="/add-teacher" element={<RequireAuth adminOnly teacherOnly><AddTeacher /></RequireAuth>} />
+                <Route path="/settings" element={<RequireAuth adminOnly teacherOnly><Settings /></RequireAuth>} />
               </Routes>
             </Router>
-            </React.Suspense>
+          </React.Suspense>
 
-          </RecoilRoot>
+        </RecoilRoot>
       </ChakraProvider>
     </Provider>
   </React.StrictMode>
@@ -118,11 +114,11 @@ function RequireAuth({ children, adminOnly, teacherOnly }: { children: JSX.Eleme
   // the application
   if (!user && !me.data?.authenticatedItem) {
     return (<></>)
-    
+
   } else if (teacherOnly && me.data?.authenticatedItem.isParent) {
     return (<Dashboard />)
   } else if (adminOnly && !me.data?.authenticatedItem.isAdmin) {
     return (<Dashboard />)
-  } 
+  }
   return children
 }

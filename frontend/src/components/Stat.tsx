@@ -9,7 +9,7 @@ import {
 
 interface Props {
   label: string;
-  value: string;
+  value: number | string;
 }
 export const Stat = (props: Props) => {
   const { label, value, ...boxProps } = props;

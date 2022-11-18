@@ -139,7 +139,6 @@ export const Sidebar = () => {
                   me.data?.authenticatedItem.name ||
                   me.data?.authenticatedItem.firstName
                 }
-                image="https://tinyurl.com/yhkm2ek8"
                 email={me?.data?.authenticatedItem?.email}
               />
             ) : null}

@@ -4,13 +4,12 @@ import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
  
 interface UserProfileProps {
   name: string
-  image: string
   email: string
 }
 
 export const UserProfile = (props: UserProfileProps) => {
     
-  const { name, image, email } = props
+  const { name, email } = props
   return (
     <HStack spacing="3" ps="2">
       <InitialsAvatar name={name} />

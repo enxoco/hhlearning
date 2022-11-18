@@ -1,5 +1,5 @@
 import { Box, Container, Flex, Heading, Spinner, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
-import { Children, ReactElement } from "react"
+import { ReactElement } from "react"
 import { ImpersonateUserBanner } from "../components/ImpersonatedUserBanner"
 import { Navbar } from "../components/Navbar"
 import { Sidebar } from "../components/Sidebar"
