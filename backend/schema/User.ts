@@ -48,7 +48,7 @@ export default {
             const {id} = context?.req?.body.variables
             const courses = await context.query.Course.findMany({
               where: { teacher: { id: { equals: id } } },
-              query: `student {firstName, lastName, name, id}`,
+              query: `student {firstName, lastName, name, id, portalId}`,
             })
             const students: string[] = []
             courses.map((course) => students.push(course.student))

@@ -16,8 +16,7 @@ import { hashids } from "../utils/hashids"
 const MyStudents = () => {
   const [students, setStudents] = useRecoilState(studentAtom)
   const [loggedInUser] = useRecoilState(loggedInUserAtom)
-  const [studentData] = useGetMyStudentsQuery({ variables: { id: loggedInUser?.id }, pause: loggedInUser && loggedInUser?.isParent })
-  const [childrenData] = useGetStudentsByParentQuery({ variables: { email: loggedInUser?.email }, pause: loggedInUser && loggedInUser?.isTeacher, requestPolicy: 'network-only' })
+  const [studentData] = useGetMyStudentsQuery({ variables: { id: loggedInUser?.id } })
 
   useEffect(() => {
     if (studentData && studentData.data && studentData.data.user.students) {
@@ -34,6 +33,10 @@ const MyStudents = () => {
       {
         Header: () => null,
         accessor: "id",
+      },
+      {
+        Header: () => null,
+        accessor: "portalId"
       },
       {
         Header: () => null,
@@ -60,7 +63,7 @@ const MyStudents = () => {
           // to build the expander.
           <>
             <HStack spacing="1">
-              <Link to={"/student/" + hashids.encode(row.values.id)}>
+              <Link to={`/student/${row.values.portalId}`}>
                 <Tooltip label="Manage courses">
                   <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
                 </Tooltip>
@@ -78,6 +81,7 @@ const MyStudents = () => {
       id: "Id", // remove commas to avoid errors
       firstName: "First Name",
       lastName: "Last Name",
+      portalId: "Portal Id"
     }
     var itemsFormatted = []
 
@@ -85,6 +89,7 @@ const MyStudents = () => {
     students.forEach((item) => {
       itemsFormatted.push({
         id: item.id, // remove commas to avoid errors,
+        portalId: item.portalId,
         firstName: item.firstName,
         lastName: item.lastName,
       })
@@ -106,29 +111,25 @@ const MyStudents = () => {
       )}
 
       <Stack spacing="5">
-        <Skeleton isLoaded={studentData?.data || childrenData?.data}>
           <Box overflowX="auto">
-            {!students?.length && !childrenData?.data?.students ? (
+            {!students?.length ? (
               <Card display={"flex"} justifyContent="center" alignItems={"center"} flexDir="column">
                 <Text size="lg">You don't appear to have any grades entered yet.</Text>
                 <Divider w="50%" my={10} />
                 <Text>
                   To start entering grades, click
                   <Button variant={"link"}>
-                    <Link to="/students" variant="link">
+                    <Link to="/students">
                       {" "}
                       here
                     </Link>{" "}
                   </Button>
                 </Text>
               </Card>
-            ) : childrenData?.data?.students && loggedInUser?.isParent ? (
-              <SimpleTable studentProp={childrenData?.data?.students} />
             ) : (
-              <StudentTable columns={columns} data={students || childrenData?.data?.students} />
+              <StudentTable data={students} columns={columns} />
             )}
           </Box>
-        </Skeleton>
       </Stack>
     </Layout>
   )

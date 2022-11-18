@@ -1,4 +1,5 @@
 import { atom } from "recoil"
+import { Student, User } from "./generated/graphql"
 
 /**
  * 
@@ -39,38 +40,38 @@ async function getCheckAuth(){
   return data.authenticatedItem 
 }
 
-export const teachers = atom({
+export const teachers = atom<User[] | null>({
   key: "teachers",
   default: null,
 })
 
-export const parents = atom({
+export const parents = atom<User[] | null>({
   key: "parents",
   default: null,
 })
 
 
-export const students = atom({
+export const students = atom<Student[] | null>({
   key: "students",
   default: null,
 })
 
-export const searchTerm = atom({
+export const searchTerm = atom<string>({
   key: "searchTerm",
   default: "",
 })
 
-export const loggedInUser = atom({
+export const loggedInUser = atom<User | null>({
   key: "loggedInUser",
   default: getCheckAuth()
 })
 
-export const studentCount = atom({
+export const studentCount = atom<string | number>({
   key: "studentCount",
   default: 0,
 })
 
-export const fetchCourses = atom({
+export const fetchCourses = atom<boolean>({
   key: "fetchCourses",
   default: false,
 })

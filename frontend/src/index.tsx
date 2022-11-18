@@ -19,7 +19,7 @@ import MyStudents from "./pages/MyStudents"
 import Parents from "./pages/Parents"
 const Register = lazy(() => import("./pages/Register"));
 // import Register from "./pages/Register"
-import StudentReport from "./pages/StudentReport"
+// import StudentReport from "./pages/StudentReport"
 import Students from "./pages/Students"
 import Teachers from "./pages/Teachers"
 import { MyProfile } from "./pages/MyProfile"
@@ -60,7 +60,8 @@ root.render(
                 <Route path="/students" element={<RequireAuth adminOnly={false} teacherOnly><Students /></RequireAuth>} />
                 <Route path="/students/:id" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyStudents /></RequireAuth>} />
                 <Route path="/student/:id" element={<RequireAuth adminOnly={false} teacherOnly><EditStudent /></RequireAuth>} />
-                <Route path="/student/:id/report" element={<RequireAuth adminOnly={false} teacherOnly={false}><StudentReport /></RequireAuth>} />
+                {/* Deprecated as we are now using the legacy php scripts to print reports.
+                <Route path="/student/:id/report" element={<RequireAuth adminOnly={false} teacherOnly={false}><StudentReport /></RequireAuth>} /> */}
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
                 <Route path="/profile" element={<RequireAuth adminOnly={false} teacherOnly={false}><MyProfile /></RequireAuth>} />

@@ -1,4 +1,3 @@
-// useDocumentTitle.js
 import { useRef, useEffect } from 'react'
 
 function useDocumentTitle(title, prevailOnUnmount = false) {

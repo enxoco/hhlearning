@@ -1704,7 +1704,7 @@ export const LogoutDocument = gql`
     `;
 
 export function useLogoutMutation() {
-  return Urql.useMutation<LogoutMutation>(LogoutDocument);
+  return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
 export const RedeemMagicAuthTokenDocument = gql`
     mutation RedeemMagicAuthToken($email: String!, $token: String!) {
