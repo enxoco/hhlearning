@@ -7,7 +7,8 @@ export default defineConfig({
     host: true,
     port: 3000,
     proxy: {
-      '/api': 'http://app:4033/'
+      '/api': 'http://app:4033/',
+      '/rest': 'http://app:4033/'
     },
     hmr: {
       port: 3010
