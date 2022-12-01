@@ -20,7 +20,7 @@ export const Sidebar = () => {
 
   async function handleLogout(e) {
     e.preventDefault();
-    const _ = await logOut();
+    const _ = await logOut({});
     navigate("/login");
   }
 

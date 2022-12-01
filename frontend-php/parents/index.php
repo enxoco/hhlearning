@@ -1,17 +1,18 @@
 <?php
 
-    require_once('../vendor/autoload.php');
-    require_once('./glob_recursive.php');
-    require('../db-config.php');
-    use Hashids\Hashids;
+require_once('../vendor/autoload.php');
+require_once('./glob_recursive.php');
+require('../db-config.php');
 
-    $request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
-    $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
-    $parent_id = $hashids->decode($request)[0];
-    $query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
-    $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
-    $query->execute();
-    $students = $query->fetchAll(PDO::FETCH_ASSOC);
+use Hashids\Hashids;
+
+$request = explode('/parents/', $_SERVER['REQUEST_URI'])[1];
+$hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
+$parent_id = $hashids->decode($request)[0];
+$query = $db_con->prepare('SELECT id, "firstName", "lastName" FROM "Student" WHERE "Student".parent = :parent_id');
+$query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
+$query->execute();
+$students = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -158,33 +159,33 @@
 
 <body>
     <main>
-    <div class="toast-wrapper">
-                <p>You currently have an outstanding balance on your 2021-2022 school year's tuition. You will not be able to see your student(s) report card(s) until your tuition is paid in full. If you think you have paid this in full, or if you have questions about your balance, please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
-            </div>
+        <div class="toast-wrapper">
+            <p>You currently have an outstanding balance on your 2021-2022 school year's tuition. You will not be able to see your student(s) report card(s) until your tuition is paid in full. If you think you have paid this in full, or if you have questions about your balance, please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
+        </div>
         <div class="container">
             <img src="../logo.png" class="logo" />
             <p>Use the links below to view grades for your students</p>
             <div class="card">
                 <ul>
-                    <?php foreach ($students as $student): ?>
+                    <?php foreach ($students as $student) : ?>
                         <?php
                         $query = $db_con->prepare('SELECT COUNT("id") FROM "Course" WHERE "Course".student = :student_id');
                         $query->bindParam(':student_id', $student["id"], PDO::PARAM_STR);
                         $query->execute();
                         $courses = $query->fetchAll(PDO::FETCH_ASSOC);
                         ?>
-                    <?php
-                    if ($courses[0]["count"] == 0) {
+                        <?php
+                        if ($courses[0]["count"] == 0) {
                         ?>
-                        <li style="text-align: center;">
-                            <?= $student['firstName'] . ' ' . $student['lastName'] . ' does not currently have any grades for this semester.' ?>
-                        </li>
-                        <?php 
-                    } else { 
+                            <li style="text-align: center;">
+                                <?= $student['firstName'] . ' ' . $student['lastName'] . ' does not currently have any grades for this semester.' ?>
+                            </li>
+                        <?php
+                        } else {
                         ?>
-                        <li>
-                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
-                        </li>
+                            <li>
+                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
+                            </li>
                         <?php
                         }
                         ?>
@@ -196,24 +197,23 @@
 
             <div class="card">
                 <?php
-                    foreach ($students as $student) {
-                        $portal_id = $hashids->encode($student['id']);
-                        $archive_files = $portal_id . ".pdf";
-                        $reports = glob_recursive("../archived-reports", $archive_files,1);
-                        foreach($reports as $semester)
-                        {
-                            $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
-                            ?>
-                            <li>
-                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester?>" target="_blank"><?= $semester_title; ?></a></button>
-                            </li>
-                        <?php
-                        }
+                foreach ($students as $student) {
+                    $portal_id = $hashids->encode($student['id']);
+                    $archive_files = $portal_id . ".pdf";
+                    $reports = glob_recursive("../archived-reports", $archive_files, 1);
+                    foreach ($reports as $semester) {
+                        $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
+                ?>
+                        <li>
+                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester ?>" target="_blank"><?= $semester_title; ?></a></button>
+                        </li>
+                <?php
                     }
+                }
                 ?>
             </div>
         </div>
-    </main> 
+    </main>
 </body>
 
 </html>

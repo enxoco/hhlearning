@@ -119,7 +119,7 @@ function Parents () {
                 <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
               </Tooltip> */}
               <Tooltip label="View parent portal">
-              <Link href={`${import.meta.env.DEV ? "http://localhost:8081" : null}/parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
+              <Link href={`${import.meta.env.DEV ? "http://localhost:8081/" : "/"}parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
               </Tooltip>
               <Tooltip label='Send portal link email'>
                 <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleSendPortalLink(row.values.id, row.values.email)} />

@@ -8,10 +8,10 @@ USER node
 RUN mkdir tmp
 
 FROM base AS dependencies
-COPY --chown=node:node ./package.json ./
-COPY --chown=node:node ./yarn.lock ./
+COPY --chown=node:node ./frontend/package.json ./
+COPY --chown=node:node ./frontend/yarn.lock ./
 RUN yarn --frozen-lockfile
-COPY --chown=node:node . .
+COPY --chown=node:node ./frontend .
 
 FROM dependencies AS build
 RUN yarn build
@@ -24,16 +24,20 @@ FROM trafex/php-nginx as prod
 COPY --from=build /home/node/app/dist /var/www/html/
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# Run composer install to install the dependencies
-COPY ../frontend-php/* /var/www/html/
 USER root
+# Run composer install to install the dependencies
+WORKDIR /var/www/html
+
+COPY ./frontend-php/composer.* .
+COPY ./frontend-php .
+# COPY ./frontend-php/composer.lock /var/www/html/
+# USER root
 # RUN mkdir /var/www/html/parents
 
-RUN mkdir -p /var/www/html/archived-reports
-RUN chown -R nobody:nobody /var/www/html/archived-reports
+# RUN mkdir -p /var/www/html/archived-reports
+# RUN chown -R nobody:nobody /var/www/html/archived-reports
 RUN apk add --no-cache php81-pdo php81-pdo_pgsql php81-bcmath php81-gd php81-iconv
 
-
-WORKDIR /var/www/html
 RUN composer install --optimize-autoloader --no-interaction --no-progress
+# COPY ./vendor /var/www/html/vendor
 USER nobody

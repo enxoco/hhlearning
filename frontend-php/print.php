@@ -1,8 +1,9 @@
 <?php
 
-require_once ('./fpdf.php');
+require_once('./fpdf.php');
 require_once('./vendor/autoload.php');
-require ('./db-config.php');
+require('./db-config.php');
+
 use Hashids\Hashids;
 
 $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH'));
@@ -11,16 +12,15 @@ $hashids = new Hashids(getenv('REACT_APP_SALT'), getenv('REACT_APP_SALT_LENGTH')
 *  for that student will be printed.  Else, we pass in the 'all' parameter and all reports are printed.*/
 class PDF extends FPDF
 
-    {
+{
     var $custom_number = 1;
     var $student = null;
 
     // Page header
 
     function Header()
-        {
-        if ($this->getPageNumber() == 1)
-            {
+    {
+        if ($this->getPageNumber() == 1) {
 
             // Logo
 
@@ -32,27 +32,32 @@ class PDF extends FPDF
             $this->Cell(100);
 
             // Title
-                        $today = new DateTime();
+            $today = new DateTime();
 
-                        // get the season dates
-                        $spring = new DateTime('March 20');
-                        $summer = new DateTime('June 20');
-                        $fall = new DateTime('September 22');
-                        $winter = new DateTime('December 21');
+            // get the season dates
+            $spring = new DateTime('March 20');
+            $summer = new DateTime('June 20');
+            $fall = new DateTime('September 22');
 
-                        switch(true) {
-                                case $today >= $spring && $today < $summer:
-                                        $report_semester = 'Spring';
-                                        break;
+            switch (true) {
+                case $today >= $spring && $today < $summer:
+                    $report_semester = 'Spring';
+                    $this->report_semester = $report_semester;
+                    break;
 
-                                case $today >= $fall && $today < $winter:
-                                        $report_semester = 'Fall';
-                                        break;
+                case $today >= $fall:
+                    $report_semester = 'Fall';
+                    $this->report_semester = $report_semester;
+                    break;
 
-                                default:
-                                        $report_semester = 'Spring';
-                        }
+                default:
+                    $report_semester = 'Spring';
+                    $this->report_semester = $report_semester;
+
+            }
             $report_year = date("Y");
+            $this->report_year = $report_year;
+
             $report_title = "Hilger Higher Learning Report Card " . $report_semester . " Semester " . $report_year;
 
             $this->Cell(30, 5, $report_title, 0, 1, 'C');
@@ -73,19 +78,17 @@ class PDF extends FPDF
             // Line break
 
             $this->Ln(20);
-            }
-          else
-            {
+        } else {
             $this->SetFont('Times', 'I', 8);
             $this->Cell(150);
-            $this->Cell(30, 8, 'Page : ' . $this->getPageNumber() , 0, 1, 'R');
-            }
+            $this->Cell(30, 8, 'Page : ' . $this->getPageNumber(), 0, 1, 'R');
         }
+    }
 
     // Page footer
 
     function Footer()
-        {
+    {
 
         // Position at 1.5 cm from bottom
 
@@ -96,27 +99,27 @@ class PDF extends FPDF
         // $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 
         $this->Cell(0, 10, 'Hilger Higher Learning', 0, 0, 'C');
-        $this->Cell(0, 10, 'Report Card for ' . $this->getStudent() , 0, 0, 'R');
-        }
+        $this->Cell(0, 10, 'Report Card for ' . $this->getStudent(), 0, 0, 'R');
+    }
 
     function setPageNumber($number)
-        {
+    {
         $this->custom_number = $number;
-        }
+    }
 
     function getPageNumber()
-        {
+    {
         return $this->custom_number;
-        }
+    }
 
     function customAddPage()
-        {
+    {
         $this->AddPage();
         $this->setPageNumber(1);
-        }
+    }
 
     function AcceptPageBreak()
-        {
+    {
 
         // Override this function to keep track of page numbers for students
 
@@ -124,21 +127,20 @@ class PDF extends FPDF
         $page_number++;
         $this->setPageNumber($page_number);
         return $this->AutoPageBreak;
-        }
-
-    function getStudent()
-        {
-        return $this->student;
-        }
-
-    function setStudent($student)
-        {
-        $this->student = $student;
-        }
     }
 
-if (isset($_REQUEST['student']) && $_REQUEST['student'] === 'YyaBPKJcQ8PQ1qJ2kYui')
+    function getStudent()
     {
+        return $this->student;
+    }
+
+    function setStudent($student)
+    {
+        $this->student = $student;
+    }
+}
+
+if (isset($_REQUEST['student']) && $_REQUEST['student'] === 'YyaBPKJcQ8PQ1qJ2kYui') {
 
     // Select all students from and courses from the database, put the courses in order of student id and bring in teacher names as well
 
@@ -155,11 +157,9 @@ if (isset($_REQUEST['student']) && $_REQUEST['student'] === 'YyaBPKJcQ8PQ1qJ2kYu
                     INNER JOIN "Student" on "Course"."student" = "Student".id
                         ORDER BY "Course".student');
     $statement->execute();
-    }
-  else
-    {
-        $student_id = $hashids->decode($_REQUEST['student'])[0];
-        $statement = $db_con->prepare('SELECT "User".name as teacher,
+} else {
+    $student_id = $hashids->decode($_REQUEST['student'])[0];
+    $statement = $db_con->prepare('SELECT "User".name as teacher,
                 "Course".name AS "cName",
                 "Course".id AS "cId",
                 "Course".grade AS "cGrade",
@@ -172,9 +172,9 @@ if (isset($_REQUEST['student']) && $_REQUEST['student'] === 'YyaBPKJcQ8PQ1qJ2kYu
                         INNER JOIN "Student" on "Course"."student" = "Student".id
                             WHERE "Course".student = :student_id
                                 ORDER BY "Course".student');
-        $statement->bindParam(':student_id', $student_id, PDO::PARAM_STR);
-        $statement->execute();
-    }
+    $statement->bindParam(':student_id', $student_id, PDO::PARAM_STR);
+    $statement->execute();
+}
 
 
 $student = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -183,40 +183,35 @@ $student = $statement->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($student);
 $pdf = new PDF();
 
-if ($student)
-    {
+if ($student) {
 
     // Set an initial variable for our student id.  We will check this on each iteration of the foreach loop to determine if we need to move
     // onto the next student or not.  We update this at the end of each iteration using the current student_id.
 
     // $pdf->customAddPage();
     $pass = 0;
-    foreach($student as $row)
-        {
+    foreach ($student as $row) {
 
         // Check to see if we are still working on the same student as in the previous loop.  If so, no need to start a new page.
 
-        if ($current_student === $row['sId'])
-            {
+        if ($current_student === $row['sId']) {
             $student = $row['sFirst'] . ", " . $row['sLast'];
             $student_header = $row['sFirst'] . " " . $row['sLast'];
             $pdf->setStudent($student);
             $pdf->SetFont('Times', '', 10);
             $intro = $student_header . " has received the following  percentage grade(s) for one " . "semester of class(es) administered by Hilger Higher Learning, Inc. All instructors contracted by Hilger " . "Higher Learning meet proper Certification and/or requirement standards as directed by Tennessee, Georgia, " . "and Alabama state law. Each semester of class is worth 1/2 credit.";
             $pdf->Cell(10);
-            if ($pass === 0)
-                {
+            if ($pass === 0) {
                 $pdf->Write(5, $intro);
                 $i = 1;
                 $pdf->Ln(1);
-                }
+            }
 
             $pdf->Ln(5);
 
             // echo $next_course;
 
-            if (!empty($row['cName']))
-                {
+            if (!empty($row['cName'])) {
                 $pdf->SetFont('Times', 'B', 10);
                 $pdf->Cell(10);
                 $course = "Course: " . $row['cName'];
@@ -241,10 +236,8 @@ if ($student)
                 $pdf->Write(5, $feedback);
                 $pdf->Ln(10);
                 $current_student = $row['sId'];
-                };
-            }
-          else
-            { //If we are moving onto the next student, we need to add a new page.
+            };
+        } else { //If we are moving onto the next student, we need to add a new page.
             $pdf->customAddPage();
             $student = $row['sFirst'] . ", " . $row['sLast'];
             $student_header = $row['sFirst'] . " " . $row['sLast'];
@@ -259,8 +252,7 @@ if ($student)
             // code...                        $pdf->Ln(5);
             // echo $next_course;
 
-            if (!empty($row['cName']))
-                {
+            if (!empty($row['cName'])) {
                 $pdf->SetFont('Times', 'B', 10);
                 $pdf->Cell(10);
                 $course = "Course: " . $row['cName'];
@@ -285,16 +277,40 @@ if ($student)
                 $pdf->Write(5, $feedback);
                 $pdf->Ln(10);
                 $current_student = $row['sId'];
-                };
             };
+        };
         $pdf->setPageNumber(1); //Reset page counter
-            $pass++;
-        }
+        $pass++;
     }
+}
 
 $pdf->AliasNbPages();
 $pdf->SetTitle('Hilger Higher Learning - All Grade Reports');
 $pdf->Output();
-mkdir("./archived-reports/spring-2022", 0770, true);
 
-$pdf->Output('F', "./archived-reports/spring-2022/" . $_REQUEST["student"] . ".pdf");
+$today = new DateTime();
+
+// get the season dates
+$spring = new DateTime('March 20');
+$summer = new DateTime('June 20');
+$fall = new DateTime('September 22');
+$report_semester;
+$report_year;
+switch (true) {
+    case $today >= $spring && $today < $summer:
+        $report_semester = 'spring';
+        break;
+
+    case $today >= $fall:
+        $report_semester = 'fall';
+        break;
+
+    default:
+        $report_semester = 'spring';
+
+}
+$report_year = date("Y");
+$archived_folder_name = $report_semester . "-" . $report_year;
+mkdir("./archived-reports/{$archived_folder_name}", 0770, true);
+
+$pdf->Output('F', "./archived-reports/{$archived_folder_name}/" . $_REQUEST["student"] . ".pdf");
