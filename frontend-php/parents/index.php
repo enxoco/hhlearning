@@ -14,6 +14,29 @@ $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
 $query->execute();
 $students = $query->fetchAll(PDO::FETCH_ASSOC);
 
+function get_semester(){
+    $today = new DateTime();
+
+    // get the season dates
+    $spring = new DateTime('March 20');
+    $summer = new DateTime('June 20');
+    $fall = new DateTime('September 22');
+    switch (true) {
+        case $today >= $spring && $today < $summer:
+            $report_semester = 'Spring';
+            break;
+    
+        case $today >= $fall:
+            $report_semester = 'Fall';
+            break;
+    
+        default:
+            $report_semester = 'Spring';
+    
+    }
+    return $report_semester;
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -202,11 +225,18 @@ $students = $query->fetchAll(PDO::FETCH_ASSOC);
                     $archive_files = $portal_id . ".pdf";
                     $reports = glob_recursive("../archived-reports", $archive_files, 1);
                     foreach ($reports as $semester) {
+
                         $semester_title = ucfirst(str_replace("-", " ", explode("/", $semester)[2]));
+                        $current_semester = get_semester();
+                        if ($semester_title != "{$current_semester} 2022") {
                 ?>
-                        <li>
-                            <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester ?>" target="_blank"><?= $semester_title; ?></a></button>
-                        </li>
+                            <li>
+                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester ?>" target="_blank"><?= $semester_title; ?></a></button>
+                            </li>
+                        <?php
+                        }
+                        ?>
+
                 <?php
                     }
                 }
