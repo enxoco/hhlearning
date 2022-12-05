@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Input, Stack, Text, Textarea, useColorModeValue } from "@chakra-ui/react"
+import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Input, Stack, Text, Textarea, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { useBulkAddStudentsMutation, useCreateStudentMutation, useUpdateStudentInfoMutation } from "../generated/graphql"
 import {useParams} from 'react-router-dom'
@@ -12,7 +12,7 @@ const AddStudentCard = ({student}) => {
   const [{ data, error }, addStudent] = useCreateStudentMutation()
   const [updatedStudentInfo, updateStudentInfo] = useUpdateStudentInfoMutation()
   let { id } = useParams()
-
+  const toast = useToast({ position: 'top', isClosable: true, duration: 9000 });
   const handleFirstNameUpdate = (e) => {
     setFirstName(e.target.value)
   }
@@ -37,6 +37,11 @@ const AddStudentCard = ({student}) => {
             lastName: lastName,
           })
     }
+    toast({
+      title: 'Success',
+      status: 'success',
+      description: 'Student updated successfully'
+    })
 
   }
 
