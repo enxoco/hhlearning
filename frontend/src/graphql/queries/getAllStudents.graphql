@@ -1,5 +1,5 @@
 query GetAllStudents($limit: Int!, $offset: Int!) {
-    students(take: $limit, skip: $offset, orderBy: {firstName: asc}) {
+    students(take: $limit, skip: $offset, orderBy: {lastName: asc}) {
         __typename
         id
         name

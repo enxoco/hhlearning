@@ -1946,7 +1946,7 @@ export function useGetAllParentsQuery(options?: Omit<Urql.UseQueryArgs<GetAllPar
 };
 export const GetAllStudentsDocument = gql`
     query GetAllStudents($limit: Int!, $offset: Int!) {
-  students(take: $limit, skip: $offset, orderBy: {firstName: asc}) {
+  students(take: $limit, skip: $offset, orderBy: {lastName: asc}) {
     __typename
     id
     name
