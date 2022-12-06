@@ -189,6 +189,7 @@ function get_semester(){
             <img src="../logo.png" class="logo" />
             <p>Use the links below to view grades for your students</p>
             <div class="card">
+                <p style="text-align: center;">Fall 2022 Semester</p>
                 <ul>
                     <?php foreach ($students as $student) : ?>
                         <?php
