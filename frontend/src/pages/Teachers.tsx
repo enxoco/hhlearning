@@ -3,7 +3,7 @@ import { Box, Button, ButtonGroup, HStack, Icon, Input, InputGroup, InputLeftEle
 import { FiDownloadCloud, FiSearch } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { pageOffset as pageOffsetAtom, pageSize as pageSizeAtom, searchTerm as searchTermAtom, teachers as teachersAtom } from "../atom"
+import { pageOffset as pageOffsetAtom, pageSize as pageSizeAtom, searchTerm as searchTermAtom } from "../atom"
 import Layout from "../components/Layout"
 import TeacherTable from "../components/TeacherTable"
 import { useGetAllTeachersQuery } from "../generated/graphql"

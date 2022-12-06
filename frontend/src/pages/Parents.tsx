@@ -1,6 +1,6 @@
 import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast, Link } from "@chakra-ui/react"
 import { useMemo, useState } from "react"
-import { FiEdit2, FiLogIn, FiSend } from "react-icons/fi"
+import { FiLogIn, FiSend } from "react-icons/fi"
 import { useRecoilState } from "recoil"
 import { impersonateUser as impersonateUserAtom, loggedInUser } from "../atom"
 import Layout from "../components/Layout"
@@ -29,7 +29,6 @@ function Parents () {
       });
       const content = await rawResponse.json();
     
-      console.log(content);
       toast({
         title: 'Portal link email sent.',
         description: "Email sent to " + email,
@@ -119,7 +118,7 @@ function Parents () {
                 <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
               </Tooltip> */}
               <Tooltip label="View parent portal">
-              <Link href={`${import.meta.env.DEV ? "http://localhost:8081/" : "/"}parents/${row.values.portalId}`} isExternal><IconButton icon={<FiLogIn />}></IconButton></Link>
+              <Link href={`${import.meta.env.DEV ? "http://localhost:8081/" : "/"}parents/${row.values.portalId}`} isExternal><IconButton aria-label="View parent portal" icon={<FiLogIn />}></IconButton></Link>
               </Tooltip>
               <Tooltip label='Send portal link email'>
                 <IconButton icon={<FiSend fontSize="1.25rem" />} variant="ghost" aria-label="Send Portal Link" onClick={() => handleSendPortalLink(row.values.id, row.values.email)} />
@@ -152,7 +151,7 @@ function Parents () {
   return (
     <Layout customTitle="All Parents" description="">
       <Stack spacing="5">
-        <Skeleton isLoaded={studentData?.data}>
+        <Skeleton isLoaded={studentData.data.users.length != 0}>
           <ParentTable columns={columns} data={studentData?.data?.users || []} />
         </Skeleton>
       </Stack>

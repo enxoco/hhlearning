@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
+import { Logo } from "../components/Logo"
 import { useCoursesByStudentQuery, useGetStudentQuery, useFetchSettingsQuery } from "../generated/graphql"
 import useDocumentTitle from "../utils/useDocumentTitle"
 import Dashboard from "./Dashboard"
@@ -83,15 +84,14 @@ const StudentReport = () => {
   }
   return (
     <Layout>
-      <Skeleton isLoaded={studentData?.data}>
         <Stack spacing="5">
           {!fetching && loggedInUser && !studentData.fetching && coursesParsed ? (
             <Box as="form" bg="bg-surface" boxShadow={useColorModeValue("sm", "sm-dark")} borderRadius="lg">
-              <VStack ref={componentRef} pagestyle={pageStyle} spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>
+              <VStack ref={componentRef} spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>
                 <style>{getPageMargins()}</style>
 
                 <HStack justifyContent={"space-between"}>
-                  <Image src="https://hhlearning.com/wp-content/uploads/2017/04/cropped-HH-Logo.png" alt="Hilger Higher Learning Logo" height="175" width="175" />
+                  <Logo />
                   <Heading size="xs" textAlign="center">
                     Hilger Higher Learning Report Card {settings.data?.settings.filter(a => a.name == 'Semester')[0].value || 'Spring Semester 2022'}
                   </Heading>
@@ -133,7 +133,6 @@ const StudentReport = () => {
             </Box>
           ) : null}
         </Stack>
-      </Skeleton>
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, useBreakpointValue, Text, Divider, Heading } from "@chakra-ui/react"
+import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, Text, Divider, Heading } from "@chakra-ui/react"
 import { useEffect, useState } from 'react'
 import Layout from "../components/Layout"
 import { useFetchSettingsQuery, useUpdateSettingsMutation } from "../generated/graphql"
@@ -8,7 +8,6 @@ import useDocumentTitle from "../utils/useDocumentTitle"
 function Settings() {
   useDocumentTitle("Hilger Portal - Settings")
 
-  const isMobile = useBreakpointValue({ base: true, md: false })
   const [retrievedSettings, fetchSettings] = useFetchSettingsQuery()
   const [updatedSetting, doUpdateSetting] = useUpdateSettingsMutation()
   const [semester, setSemester] = useState(null)
@@ -20,7 +19,7 @@ function Settings() {
   }
 
   const handleUpdateSemester = () => {
-    doUpdateSetting({ id: 1, value: semester })
+    doUpdateSetting({ id: '1', value: semester })
   }
 
   const handleArchiveSemester = () => {
@@ -33,7 +32,7 @@ function Settings() {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ token: import.meta.env.VITE_ADMIN_TOKEN, email: "mikeconrad@onmail.com" })
+        body: JSON.stringify({ email: "mikeconrad@onmail.com" })
       });
       const content = await rawResponse.body;
       setArchiveRunning(false)
