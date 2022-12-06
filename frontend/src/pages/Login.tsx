@@ -24,7 +24,7 @@ function Login() {
   async function handleLogin(e) {
     e.preventDefault()
     const { data } = await doLogin({ email: email.toLowerCase(), password })
-
+    console.log("data", data);
     if (data?.authenticateUserWithPassword.__typename != 'UserAuthenticationWithPasswordFailure') {
       window.location.href = '/dashboard'
     } else {
@@ -34,7 +34,7 @@ function Login() {
         title: 'Error logging in',
         description: 'Please check your username and password and try again.',
         isClosable: true,
-        duration: 5000
+        duration: 9000
       })
     }
   }
@@ -44,22 +44,8 @@ function Login() {
       <Stack spacing="8">
         <Stack spacing="6">
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center" alignItems={"center"}>
-            {login.data?.authenticateUserWithPassword?.__typename == 'UserAuthenticationWithPasswordFailure' ? (
-              <Alert status="error">
-                <AlertIcon />
-                <AlertTitle>{login.data?.authenticateUserWithPassword?.__typename == "UserAuthenticationWithPasswordFailure" ? "Login failed.  Please check your password" : "Error logging in"}</AlertTitle>
-              </Alert>
-            ) : null}
             <Logo />
             <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>Log in to your account</Heading>
-            <HStack spacing="1" justify="center">
-              <Text color="muted">Don't have a password yet?</Text>
-              <Link to="/forgot-password">
-                <Button variant="link" colorScheme="blue">
-                  Request Password
-                </Button>
-              </Link>
-            </HStack>
           </Stack>
         </Stack>
         <Box py={{ base: "0", sm: "8" }} px={{ base: "4", sm: "10" }} bg={useBreakpointValue({ base: "transparent", sm: "bg-surface" })} boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }} borderRadius={{ base: "none", sm: "xl" }}>
