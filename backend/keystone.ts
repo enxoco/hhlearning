@@ -1,6 +1,7 @@
 import { config } from "@keystone-6/core"
 import { session, withAuth } from "./auth"
 import { lists } from "./schema"
+import type { KeystoneContext } from '@keystone-6/core/types';
 
 import Hashids from 'hashids'
 import { runFullArchive } from "./routes/rest";
@@ -43,13 +44,22 @@ export default withAuth(
             }
           });
           res.json({status: 'success'})
-        })
+        }) 
         // This route should take an in a token and an email address.
         // The email address is used to send a notification when the archive process
         // has been completed.
         app.post("/rest/archive", async (req, res) => {
           
 
+        })
+        app.delete("/rest/course/all", async (req, res) => {
+          const context = (req as any).context as KeystoneContext;
+          const courseList = await context.query.Course.findMany()
+          for (const course of courseList) {
+            const { id } = course
+            await context.query.Course.deleteOne({where: { id }})
+          }
+          res.json({ status: "success" })
         })
       },
     },

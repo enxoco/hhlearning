@@ -11,10 +11,12 @@ var request = require('request');
 require("dotenv-safe").config()
 let portalUrl = process.env.PORTAL_URL
 export async function runFullArchive(req: Request, res: Response) {
-    if (req.body?.token == process.env.ADMIN_TOKEN) {
+  const context = (req as any).context as KeystoneContext;
+  console.log('context', context.session.itemId)
+  const user = await context.query.User.findOne({ where: { id: context.session.itemId }, query: `isAdmin`})
+  console.log("user", user)
+    if (user && user.isAdmin) {
 
-        const context = (req as any).context as KeystoneContext;
-        console.log('token matches')
         const students = await context.query.Student.findMany({
             query: `id, firstName`
         })
@@ -29,7 +31,7 @@ export async function runFullArchive(req: Request, res: Response) {
           for (const student of students){
             const id = hashids.encode(student.id)
             console.log('running archive')
-            await request(`${portalUrl}/print.php?student=${id}`, function (error, response) {
+            await request(`${portalUrl}/print.php?student=${id}`, function (error) {
               if (error) throw new Error(error);
               console.log('Running report');
             });

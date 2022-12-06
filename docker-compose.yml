@@ -64,6 +64,7 @@ services:
             - DANGEROUSLY_DISABLE_HOST_CHECK=true
             - HOST=0.0.0.0
     proxy:
+        container_name: proxy
         build: 
             context: .
             dockerfile: Dockerfile.proxy
