@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, AlertTitle, Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue, Image } from "@chakra-ui/react"
+import { Alert, AlertIcon, AlertTitle, Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Logo } from "../components/Logo"
@@ -12,7 +12,7 @@ function Login() {
   const [login, doLogin] = useLoginMutation()
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-
+  const toast = useToast()
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
   }
@@ -23,10 +23,19 @@ function Login() {
 
   async function handleLogin(e) {
     e.preventDefault()
-    const results = await doLogin({ email: email.toLowerCase(), password })
+    const { data } = await doLogin({ email: email.toLowerCase(), password })
 
-    if (results.data?.authenticateUserWithPassword?.item) {
+    if (data?.authenticateUserWithPassword.__typename != 'UserAuthenticationWithPasswordFailure') {
       window.location.href = '/dashboard'
+    } else {
+      toast({
+        position: 'top',
+        status: 'error',
+        title: 'Error logging in',
+        description: 'Please check your username and password and try again.',
+        isClosable: true,
+        duration: 5000
+      })
     }
   }
   
@@ -35,10 +44,10 @@ function Login() {
       <Stack spacing="8">
         <Stack spacing="6">
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center" alignItems={"center"}>
-            {login && login.data && login.data?.authenticateUserWithPassword?.message === "Authentication failed." ? (
+            {login.data?.authenticateUserWithPassword?.__typename == 'UserAuthenticationWithPasswordFailure' ? (
               <Alert status="error">
                 <AlertIcon />
-                <AlertTitle>{login.data?.authenticateUserWithPassword?.message === "Authentication failed." ? "Login failed.  Please check your password" : "Error logging in"}</AlertTitle>
+                <AlertTitle>{login.data?.authenticateUserWithPassword?.__typename == "UserAuthenticationWithPasswordFailure" ? "Login failed.  Please check your password" : "Error logging in"}</AlertTitle>
               </Alert>
             ) : null}
             <Logo />
@@ -64,7 +73,7 @@ function Login() {
                 <PasswordField onChange={handlePasswordChange} />
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultIsChecked>Remember me</Checkbox>
+                <Checkbox defaultChecked>Remember me</Checkbox>
                 <Link to="/forgot-password">
                   <Button variant="link" colorScheme="blue" size="sm">
                     Forgot password?
