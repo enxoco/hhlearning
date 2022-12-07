@@ -2,20 +2,22 @@ import { Button, HStack, IconButton, Stack, Tooltip, Modal, ModalOverlay, ModalC
 import { useMemo, useState } from "react"
 import { FiDownloadCloud, FiEdit2, FiTrash2 } from "react-icons/fi"
 import { Link } from "react-router-dom"
+import { useRecoilValue } from "recoil"
+import { loggedInUser } from "../../src/atom"
 
 import Layout from "../components/Layout"
 import StudentTable from "../components/StudentTable"
-import { useGetAllStudentsQuery, useDeleteStudentMutation, useUpdateStudentInfoMutation, useToggleStudentActiveStatusMutation } from "../generated/graphql"
+import { useGetAllStudentsQuery, useDeleteStudentMutation, useUpdateStudentInfoMutation, useToggleStudentActiveStatusMutation, useCheckLoginQuery } from "../generated/graphql"
 import { exportCSVFile } from "../utils/csvExport"
 
-const Students = ({ isFormer }: {isFormer: boolean}) => {
+const Students = ({ isFormer }: { isFormer: boolean }) => {
   const [studentData, getStudentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0, isFormer } })
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [studentId, setStudentId] = useState(null)
   const [studentName, setStudentName] = useState(null)
   const [deletedStudent, doDeleteStudent] = useDeleteStudentMutation()
   const [, toggleActiveStudent] = useToggleStudentActiveStatusMutation()
-
+  const isLoggedIn = useRecoilValue(loggedInUser)
   const showDeleteModal = (id, name) => {
     setStudentId(id)
     setStudentName(name)
@@ -23,7 +25,7 @@ const Students = ({ isFormer }: {isFormer: boolean}) => {
   }
 
   const handleDeleteStudent = () => {
-    doDeleteStudent({id: studentId})
+    doDeleteStudent({ id: studentId })
     onClose()
   }
   const columns = useMemo(
@@ -75,28 +77,30 @@ const Students = ({ isFormer }: {isFormer: boolean}) => {
             // Use Cell to render an expander for each row.
             // We can use the getToggleRowExpandedProps prop-getter
             // to build the expander.
-              <HStack spacing="1" key={row.values.id} data-key={row.values.id}>
-                <Link to={`/student/${row.values.id}`}>
-                  <Tooltip label="Manage courses">
-                    <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
-                  </Tooltip>
-                </Link>
-  
-                <Tooltip label="Delete student">
-                  <IconButton icon={<FiTrash2 fontSize="1.25rem" />} variant="ghost" aria-label="Delete Student" onClick={() => showDeleteModal(row.values.id, row.values.name)} />
+            <HStack spacing="1" key={row.values.id} data-key={row.values.id}>
+              <Link to={`/student/${row.values.id}`}>
+                <Tooltip label="Manage courses">
+                  <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
                 </Tooltip>
+              </Link>
+
+              <Tooltip label="Delete student">
+                <IconButton icon={<FiTrash2 fontSize="1.25rem" />} variant="ghost" aria-label="Delete Student" onClick={() => showDeleteModal(row.values.id, row.values.name)} />
+              </Tooltip>
+              {isLoggedIn.isAdmin && (
                 <FormControl display="flex" alignItems="center">
                   <FormLabel htmlFor="studentStatus">Active</FormLabel>
 
-                    <Switch id="studentStatus" isChecked={row.values.isFormer === false} key={row.values.id} onChange={(e) => {
-                      row.values.isFormer = !row.values.isFormer
-                      toggleActiveStudent({ id: row.values.id, isFormer: row.values.isFormer });
-                      getStudentData();
-                    }}></Switch>
-  
+                  <Switch id="studentStatus" isChecked={row.values.isFormer === false} key={row.values.id} onChange={(e) => {
+                    row.values.isFormer = !row.values.isFormer
+                    toggleActiveStudent({ id: row.values.id, isFormer: row.values.isFormer });
+                    getStudentData();
+                  }}></Switch>
+
                 </FormControl>
-  
-              </HStack>
+              )}
+
+            </HStack>
           )
         },
       },
@@ -105,7 +109,7 @@ const Students = ({ isFormer }: {isFormer: boolean}) => {
   )
 
   const tableId = () => {
-    switch(isFormer){
+    switch (isFormer) {
       case true:
         return 'inactive'
         break
