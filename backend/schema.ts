@@ -1,7 +1,7 @@
 import { Lists } from ".keystone/types"
 import { graphql } from "@graphql-ts/schema"
 import { list } from "@keystone-6/core"
-import { relationship, text, virtual } from "@keystone-6/core/fields"
+import { checkbox, relationship, text, virtual } from "@keystone-6/core/fields"
 import { KeystoneContext } from "@keystone-6/core/types"
 import User from "./schema/User"
 import Hashids from 'hashids'
@@ -34,6 +34,7 @@ export const lists: Lists = {
     },
     fields: {
       parent: relationship({ ref: "User.student", many: false }),
+      isFormer: checkbox({ defaultValue: false }),
       myCourses: virtual({
         field: graphql.field({
           type: graphql.String,

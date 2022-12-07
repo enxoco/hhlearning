@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
     readonly REACT_APP_SALT: string
     readonly REACT_APP_SALT_LENGTH: number
+    readonly VITE_APP_SALT: string
+    readonly VITE_APP_SALT_LENGTH: number
     // more env variables...
   }
   

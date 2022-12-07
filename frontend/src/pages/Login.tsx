@@ -23,7 +23,7 @@ function Login() {
 
   async function handleLogin(e) {
     e.preventDefault()
-    const { data } = await doLogin({ email: email.toLowerCase(), password })
+    const { data } = await doLogin({ email: email.toLocaleLowerCase(), password })
     console.log("data", data);
     if (data?.authenticateUserWithPassword.__typename != 'UserAuthenticationWithPasswordFailure') {
       window.location.href = '/dashboard'

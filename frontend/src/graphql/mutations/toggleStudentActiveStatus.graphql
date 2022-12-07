@@ -1,0 +1,7 @@
+mutation ToggleStudentActiveStatus($id: ID!, $isFormer: Boolean!){
+  updateStudent(where: {id: $id}, data: {isFormer: $isFormer}) {
+    id
+    isFormer
+    firstName
+  }
+}

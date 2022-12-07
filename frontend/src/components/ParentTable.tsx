@@ -106,7 +106,7 @@ function ParentTable({ columns, data }) {
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
+            <Tr {...headerGroup.getHeaderGroupProps()} data-test={"test"}>
               {headerGroup.headers.map((column) => {
                 return (
                   <Th {...column.getHeaderProps()}>
@@ -129,7 +129,7 @@ function ParentTable({ columns, data }) {
           {page.map((row) => {
             prepareRow(row)
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr {...row.getRowProps()} key={row.values.id} data-id={row.values.id}>
                 {row.cells.map((cell) => {
                   return (
                     <Td {...cell.getCellProps()}>

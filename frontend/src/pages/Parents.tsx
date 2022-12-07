@@ -1,4 +1,4 @@
-import { HStack, IconButton, Skeleton, Stack, Switch, Text, Tooltip, useToast, Link } from "@chakra-ui/react"
+import { HStack, IconButton, Stack, Switch, Text, Tooltip, useToast, Link, Skeleton, Heading, Box } from "@chakra-ui/react"
 import { useMemo, useState } from "react"
 import { FiLogIn, FiSend } from "react-icons/fi"
 import { useRecoilState } from "recoil"
@@ -16,6 +16,7 @@ function Parents () {
   const [, setUser] = useRecoilState(loggedInUser)
   const [, fetchPasswordReset] = useForgotPasswordMutation()
   const toast = useToast()
+  const initialData = [{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]},{name: "", firstName: "", lastName: "", email: "", student: [{firstName: "", lastName: ""}]}]
   
   const handleSendPortalLink = async (id, email) => {
     (async () => {
@@ -56,7 +57,7 @@ function Parents () {
     doPauseQuery(true)
     setTuitionStatus({
       id: parent.id,
-      hasPaid: !parent.hasPaidTuition,
+      hasPaid: e.target.checked,
     })
   }
   async function impersonate(member) {
@@ -92,7 +93,7 @@ function Parents () {
         Header: "Students",
         accessor: "student",
         Cell: ({ row }) => (
-          <Text>
+          <Text key={row.values.id}>
             {row.values.student.map((student, index) => (
               <>
                 {student.firstName}
@@ -113,7 +114,7 @@ function Parents () {
           // We can use the getToggleRowExpandedProps prop-getter
           // to build the expander.
           <>
-            <HStack>
+            <HStack key={row.values.id}>
               {/* <Tooltip label="Manage courses">
                 <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
               </Tooltip> */}
@@ -136,12 +137,12 @@ function Parents () {
           // Use Cell to render an expander for each row.
           // We can use the getToggleRowExpandedProps prop-getter
           // to build the expander.
-          <>
+          <Box key={row.values.id}>
             <Switch defaultChecked={row.values.hasPaidTuition} onChange={(e) => {
-              
-              toggleTuitionStatus(e, row.values)
+              console.log("row", row.values)
+              setTuitionStatus({id: row.values.id, hasPaid: e.target.checked})
             }} />
-          </>
+          </Box>
         ),
       },
     ],
@@ -151,9 +152,10 @@ function Parents () {
   return (
     <Layout customTitle="All Parents" description="">
       <Stack spacing="5">
-        <Skeleton isLoaded={studentData.data.users.length != 0}>
-          <ParentTable columns={columns} data={studentData?.data?.users || []} />
-        </Skeleton>
+        {studentData.fetching && (
+            <Heading size="sm">Loading...</Heading>
+        )}
+          <ParentTable columns={columns} data={studentData.data?.users || initialData} />
       </Stack>
     </Layout>
   )

@@ -49,17 +49,24 @@ export const Sidebar = () => {
                   }
                 />
               </Link>
-              {me?.data?.authenticatedItem?.isParent ? null : (
                 <Link to="/students">
                   <NavButton
-                    label="All Students"
+                    label="Current Students"
                     icon={FiUsers}
                     aria-current={
                       location.pathname === "/students" ? "page" : null
                     }
                   />
                 </Link>
-              )}
+                <Link to="/former-students">
+                  <NavButton
+                    label="Former Students"
+                    icon={FiUsers}
+                    aria-current={
+                      location.pathname === "/former-students" ? "page" : null
+                    }
+                  />
+                </Link>
               {me?.data?.authenticatedItem ? (
                 <>
                   <Link to={`/students/${me?.data?.authenticatedItem?.id}`}>

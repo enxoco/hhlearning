@@ -85,7 +85,7 @@ function StudentTable({ columns, data }) {
 
   // Use the state and functions returned from useTable to build your UI
   const initialState = {
-    hiddenColumns: ["portalId", "id", "firstName", "lastName"],
+    hiddenColumns: ["isFormer", "portalId", "id", "firstName", "lastName"],
   };
   const {
     getTableProps,
@@ -156,7 +156,7 @@ function StudentTable({ columns, data }) {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr data-key={row.values.id} key={row.values.id} {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
                     <Td {...cell.getCellProps()}>

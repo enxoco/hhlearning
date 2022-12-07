@@ -4,7 +4,6 @@ import { useState, useRef } from 'react'
 import {useRecoilState} from 'recoil'
 import {showNewCourseCard} from '../atom'
 import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '../generated/graphql'
-import { hashids } from "../utils/hashids"
 
 const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherName}) => {
 
@@ -41,7 +40,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
             grade: courseGrade,
             feedback: courseFeedback,
             teacher: +teacher,
-            id: +id
+            id: id
         })
         setNewCourse(false)
         addToast(courseName)
@@ -52,7 +51,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
             name: courseName,
             grade: courseGrade,
             feedback: courseFeedback,
-            student: +hashids.decode(student)[0],
+            student,
             teacher: +teacher
         })
         setNewCourse(false)

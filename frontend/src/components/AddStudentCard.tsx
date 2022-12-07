@@ -1,16 +1,12 @@
-import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Input, Stack, Text, Textarea, useColorModeValue, useToast } from "@chakra-ui/react"
+import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, Input, Stack, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
-import { useBulkAddStudentsMutation, useCreateStudentMutation, useUpdateStudentInfoMutation } from "../generated/graphql"
+import { useCreateStudentMutation, useUpdateStudentInfoMutation } from "../generated/graphql"
 import {useParams} from 'react-router-dom'
-import { hashids } from "../utils/hashids"
 
 const AddStudentCard = ({student}) => {
 
   const [firstName, setFirstName] = useState(student?.firstName || null)
   const [lastName, setLastName] = useState(student?.lastName || null)
-
-  const [bulkNames, setBulkNames] = useState([])
-  const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation()
   const [{ data, error }, addStudent] = useCreateStudentMutation()
   const [updatedStudentInfo, updateStudentInfo] = useUpdateStudentInfoMutation()
   let { id } = useParams()
@@ -34,10 +30,11 @@ const AddStudentCard = ({student}) => {
 
     } else {
         updateStudentInfo({
-            id: hashids.decode(id)[0].toString(),
-            firstName: firstName,
-            lastName: lastName,
-          })
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          isFormer: false
+        })
     }
     toast({
       title: 'Success',

@@ -1,5 +1,5 @@
-mutation UpdateStudentInfo($id: ID!, $firstName: String!, $lastName: String!) {
-  updateStudent(where: {id: $id}, data: {firstName: $firstName, lastName: $lastName}){
+mutation UpdateStudentInfo($id: ID!, $firstName: String!, $lastName: String!, $isFormer: Boolean!) {
+  updateStudent(where: {id: $id}, data: {firstName: $firstName, lastName: $lastName, isFormer: $isFormer}){
     __typename
     id
   }

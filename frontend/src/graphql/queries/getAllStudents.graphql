@@ -1,10 +1,11 @@
-query GetAllStudents($limit: Int!, $offset: Int!) {
-    students(take: $limit, skip: $offset, orderBy: {lastName: asc}) {
+query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!) {
+    students(take: $limit, skip: $offset, orderBy: {lastName: asc}, where: { isFormer: { equals: $isFormer } }) {
         __typename
         id
         name
         firstName
         lastName
         portalId
+        isFormer
     }
 }

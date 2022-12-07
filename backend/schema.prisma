@@ -55,6 +55,7 @@ model Student {
   id        Int      @id @default(autoincrement())
   parent    User?    @relation("Student_parent", fields: [parentId], references: [id])
   parentId  Int?     @map("parent")
+  isFormer  Boolean  @default(false)
   firstName String   @default("")
   lastName  String   @default("")
   courses   Course[] @relation("Course_student")

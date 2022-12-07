@@ -9,7 +9,6 @@ import AddStudentCard from "../components/AddStudentCard"
 import EditStudentCard from "../components/EditCourseCard"
 import Layout from "../components/Layout"
 import { useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "../generated/graphql"
-import { hashids } from "../utils/hashids"
 
 export default function EditStudent() {
   let { id } = useParams()
@@ -19,13 +18,14 @@ export default function EditStudent() {
   // If we are reloading page then we have no state
   const [{ data: coursesData, error, fetching }, getCourses] = useGetCoursesByStudentAndTeacherQuery({
     variables: {
-      studentId: String(hashids.decode(id)[0]),
+      studentId: id,
       teacherId: user.id,
     },
+    pause: !id,
     requestPolicy: 'network-only'
   })
 
-  const [studentData] = useGetStudentQuery({ variables: { id: String(hashids.decode(id)[0]) } })
+  const [studentData] = useGetStudentQuery({ variables: { id: id }, pause: !id})
   const [newCourse, setNewCourse] = useRecoilState(showNewCourseCardAtom)
 
   const [impersonatedUser] = useRecoilState(impersonateUser)
@@ -51,8 +51,8 @@ export default function EditStudent() {
           </Button>
 
           {user?.isAdmin || impersonatedUser ? (
-            <Tooltip label={`View full report card for ${studentData.data?.student.firstName || "student"}`}>
-              <ChakraLink href={`${import.meta.env.DEV ? "http://localhost:8081" : ""}/print.php?student=${id}`} data-action="view-report" target="_blank">
+            <Tooltip label={`View full report card for ${studentData.data?.student?.firstName || "student"}`}>
+              <ChakraLink href={`${import.meta.env.DEV ? "http://localhost:8081" : ""}/print.php?student=${studentData.data?.student?.portalId}`} data-action="view-report" target="_blank">
                 <Button variant="outline">View report card</Button>
               </ChakraLink>
             </Tooltip>
@@ -76,7 +76,7 @@ export default function EditStudent() {
           {!newCourse ? null : <EditStudentCard name={null} grade={null} feedback={null} id={null} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} />}
 
           {
-            coursesData?.courses.map((course) => (
+            coursesData?.courses?.map((course) => (
               <EditStudentCard key={course.id} name={course.name} grade={course.grade} id={course.id} student={id} teacher={impersonatedUser?.id || user.id} teacherName={impersonatedUser?.name || user.name} feedback={course.feedback} />
             ))
           }

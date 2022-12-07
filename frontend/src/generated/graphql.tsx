@@ -991,6 +991,7 @@ export type Student = {
   coursesCount?: Maybe<Scalars['Int']>;
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  isFormer?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   myCourses?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -1014,6 +1015,7 @@ export type StudentCoursesCountArgs = {
 export type StudentCreateInput = {
   courses?: InputMaybe<CourseRelateToManyForCreateInput>;
   firstName?: InputMaybe<Scalars['String']>;
+  isFormer?: InputMaybe<Scalars['Boolean']>;
   lastName?: InputMaybe<Scalars['String']>;
   parent?: InputMaybe<UserRelateToOneForCreateInput>;
 };
@@ -1027,6 +1029,7 @@ export type StudentManyRelationFilter = {
 export type StudentOrderByInput = {
   firstName?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+  isFormer?: InputMaybe<OrderDirection>;
   lastName?: InputMaybe<OrderDirection>;
 };
 
@@ -1061,6 +1064,7 @@ export type StudentUpdateArgs = {
 export type StudentUpdateInput = {
   courses?: InputMaybe<CourseRelateToManyForUpdateInput>;
   firstName?: InputMaybe<Scalars['String']>;
+  isFormer?: InputMaybe<Scalars['Boolean']>;
   lastName?: InputMaybe<Scalars['String']>;
   parent?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
@@ -1072,6 +1076,7 @@ export type StudentWhereInput = {
   courses?: InputMaybe<CourseManyRelationFilter>;
   firstName?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
+  isFormer?: InputMaybe<BooleanFilter>;
   lastName?: InputMaybe<StringFilter>;
   parent?: InputMaybe<UserWhereInput>;
 };
@@ -1360,6 +1365,7 @@ export type UpdateStudentInfoMutationVariables = Exact<{
   id: Scalars['ID'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  isFormer: Scalars['Boolean'];
 }>;
 
 
@@ -1427,6 +1433,14 @@ export type TogglePaidTuitionMutationVariables = Exact<{
 
 export type TogglePaidTuitionMutation = { __typename?: 'Mutation', updateUser?: { __typename: 'User', id: string } | null };
 
+export type ToggleStudentActiveStatusMutationVariables = Exact<{
+  id: Scalars['ID'];
+  isFormer: Scalars['Boolean'];
+}>;
+
+
+export type ToggleStudentActiveStatusMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string, isFormer?: boolean | null, firstName?: string | null } | null };
+
 export type UpdateCourseMutationVariables = Exact<{
   name: Scalars['String'];
   grade: Scalars['String'];
@@ -1493,10 +1507,11 @@ export type GetAllParentsQuery = { __typename?: 'Query', users?: Array<{ __typen
 export type GetAllStudentsQueryVariables = Exact<{
   limit: Scalars['Int'];
   offset: Scalars['Int'];
+  isFormer: Scalars['Boolean'];
 }>;
 
 
-export type GetAllStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null }> | null };
+export type GetAllStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, isFormer?: boolean | null }> | null };
 
 export type GetAllTeachersQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -1569,7 +1584,9 @@ export type SearchStudentsByNameCountQueryVariables = Exact<{
 
 export type SearchStudentsByNameCountQuery = { __typename?: 'Query', studentsCount?: number | null };
 
-export type StudentsCountQueryVariables = Exact<{ [key: string]: never; }>;
+export type StudentsCountQueryVariables = Exact<{
+  isFormer: Scalars['Boolean'];
+}>;
 
 
 export type StudentsCountQuery = { __typename?: 'Query', studentsCount?: number | null };
@@ -1661,10 +1678,10 @@ export function useDeleteTeacherMutation() {
   return Urql.useMutation<DeleteTeacherMutation, DeleteTeacherMutationVariables>(DeleteTeacherDocument);
 };
 export const UpdateStudentInfoDocument = gql`
-    mutation UpdateStudentInfo($id: ID!, $firstName: String!, $lastName: String!) {
+    mutation UpdateStudentInfo($id: ID!, $firstName: String!, $lastName: String!, $isFormer: Boolean!) {
   updateStudent(
     where: {id: $id}
-    data: {firstName: $firstName, lastName: $lastName}
+    data: {firstName: $firstName, lastName: $lastName, isFormer: $isFormer}
   ) {
     __typename
     id
@@ -1789,6 +1806,19 @@ export const TogglePaidTuitionDocument = gql`
 
 export function useTogglePaidTuitionMutation() {
   return Urql.useMutation<TogglePaidTuitionMutation, TogglePaidTuitionMutationVariables>(TogglePaidTuitionDocument);
+};
+export const ToggleStudentActiveStatusDocument = gql`
+    mutation ToggleStudentActiveStatus($id: ID!, $isFormer: Boolean!) {
+  updateStudent(where: {id: $id}, data: {isFormer: $isFormer}) {
+    id
+    isFormer
+    firstName
+  }
+}
+    `;
+
+export function useToggleStudentActiveStatusMutation() {
+  return Urql.useMutation<ToggleStudentActiveStatusMutation, ToggleStudentActiveStatusMutationVariables>(ToggleStudentActiveStatusDocument);
 };
 export const UpdateCourseDocument = gql`
     mutation UpdateCourse($name: String!, $grade: String!, $id: ID, $feedback: String!) {
@@ -1945,14 +1975,20 @@ export function useGetAllParentsQuery(options?: Omit<Urql.UseQueryArgs<GetAllPar
   return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
 };
 export const GetAllStudentsDocument = gql`
-    query GetAllStudents($limit: Int!, $offset: Int!) {
-  students(take: $limit, skip: $offset, orderBy: {lastName: asc}) {
+    query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!) {
+  students(
+    take: $limit
+    skip: $offset
+    orderBy: {lastName: asc}
+    where: {isFormer: {equals: $isFormer}}
+  ) {
     __typename
     id
     name
     firstName
     lastName
     portalId
+    isFormer
   }
 }
     `;
@@ -2117,11 +2153,11 @@ export function useSearchStudentsByNameCountQuery(options: Omit<Urql.UseQueryArg
   return Urql.useQuery<SearchStudentsByNameCountQuery, SearchStudentsByNameCountQueryVariables>({ query: SearchStudentsByNameCountDocument, ...options });
 };
 export const StudentsCountDocument = gql`
-    query StudentsCount {
-  studentsCount
+    query StudentsCount($isFormer: Boolean!) {
+  studentsCount(where: {isFormer: {equals: $isFormer}})
 }
     `;
 
-export function useStudentsCountQuery(options?: Omit<Urql.UseQueryArgs<StudentsCountQueryVariables>, 'query'>) {
+export function useStudentsCountQuery(options: Omit<Urql.UseQueryArgs<StudentsCountQueryVariables>, 'query'>) {
   return Urql.useQuery<StudentsCountQuery, StudentsCountQueryVariables>({ query: StudentsCountDocument, ...options });
 };

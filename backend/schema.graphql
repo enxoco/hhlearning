@@ -403,6 +403,7 @@ input StudentRelateToManyForCreateInput {
 type Student {
   id: ID!
   parent: User
+  isFormer: Boolean
   myCourses: String
   name: String
   firstName: String
@@ -427,6 +428,7 @@ input StudentWhereInput {
   NOT: [StudentWhereInput!]
   id: IDFilter
   parent: UserWhereInput
+  isFormer: BooleanFilter
   firstName: StringFilter
   lastName: StringFilter
   courses: CourseManyRelationFilter
@@ -434,12 +436,14 @@ input StudentWhereInput {
 
 input StudentOrderByInput {
   id: OrderDirection
+  isFormer: OrderDirection
   firstName: OrderDirection
   lastName: OrderDirection
 }
 
 input StudentUpdateInput {
   parent: UserRelateToOneForUpdateInput
+  isFormer: Boolean
   firstName: String
   lastName: String
   courses: CourseRelateToManyForUpdateInput
@@ -458,6 +462,7 @@ input StudentUpdateArgs {
 
 input StudentCreateInput {
   parent: UserRelateToOneForCreateInput
+  isFormer: Boolean
   firstName: String
   lastName: String
   courses: CourseRelateToManyForCreateInput
