@@ -116,7 +116,7 @@ function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly
   // the application
   if (!user) {
     return (<></>)
-  } else if (adminOnly) {
+  } else if (adminOnly && !user.isAdmin) {
     return (<Dashboard />)
   }
   return children
