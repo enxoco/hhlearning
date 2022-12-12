@@ -1,81 +1,49 @@
-import { Box, Button, Divider, HStack, IconButton, Skeleton, Stack, Text, Tooltip } from "@chakra-ui/react"
-import { useEffect, useMemo } from "react"
-import { FiDownloadCloud, FiEdit2 } from "react-icons/fi"
+import { Box, Button, Divider, Flex, HStack, IconButton, Input, List, ListItem, Stack, Text, Tooltip } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { FiArrowDown, FiArrowUp, FiDownloadCloud, FiEdit2 } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { loggedInUser as loggedInUserAtom, students as studentAtom } from "../atom"
 import { Card } from "../components/Card"
 import Layout from "../components/Layout"
-import SimpleTable from "../components/SimpleTable"
-import StudentTable from "../components/StudentTable"
 import { useGetMyStudentsQuery, useGetStudentsByParentQuery } from "../generated/graphql"
 import { exportCSVFile } from "../utils/csvExport"
-import dynamicSort from "../utils/dynamicSort"
-import { hashids } from "../utils/hashids"
 
 const MyStudents = () => {
-  const [students, setStudents] = useRecoilState(studentAtom)
   const [loggedInUser] = useRecoilState(loggedInUserAtom)
-  const [studentData] = useGetMyStudentsQuery({ variables: { id: loggedInUser?.id } })
+  const [{ data: students }] = useGetMyStudentsQuery({ variables: { teacherId: loggedInUser?.id } })
+  const [searchResults, setSearchResults] = useState([]);
+  const [sortDirection, setSortDirection] = useState<"ASC" | "DESC">("ASC");
+  const handleStudentSearch = (e) => {
+    setSearchResults(students.students.filter((student) => student.name.toLowerCase().includes(e.target.value.toLowerCase())))
+  }
+  const handleSortDirection = () => {
+    if (sortDirection == "ASC") {
+      setSortDirection("DESC")
+    } else {
+      setSortDirection("ASC")
+    }
+    setSearchResults(searchResults.sort((a, b) => {
+      switch(sortDirection) {
+        case "ASC":
+          if (a.lastName < b.lastName) {
+            return -1;
+          } else {
+            return 1;
+          }
+        case "DESC":
+        if (a.lastName > b.lastName) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    }))
+  }
 
   useEffect(() => {
-    if (studentData && studentData.data && studentData.data.user.students) {
-      const studentArr = JSON.parse(studentData.data.user.students)
-        .sort(dynamicSort("firstName"))
-        .filter((v, i, a) => a.findIndex((v2) => v2.id === v.id) === i)
-
-      setStudents(studentArr)
-    }
-  }, [studentData.fetching])
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: () => null,
-        accessor: "id",
-      },
-      {
-        Header: () => null,
-        accessor: "portalId"
-      },
-      {
-        Header: () => null,
-        accessor: "firstName",
-      },
-      {
-        Header: () => null,
-        accessor: "lastName",
-        filter: "fuzzyText",
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-        filter: "fuzzyText",
-      },
-      {
-        Header: () => null,
-        id: "actions",
-        filter: null,
-        isSorted: true,
-        Cell: ({ row }) => (
-          // Use Cell to render an expander for each row.
-          // We can use the getToggleRowExpandedProps prop-getter
-          // to build the expander.
-          <>
-            <HStack spacing="1">
-              <Link to={`/student/${row.values.portalId}`}>
-                <Tooltip label="Manage courses">
-                  <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
-                </Tooltip>
-              </Link>
-            </HStack>
-          </>
-        ),
-      },
-    ],
-    []
-  )
-
+    setSearchResults(students?.students)
+  }, [students?.students])
   const handleExport = () => {
     var headers = {
       id: "Id", // remove commas to avoid errors
@@ -86,7 +54,7 @@ const MyStudents = () => {
     var itemsFormatted = []
 
     // format the data
-    students.forEach((item) => {
+    students?.students.forEach((item) => {
       itemsFormatted.push({
         id: item.id, // remove commas to avoid errors,
         portalId: item.portalId,
@@ -111,25 +79,43 @@ const MyStudents = () => {
       )}
 
       <Stack spacing="5">
-          <Box overflowX="auto">
-            {!students?.length ? (
-              <Card display={"flex"} justifyContent="center" alignItems={"center"} flexDir="column">
-                <Text size="lg">You don't appear to have any grades entered yet.</Text>
-                <Divider w="50%" my={10} />
-                <Text>
-                  To start entering grades, click
-                  <Button variant={"link"}>
-                    <Link to="/students">
-                      {" "}
-                      here
-                    </Link>{" "}
-                  </Button>
-                </Text>
-              </Card>
-            ) : (
-              <StudentTable data={students} columns={columns} />
-            )}
-          </Box>
+        <Box overflowX="auto">
+          {!students?.students.length ? (
+            <Card display={"flex"} justifyContent="center" alignItems={"center"} flexDir="column">
+              <Text size="lg">You don't appear to have any grades entered yet.</Text>
+              <Divider w="50%" my={10} />
+              <Text>
+                To start entering grades, click
+                <Button variant={"link"}>
+                  <Link to="/students">
+                    {" "}
+                    here
+                  </Link>{" "}
+                </Button>
+              </Text>
+            </Card>
+          ) : (
+            <List maxWidth="500px">
+              <Flex>
+              <Input placeholder="Search students" onChange={handleStudentSearch} mb={5} mr={5} />
+              <IconButton aria-label="Sort Students" icon={sortDirection == "DESC" ? <FiArrowDown /> : <FiArrowUp />} onClick={handleSortDirection}>Sort</IconButton>
+              </Flex>
+
+              {searchResults?.map((student) => (
+                <ListItem background="white" p={5} borderBottom="1px solid #f5f5f5" key={student.id}>
+                  <Flex alignItems="center" justifyContent="space-between">
+                    <Box mr={10}>{student.name}</Box>
+                    <Link to={`/student/${student.id}`}>
+                      <Tooltip label="Manage courses">
+                        <IconButton icon={<FiEdit2 fontSize="1.25rem" />} variant="ghost" aria-label="Edit Course" />
+                      </Tooltip>
+                    </Link>
+                  </Flex>
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </Box>
       </Stack>
     </Layout>
   )

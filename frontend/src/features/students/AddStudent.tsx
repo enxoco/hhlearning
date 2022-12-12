@@ -1,15 +1,16 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Stack, Text, Textarea, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
-import AddStudentCard from "../components/AddStudentCard"
-import Layout from "../components/Layout"
-import { useBulkAddStudentsMutation } from "../generated/graphql"
+import AddStudentCard from "#/components/AddStudentCard"
+import Layout from "#/components/Layout"
+import { useBulkAddStudentsMutation } from "#/generated/graphql"
+import { useNavigate } from "react-router-dom"
 
 const AddStudent = () => {
 
-  const [bulkNames, setBulkNames] = useState<string>("")
-  const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation()
-
+  const [bulkNames, setBulkNames] = useState<string>("");
+  const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation();
+  const navigate = useNavigate();
 
   const handleBulkNameUpdate = (e) => {
     setBulkNames(e.target.value)
@@ -30,10 +31,10 @@ const AddStudent = () => {
     <Layout customTitle="Students">
       <Stack spacing="4" direction={{ base: "column", lg: "row" }} justify="space-between" align={{ base: "start", lg: "center" }}>
         <HStack spacing="3">
+          <Button colorScheme="blue" onClick={() => navigate(-1)}>Back</Button>
           <Button variant="secondary" leftIcon={<FiDownloadCloud fontSize="1.25rem" />}>
             Export
           </Button>
-          <Button variant="primary">Create</Button>
         </HStack>
       </Stack>
 

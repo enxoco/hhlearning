@@ -1,18 +1,15 @@
-import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue, Link } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
 import { Stat } from "../components/Stat"
-import { Link } from "react-router-dom"
 import { useGetMyCoursesCountByTeacherQuery, useStudentsCountQuery, useTotalCourseCountQuery } from "../generated/graphql"
-import { hashids } from "../utils/hashids"
 const Dashboard = () => {
-  const [studentCountQuery] = useStudentsCountQuery({variables: {isFormer: false}})
+  const [studentCountQuery] = useStudentsCountQuery({ variables: { isFormer: false } })
   const [user] = useRecoilState(loggedInUser)
   const [id] = useState(null)
   const [courseCount] = useGetMyCoursesCountByTeacherQuery({ pause: !id, variables: { id } })
-
   const [totalCourses] = useTotalCourseCountQuery()
   return (
     <Layout customTitle="Dashboard" description={`Hilger Online ${user?.isParent ? 'Parent' : 'Grading'} portal`}>
@@ -33,38 +30,24 @@ const Dashboard = () => {
               Welcome to the Hilger {user?.isParent ? 'Parent' : 'Grading'} Portal
             </Text>
             <Text color="muted" fontSize="sm"></Text> <Divider my={10} height={50} />
-            {!user?.isParent ? (
-              <Flex pt={10} alignItems="center" justifyContent="center">
-                <Button mr={10} variant="primary">
-                  <Link to="/students">View All Students</Link>
+            <Flex pt={10} alignItems="center" justifyContent="center">
+              
+                <Link href="/students">
+                <Button mr={10} variant="primary">View All Students
                 </Button>
-                {courseCount.data?.coursesCount == 0 ? null : (
-                  <Tooltip label="Only show students you have entered grades for">
-                    <Button mr={10}>
-                      <Link to={`/students/${user ? hashids.encode(user.id) : null}`}>View My Students</Link>
-                    </Button>
-                  </Tooltip>
-                )}
-              </Flex>
-            ) : (// Information to be displayed to parents
-              <Flex pt={10} alignItems="center" justifyContent="center">
-                <Tooltip label="View the directory of families">
-                  <Button mr={10} variant="primary">
-                    <Link to="https://docs.google.com/spreadsheets/d/1pyBrSRwzuafzCzWE0IrwnxoREcq0ZrZNVlGmMUEFe9k/edit?usp=sharing" target={"_blank"}>Directory of Families</Link>
+                </Link>
+              
+              {courseCount.data?.coursesCount == 0 ? null : (
+                <Tooltip label="Only show students you have entered grades for">
+                  <Link href={`/students/${user.id ?? null}`}>
+                  <Button mr={10} >
+                    View My Students
                   </Button>
+                  </Link>
                 </Tooltip>
-                <Tooltip label="View the directory of faculty and staff">
-                  <Button mr={10} variant="primary">
-                    <Link to="https://docs.google.com/document/d/1IqfidHQFjfLJQB7hqRKDhb95vL2w1AySRoGmG1aJjX4/edit?usp=sharing" target={"_blank"}>Directory of Faculty and Staff</Link>
-                  </Button>
-                </Tooltip>
-                <Tooltip label="View my students">
-                  <Button mr={10} variant="primary">
-                    <Link to={`/students/${user ? hashids.encode(user.id) : null}`} data-action="view-my-students">View My Students</Link>
-                  </Button>
-                </Tooltip>
-              </Flex>
-            )}
+              )}
+            </Flex>
+
           </Stack>
         </Box>
       </Box>

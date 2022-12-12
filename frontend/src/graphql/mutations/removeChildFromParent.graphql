@@ -1,0 +1,8 @@
+mutation RemoveChildFromParent($studentId: ID!) {
+  updateStudent(
+    where: { id: $studentId }
+    data: { parent: { disconnect: true }}
+  ) {
+    id
+  }
+}

@@ -51,9 +51,9 @@ export const parents = atom<User[] | null>({
 })
 
 
-export const students = atom<Student[] | null>({
+export const students = atom<Student[] | string[]>({
   key: "students",
-  default: null,
+  default: [],
 })
 
 export const searchTerm = atom<string>({

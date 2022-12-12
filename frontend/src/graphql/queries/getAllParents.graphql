@@ -4,12 +4,6 @@ query GetAllParents{
     firstName
     lastName
     email
-    phoneMother
-    phoneFather
-    street
-    city
-    state
-    zipcode
     hasPaidTuition
     id
     portalId

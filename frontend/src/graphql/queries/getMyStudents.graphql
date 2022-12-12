@@ -1,9 +1,15 @@
-query GetMyStudents($id: ID!) {
-    user(where: {id: $id}) {
-        __typename
-        name
-        students
-        id
-        portalId
+query GetMyStudents($teacherId: ID!){
+  students(
+    where: { courses: { some: { teacher: { id: { equals: $teacherId } } } } }
+  ) {
+    id
+    name
+    firstName
+    lastName
+    portalId
+    courses {
+      id
+      name
     }
+  }
 }

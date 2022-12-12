@@ -1,5 +1,5 @@
 query CoursesByStudent($studentId: ID!){
-  courses(where: {student: {id: {equals: $studentId}}}, orderBy: {name: asc}) {
+  courses(where: {student: {id: {equals: $studentId}}}, orderBy: {id: asc}) {
     __typename
     name
     grade

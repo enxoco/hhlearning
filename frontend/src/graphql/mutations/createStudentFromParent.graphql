@@ -1,0 +1,6 @@
+mutation CreateRelatedStudent($parentId: ID!, $firstName: String!, $lastName: String!) {
+	createStudent(data: { firstName: $firstName, lastName: $lastName, parent: { connect: {id: $parentId }}}) {
+    id
+    portalId
+  }
+}

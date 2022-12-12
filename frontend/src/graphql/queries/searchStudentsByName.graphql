@@ -3,7 +3,7 @@ query SearchStudentsByNamePaginated($search: String!, $limit: Int!, $offset: Int
     {firstName: {contains: $search, mode: insensitive}},
     {lastName: {contains: $search, mode: insensitive}},
   ]},
-  take: $limit, skip:$offset) {
+  take: $limit, skip:$offset, orderBy: {lastName: asc}) {
     __typename
     id
     firstName

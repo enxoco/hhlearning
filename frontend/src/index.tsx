@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from "r
 import { RecoilRoot } from "recoil"
 import { createClient, Provider } from "urql"
 import "./index.css"
-import AddStudent from "./pages/AddStudent"
+import AddStudent from "./features/students/AddStudent"
 import AddTeacher from "./pages/AddTeacher"
 import ForgotPassword from "./pages/auth/ForgotPassword"
 import ResetPassword from "./pages/auth/ResetPassword"
@@ -16,11 +16,11 @@ import Dashboard from "./pages/Dashboard"
 import EditStudent from "./pages/EditStudent"
 import Login from "./pages/Login"
 import MyStudents from "./pages/MyStudents"
-import Parents from "./pages/Parents"
+import Parents from "./features/parents/Index"
 const Register = lazy(() => import("./pages/Register"));
 // import Register from "./pages/Register"
 // import StudentReport from "./pages/StudentReport"
-import Students from "./pages/Students"
+import Students from "./features/students/Students"
 import Teachers from "./pages/Teachers"
 import { MyProfile } from "./pages/MyProfile"
 import Settings from "./pages/Settings"
@@ -94,10 +94,10 @@ root.render(
 function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly: boolean }) {
   const location = useLocation()
   const [user, setUser] = useRecoilState(loggedInUser)
-  const [me] = useCheckLoginQuery()
-  if (!user && !me.fetching && !me?.data?.authenticatedItem) {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
+
   /**
    * If we don't have a user
    * and the me query hasn't
@@ -114,9 +114,9 @@ function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly
   // If we are getting to this point, then we know we have an
   // authenticated user so set them in state for the rest of
   // the application
-  if (!user && !me.data?.authenticatedItem) {
+  if (!user) {
     return (<></>)
-  } else if (adminOnly && !me.data?.authenticatedItem.isAdmin) {
+  } else if (adminOnly) {
     return (<Dashboard />)
   }
   return children

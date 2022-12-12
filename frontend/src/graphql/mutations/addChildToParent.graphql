@@ -1,0 +1,8 @@
+mutation AddChildToParent($parentId: ID!, $studentId: ID!) {
+  updateStudent(
+    where: { id: $studentId }
+    data: { parent: { connect: { id: $parentId } } }
+  ) {
+    id
+  }
+}

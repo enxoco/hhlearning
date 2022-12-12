@@ -1,3 +1,4 @@
+import { loggedInUser } from "#/atom";
 import {
   Divider,
   Flex,
@@ -6,17 +7,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FiHome, FiLogOut, FiUsers, FiSettings, FiGlobe } from "react-icons/fi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { useCheckLoginQuery, useLogoutMutation } from "../generated/graphql";
 import logo from "../logo.jpg";
 import { NavButton } from "./NavButton";
 import { UserProfile } from "./UserProfile";
+
 export const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [, logOut] = useLogoutMutation();
 
-  const [me] = useCheckLoginQuery();
+  const [user, setUser] = useRecoilState(loggedInUser)
 
   async function handleLogout(e) {
     e.preventDefault();
@@ -67,15 +70,15 @@ export const Sidebar = () => {
                     }
                   />
                 </Link>
-              {me?.data?.authenticatedItem ? (
+              {user ? (
                 <>
-                  <Link to={`/students/${me?.data?.authenticatedItem?.id}`}>
+                  <Link to={`/students/${user?.id}`}>
                     <NavButton
                       label="My Students"
                       icon={FiUsers}
                       aria-current={
                         location.pathname ===
-                        "/students/" + me?.data?.authenticatedItem?.id
+                        "/students/" + user?.id
                           ? "page"
                           : null
                       }
@@ -92,8 +95,8 @@ export const Sidebar = () => {
                   </Link>
                 </>
               ) : null}
-              {!me?.data?.authenticatedItem ||
-              !me?.data?.authenticatedItem?.isAdmin ? null : (
+              {!user ||
+              !user?.isAdmin ? null : (
                 <>
                   <Link to="/teachers">
                     <NavButton
@@ -140,13 +143,13 @@ export const Sidebar = () => {
             </Stack>
 
             <Divider />
-            {me?.data?.authenticatedItem ? (
+            {user ? (
               <UserProfile
                 name={
-                  me.data?.authenticatedItem.name ||
-                  me.data?.authenticatedItem.firstName
+                  user.name ||
+                  user.firstName
                 }
-                email={me?.data?.authenticatedItem?.email}
+                email={user.email}
               />
             ) : null}
           </Stack>

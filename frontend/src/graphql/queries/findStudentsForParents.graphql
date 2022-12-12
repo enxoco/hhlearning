@@ -1,0 +1,10 @@
+query FindStudentsForParents($where: StudentWhereInput!){
+  students(where: $where){
+    name
+    id
+    firstName
+    parent {
+        id
+    }
+  }
+}

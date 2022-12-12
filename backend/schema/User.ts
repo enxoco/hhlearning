@@ -1,14 +1,19 @@
 import { graphql } from "@graphql-ts/schema"
 import { checkbox, password, relationship, text, virtual } from "@keystone-6/core/fields"
+import { KeystoneContext } from "@keystone-6/core/types"
 import Hashids from 'hashids'
-const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
+let saltLength: number = 5;
+if (process.env.REACT_APP_SALT_LENGTH) {
+  saltLength = +process.env.REACT_APP_SALT_LENGTH
+}
+const hashids = new Hashids(process.env.REACT_APP_SALT, saltLength)
 
 export default {
     access: {
       operation: {
-        query: (context) => !!context.session?.data,
-        update: (context) => !!context.session?.data,
-        delete: (context) => !!context.session?.data
+        query: (context: KeystoneContext) => !!context.session.data,
+        update: (context: KeystoneContext) => !!context.session?.data,
+        delete: (context: KeystoneContext) => !!context.session?.data
       }
     },
     fields: {
@@ -50,8 +55,12 @@ export default {
               where: { teacher: { id: { equals: id } } },
               query: `student {firstName, lastName, name, id, portalId}`,
             })
-            const students: string[] = []
-            courses.map((course) => students.push(course.student))
+            const students: { firstName: string; lastName: string; id: string; portalId: string }[] = []
+            courses.map((course) => {
+              if (course.student){
+                students.push(course.student)
+              }
+            })
             return JSON.stringify(students)
           },
         }),

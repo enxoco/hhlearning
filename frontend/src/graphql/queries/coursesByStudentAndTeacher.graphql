@@ -1,6 +1,5 @@
-
 query GetCoursesByStudentAndTeacher($studentId: ID!, $teacherId: ID!){
-  courses(where: {student: {id: {equals: $studentId}}, teacher: {id: {equals: $teacherId}}}) {
+  courses(where: {student: {id: {equals: $studentId}}, teacher: {id: {equals: $teacherId}}}, orderBy: {id: asc}) {
       __typename
       name
       grade

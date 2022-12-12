@@ -1,4 +1,4 @@
-import { Button, HStack, Input, Select, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, VStack } from "@chakra-ui/react"
+import { Button, HStack, Input, Select, Table as TableWrapper, TableContainer, Tbody, Td, Text, Th, Thead, Tr, VStack } from "@chakra-ui/react"
 import { useEffect, useMemo, useState } from "react"
 import { IoArrowDown, IoArrowUp } from "react-icons/io5"
 import { useFilters, usePagination, useSortBy, useTable } from "react-table"
@@ -37,7 +37,8 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = (val) => !val
-function ParentTable({ columns, data }) {
+
+export default function Table({ columns, data }) {
   const filterTypes = useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
@@ -103,7 +104,7 @@ function ParentTable({ columns, data }) {
   // Render the UI for your table
   return (
     <TableContainer>
-      <Table {...getTableProps()}>
+      <TableWrapper {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()} data-test={"test"}>
@@ -141,7 +142,7 @@ function ParentTable({ columns, data }) {
             )
           })}
         </Tbody>
-      </Table>
+      </TableWrapper>
 
       <HStack className="pagination" mt={5}>
         <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -190,5 +191,3 @@ function ParentTable({ columns, data }) {
     </TableContainer>
   )
 }
-
-export default ParentTable

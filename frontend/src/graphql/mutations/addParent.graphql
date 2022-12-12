@@ -1,0 +1,6 @@
+mutation CreateParent($name: String!, $lastName: String!, $password: String!, $email: String!){
+  createUser(data: {name: $name, lastName: $lastName, password: $password, email: $email, isParent: true}){
+    id
+    __typename
+  }
+}
