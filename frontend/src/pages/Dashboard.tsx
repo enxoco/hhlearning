@@ -1,5 +1,6 @@
-import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue, Link } from "@chakra-ui/react"
+import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
@@ -32,14 +33,14 @@ const Dashboard = () => {
             <Text color="muted" fontSize="sm"></Text> <Divider my={10} height={50} />
             <Flex pt={10} alignItems="center" justifyContent="center">
               
-                <Link href="/students">
+                <Link to="/students">
                 <Button mr={10} variant="primary">View All Students
                 </Button>
                 </Link>
               
               {courseCount.data?.coursesCount == 0 ? null : (
                 <Tooltip label="Only show students you have entered grades for">
-                  <Link href={`/students/${user.id ?? null}`}>
+                  <Link to={`/students/${user.id ?? null}`}>
                   <Button mr={10} >
                     View My Students
                   </Button>
