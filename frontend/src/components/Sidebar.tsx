@@ -52,24 +52,39 @@ export const Sidebar = () => {
                   }
                 />
               </Link>
+              {user.isAdmin ? (
+                <>
                 <Link to="/students">
-                  <NavButton
-                    label="Current Students"
-                    icon={FiUsers}
-                    aria-current={
-                      location.pathname === "/students" ? "page" : null
-                    }
-                  />
-                </Link>
-                <Link to="/former-students">
-                  <NavButton
-                    label="Former Students"
-                    icon={FiUsers}
-                    aria-current={
-                      location.pathname === "/former-students" ? "page" : null
-                    }
-                  />
-                </Link>
+                <NavButton
+                  label="Current Students"
+                  icon={FiUsers}
+                  aria-current={
+                    location.pathname === "/students" ? "page" : null
+                  }
+                />
+              </Link>
+              <Link to="/former-students">
+                <NavButton
+                  label="Former Students"
+                  icon={FiUsers}
+                  aria-current={
+                    location.pathname === "/former-students" ? "page" : null
+                  }
+                />
+              </Link>
+              </>
+              ) : (
+                <Link to="/students">
+                <NavButton
+                  label="All Students"
+                  icon={FiUsers}
+                  aria-current={
+                    location.pathname === "/students" ? "page" : null
+                  }
+                />
+              </Link>
+              )}
+
               {user ? (
                 <>
                   <Link to={`/students/${user?.id}`}>
