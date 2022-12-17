@@ -69,6 +69,7 @@ root.render(
                 <Route path="/add-student" element={<RequireAuth adminOnly><AddStudent /></RequireAuth>} />
                 <Route path="/teachers" element={<RequireAuth adminOnly><Teachers /></RequireAuth>} />
                 <Route path="/parents" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
+                <Route path="/families" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
                 <Route path="/add-teacher" element={<RequireAuth adminOnly><AddTeacher /></RequireAuth>} />
                 <Route path="/settings" element={<RequireAuth adminOnly><Settings /></RequireAuth>} />
               </Routes>

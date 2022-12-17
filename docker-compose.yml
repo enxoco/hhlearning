@@ -59,7 +59,7 @@ services:
             - 3010:3010
         networks:
             - hilger
-        command: yarn dev
+        command: sh -c "yarn install && yarn dev"
         environment:
             - DANGEROUSLY_DISABLE_HOST_CHECK=true
             - HOST=0.0.0.0

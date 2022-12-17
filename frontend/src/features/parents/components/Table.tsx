@@ -106,11 +106,11 @@ export default function Table({ columns, data }) {
     <TableContainer>
       <TableWrapper {...getTableProps()}>
         <Thead>
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()} data-test={"test"}>
-              {headerGroup.headers.map((column) => {
+          {headerGroups.map((headerGroup, index) => (
+            <Tr key={index} {...headerGroup.getHeaderGroupProps()} data-test={"test"}>
+              {headerGroup.headers.map((column, index) => {
                 return (
-                  <Th {...column.getHeaderProps()}>
+                  <Th key={index} {...column.getHeaderProps()}>
                     <VStack spacing="1" {...column.getSortByToggleProps()}>
                       <HStack>
                       <Text mr={10}>{column.render("Header")}</Text>
@@ -127,13 +127,13 @@ export default function Table({ columns, data }) {
           ))}
         </Thead>
         <Tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row)
             return (
               <Tr {...row.getRowProps()} key={row.values.id} data-id={row.values.id}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, index) => {
                   return (
-                    <Td {...cell.getCellProps()}>
+                    <Td key={index} {...cell.getCellProps()}>
                       {cell.render("Cell", { editable: false })}
                     </Td>
                   )

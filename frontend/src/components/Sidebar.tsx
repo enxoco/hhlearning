@@ -123,12 +123,12 @@ export const Sidebar = () => {
                     />
                   </Link>
 
-                  <Link to="/parents">
+                  <Link to="/families">
                     <NavButton
                       label="Parents"
                       icon={FiGlobe}
                       aria-current={
-                        location.pathname === "/parents" ? "page" : null
+                        location.pathname === "/families" ? "page" : null
                       }
                     />
                   </Link>
