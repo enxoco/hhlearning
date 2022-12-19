@@ -96,16 +96,7 @@ function Parents() {
         fetchParents={fetchParents} />
       <Stack spacing="5">
         <Skeleton isLoaded={!fetching}>
-          <List>
-            <ListItem>
-              <HStack>
-                <Box>
-                  <HStack>First Name <ArrowUpIcon /></HStack>
-                </Box>
-              </HStack>
-            </ListItem>
-          </List>
-          {/* <Table columns={columns} data={parents} /> */}
+          <Table columns={columns} data={parents} />
         </Skeleton>
       </Stack>
     </Layout>
