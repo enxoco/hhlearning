@@ -1,25 +1,26 @@
 import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "../atom"
 import Layout from "../components/Layout"
-import { Stat } from "../components/Stat"
+import Stat from "../components/Stat"
 import { useGetMyCoursesCountByTeacherQuery, useStudentsCountQuery, useTotalCourseCountQuery } from "../generated/graphql"
 const Dashboard = () => {
   const [studentCountQuery] = useStudentsCountQuery({ variables: { isFormer: false } })
   const [user] = useRecoilState(loggedInUser)
-  const [id] = useState(null)
+  const [id] = useState(user.id);
   const [courseCount] = useGetMyCoursesCountByTeacherQuery({ pause: !id, variables: { id } })
   const [totalCourses] = useTotalCourseCountQuery()
+
   return (
     <Layout customTitle="Dashboard" description={`Hilger Online ${user?.isParent ? 'Parent' : 'Grading'} portal`}>
 
       <Stack spacing={{ base: "5", lg: "6" }}>
         <SimpleGrid columns={{ base: 1, md: 3 }} gap="6">
-          <Stat key="students" label="Students enrolled" value={studentCountQuery?.data?.studentsCount?.toString() || 0} />
-          <Stat key="myGrades" label="My Grades entered" value={courseCount?.data?.coursesCount || 0} />
-          <Stat key="grades" label="Total grades entered" value={totalCourses?.data?.coursesCount || 0} />
+          <Stat label="Students enrolled" value={studentCountQuery?.data?.studentsCount?.toString() || 0} />
+          <Stat label="My Grades entered" value={courseCount?.data?.coursesCount || 0} />
+          <Stat label="Total grades entered" value={totalCourses?.data?.coursesCount || 0} />
         </SimpleGrid>
       </Stack>
 

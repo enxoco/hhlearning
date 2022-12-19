@@ -11,7 +11,7 @@ interface Props {
   label: string;
   value: number | string;
 }
-export const Stat = (props: Props) => {
+export default function(props: Props) {
   const { label, value, ...boxProps } = props;
   return (
     <Box

@@ -72,7 +72,7 @@ export default withAuth(
     },
 
     ui: {
-      isDisabled: process.env.NODE_ENV === "production",
+      isDisabled: false,
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists,

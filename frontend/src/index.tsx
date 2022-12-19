@@ -48,6 +48,7 @@ root.render(
     <Provider value={client}>
       <ChakraProvider theme={myTheme}>
         <RecoilRoot>
+
           <React.Suspense fallback='...loading' >
             <Router>
               <Routes>

@@ -1,7 +1,8 @@
 import { Box, Button, Divider, FormControl, FormHelperText, FormLabel, IconButton, Input, List, ListIcon, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useState } from "react";
-import { FiCheck, FiPlusCircle, FiXCircle } from "react-icons/fi";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAddChildToParentMutation, useCreateRelatedStudentMutation, useFindStudentsForParentsQuery, useRemoveChildFromParentMutation } from "#/generated/graphql";
+import { AddIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { OperationContext } from "urql";
 
 type IAddStudentProps = {
     lastName: string,
@@ -11,8 +12,9 @@ type IAddStudentProps = {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
+    fetchParents: (opts?: Partial<OperationContext>) => void;
 }
-export default function AddStudentModal({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose }: IAddStudentProps) {
+export default function AddStudentModal({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose, fetchParents }: IAddStudentProps) {
     const [relation, createRelation] = useCreateRelatedStudentMutation();
     const [childrenSearchResults, findChildren] = useFindStudentsForParentsQuery({ variables: { where: { lastName: { contains: lastName } } }, pause: !lastName })
     const [connectedStudent, setConnectedStudent] = useAddChildToParentMutation();
@@ -31,6 +33,10 @@ export default function AddStudentModal({ lastName, parentId, setParentId, setPa
         }
     }
 
+    useEffect(() => {
+        console.log("render add student modal");
+        fetchParents();
+    }, [relation, childrenSearchResults, connectedStudent, removedChild, firstName])
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -62,12 +68,13 @@ export default function AddStudentModal({ lastName, parentId, setParentId, setPa
                                     return (
                                         <ListItem key={student.id}>
                                             <Box display="flex" alignItems="center">
-                                                <ListIcon as={FiCheck} color='green.500' />
+                                                <ListIcon as={CheckIcon} color='green.500' />
                                                 <Box>
                                                     {student.name}
-                                                </Box><IconButton ml="auto" aria-label="Remove Child" borderRadius="50%" background="white" _hover={{ background: "red", color: "white" }} color="red" icon={<FiXCircle size="sm" />} onClick={() => {
+                                                </Box><IconButton ml="auto" aria-label="Remove Child" borderRadius="50%" background="white" _hover={{ background: "red", color: "white" }} color="red" icon={<CloseIcon />} onClick={() => {
                                                     removeChild({ studentId: student.id });
-                                                    findChildren
+                                                    findChildren()
+                                                    fetchParents()
                                                 }} />
 
                                             </Box>
@@ -80,9 +87,10 @@ export default function AddStudentModal({ lastName, parentId, setParentId, setPa
                             }
                             return (
                                 <>
-                                    <ListItem display="flex" key={student.id}>{student.name} <IconButton aria-label="Add Child" background="white" _hover={{ background: "green", color: "white" }} borderRadius="50%" color="green" ml="auto" icon={<FiPlusCircle size="sm" />} isDisabled={connectedStudent.fetching} onClick={() => {
+                                    <ListItem display="flex" key={student.id}>{student.name} <IconButton aria-label="Add Child" background="white" _hover={{ background: "green", color: "white" }} borderRadius="50%" color="green" ml="auto" icon={<AddIcon />} isDisabled={connectedStudent.fetching} onClick={() => {
                                         setConnectedStudent({ parentId, studentId: student.id })
-                                        findChildren
+                                        void findChildren()
+                                        void fetchParents()
                                     }} />
                                     </ListItem>
                                     <Divider my={5} />
