@@ -20,7 +20,7 @@ const Layout = ({ children, customTitle, description }: ILayoutProps) => {
 
   return (
     <Flex as="section" direction={{ base: "column", lg: "row" }} height="100vh" bg="bg-canvas" overflowY="auto">
-      {isDesktop ? <Sidebar /> : <Navbar />}
+      <Sidebar />
 
       <Box bg="bg-surface" pt={{ base: "0", lg: "3" }} flex="1">
         <Box bg="bg-canvas" borderTopLeftRadius={{ base: "none", lg: "2rem" }} height="full">

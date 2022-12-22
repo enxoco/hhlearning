@@ -46,27 +46,6 @@ export default {
          }
         })
       }),
-      students: virtual({
-        field: graphql.field({
-          type: graphql.String,
-          async resolve(item, args, context: any) {
-            const {id} = context?.req?.body.variables
-            const courses = await context.query.Course.findMany({
-              where: { teacher: { id: { equals: id } } },
-              query: `student {firstName, lastName, name, id, portalId}`,
-            })
-            const students: { firstName: string; lastName: string; id: string; portalId: string }[] = []
-            courses.map((course) => {
-              if (course.student){
-                students.push(course.student)
-              }
-            })
-            return JSON.stringify(students)
-          },
-        }),
-    
-
-      }),
       student: relationship({ref: 'Student.parent', many: true})
     },
 

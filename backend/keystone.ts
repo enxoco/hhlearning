@@ -4,7 +4,7 @@ import { lists } from "./schema"
 import type { KeystoneContext } from '@keystone-6/core/types';
 
 import Hashids from 'hashids'
-import { runFullArchive } from "./routes/rest";
+import { getPostMarkMessages, handleGetSingleMessage, runFullArchive } from "./routes/rest";
 const hashids = new Hashids(process.env.REACT_APP_SALT, +process.env.REACT_APP_SALT_LENGTH)
 const bodyParser = require("body-parser");
 var postmark = require("postmark");
@@ -61,6 +61,8 @@ export default withAuth(
           }
           res.json({ status: "success" })
         })
+        app.get("/rest/postmark/messages", getPostMarkMessages);
+        app.get("/rest/postmark/messages/:id", handleGetSingleMessage);
       },
     },
     db: {

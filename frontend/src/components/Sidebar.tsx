@@ -1,4 +1,5 @@
 import { loggedInUser } from "#/atom";
+import { EmailIcon } from "@chakra-ui/icons";
 import {
   Divider,
   Flex,
@@ -6,7 +7,7 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FiHome, FiLogOut, FiUsers, FiSettings, FiGlobe } from "react-icons/fi";
+import { FiHome, FiLogOut, FiUsers, FiSettings, FiGlobe, FiMessageSquare, FiSend, FiMessageCircle } from "react-icons/fi";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useCheckLoginQuery, useLogoutMutation } from "../generated/graphql";
@@ -132,7 +133,15 @@ export const Sidebar = () => {
                       }
                     />
                   </Link>
-
+                  <Link to="/emails">
+                    <NavButton
+                      label="Emails"
+                      icon={EmailIcon}
+                      aria-current={
+                        location.pathname === "/emails" ? "page" : null
+                      }
+                    />
+                  </Link>
                   <Link to="/settings">
                     <NavButton
                       label="Settings"
@@ -142,6 +151,7 @@ export const Sidebar = () => {
                       }
                     />
                   </Link>
+
                 </>
               )}
             </Stack>

@@ -1,0 +1,12 @@
+mutation UpdateUser($id: ID!, $data: UserUpdateInput!){
+  updateUser(where: { id: $id}, data: $data) {
+    id
+    isAdmin
+    isParent
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}

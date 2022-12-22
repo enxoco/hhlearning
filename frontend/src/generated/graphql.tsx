@@ -1115,7 +1115,6 @@ export type User = {
   street?: Maybe<Scalars['String']>;
   student?: Maybe<Array<Student>>;
   studentCount?: Maybe<Scalars['Int']>;
-  students?: Maybe<Scalars['String']>;
   zipcode?: Maybe<Scalars['String']>;
 };
 
@@ -1398,6 +1397,14 @@ export type UpdateStudentInfoMutationVariables = Exact<{
 
 export type UpdateStudentInfoMutation = { __typename?: 'Mutation', updateStudent?: { __typename: 'Student', id: string } | null };
 
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars['ID'];
+  data: UserUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -1602,6 +1609,13 @@ export type TotalCourseCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type TotalCourseCountQuery = { __typename?: 'Query', coursesCount?: number | null };
 
+export type GetUserQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
+
 export type GetUsersByRoleQueryVariables = Exact<{
   tag: Scalars['String'];
 }>;
@@ -1774,6 +1788,24 @@ export const UpdateStudentInfoDocument = gql`
 
 export function useUpdateStudentInfoMutation() {
   return Urql.useMutation<UpdateStudentInfoMutation, UpdateStudentInfoMutationVariables>(UpdateStudentInfoDocument);
+};
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($id: ID!, $data: UserUpdateInput!) {
+  updateUser(where: {id: $id}, data: $data) {
+    id
+    isAdmin
+    isParent
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
 };
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
@@ -2213,6 +2245,24 @@ export const TotalCourseCountDocument = gql`
 
 export function useTotalCourseCountQuery(options?: Omit<Urql.UseQueryArgs<TotalCourseCountQueryVariables>, 'query'>) {
   return Urql.useQuery<TotalCourseCountQuery, TotalCourseCountQueryVariables>({ query: TotalCourseCountDocument, ...options });
+};
+export const GetUserDocument = gql`
+    query GetUser($id: ID!) {
+  user(where: {id: $id}) {
+    id
+    isAdmin
+    isParent
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}
+    `;
+
+export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
 };
 export const GetUsersByRoleDocument = gql`
     query GetUsersByRole($tag: String!) {

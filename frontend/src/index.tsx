@@ -27,6 +27,10 @@ import Settings from "./pages/Settings"
 import { useRecoilState } from "recoil"
 import { loggedInUser } from "./atom"
 import { useCheckLoginQuery } from "./generated/graphql"
+import PageSkeleton from "./components/PageSkeleton"
+import Parent from "./features/parents/Parent"
+import Emails from "./features/emails/Index"
+import Email from "./features/emails/Email"
 
 // import Parents from "./pages/Parents"
 const client = createClient({
@@ -49,7 +53,7 @@ root.render(
       <ChakraProvider theme={myTheme}>
         <RecoilRoot>
 
-          <React.Suspense fallback='...loading' >
+          <React.Suspense fallback={<PageSkeleton />} >
             <Router>
               <Routes>
 
@@ -71,6 +75,9 @@ root.render(
                 <Route path="/teachers" element={<RequireAuth adminOnly><Teachers /></RequireAuth>} />
                 <Route path="/parents" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
                 <Route path="/families" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
+                <Route path="/emails" element={<RequireAuth adminOnly><Emails /></RequireAuth>} />
+                <Route path="/emails/:id" element={<RequireAuth adminOnly><Email /></RequireAuth>} />
+                {/* <Route path="/families/:id" element={<RequireAuth adminOnly><Parent /></RequireAuth>} /> */}
                 <Route path="/add-teacher" element={<RequireAuth adminOnly><AddTeacher /></RequireAuth>} />
                 <Route path="/settings" element={<RequireAuth adminOnly><Settings /></RequireAuth>} />
               </Routes>

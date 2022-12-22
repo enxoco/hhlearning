@@ -14,6 +14,11 @@ $query->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
 $query->execute();
 $students = $query->fetchAll(PDO::FETCH_ASSOC);
 
+$tuitionStatus = $db_con->prepare('SELECT "hasPaidTuition" FROM "User" WHERE "User".id = :parent_id');
+$tuitionStatus->bindParam(':parent_id', $parent_id, PDO::PARAM_STR);
+$tuitionStatus->execute();
+$hasPaid = $tuitionStatus->fetchAll(PDO::FETCH_ASSOC)[0]["hasPaidTuition"];
+
 function get_semester(){
     $today = new DateTime();
 
@@ -147,7 +152,7 @@ function get_semester(){
             padding: 10px 20px;
             margin-bottom: 20px;
             border-radius: 0.5rem;
-            display: none;
+            <?= $hasPaid ? "display: none;" : null ?>
         }
 
         @media screen and (min-width: 792px) {
@@ -183,16 +188,18 @@ function get_semester(){
 <body>
     <main>
         <div class="toast-wrapper">
-            <p>You currently have an outstanding balance on your 2021-2022 school year's tuition. You will not be able to see your student(s) report card(s) until your tuition is paid in full. If you think you have paid this in full, or if you have questions about your balance, please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
+            <p>You currently have an outstanding balance on your current semesters tuition.<br /> You will not be able to see your student(s) report card(s) until your tuition is paid in full.<br />If you think you have paid this in full, or if you have questions about your balance, <br />please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
         </div>
         <div class="container">
             <img src="../logo.png" class="logo" />
             <p>Use the links below to view grades for your students</p>
             <div class="card">
                 <p style="text-align: center;">Fall 2022 Semester</p>
+                
                 <ul>
                     <?php foreach ($students as $student) : ?>
                         <?php
+
                         $query = $db_con->prepare('SELECT COUNT("id") FROM "Course" WHERE "Course".student = :student_id');
                         $query->bindParam(':student_id', $student["id"], PDO::PARAM_STR);
                         $query->execute();
@@ -208,7 +215,12 @@ function get_semester(){
                         } else {
                         ?>
                             <li>
-                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">View Grades</a></button>
+                                <?= $student['firstName'] . ' ' . $student['lastName'] ?>
+                                    <button <?= !$hasPaid ? 'style="pointer-events:none;background-color:#3182ce70;"' : null ?>>
+                                        <a href="/print.php?student=<?= $hasPaid ? $hashids->encode($student['id']) : null ?>" target="_blank">
+                                            View Grades
+                                        </a>
+                                    </button>
                             </li>
                         <?php
                         }

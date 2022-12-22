@@ -158,7 +158,6 @@ type User {
   ): [Course!]
   coursesCount(where: CourseWhereInput! = {}): Int
   portalId: String
-  students: String
   student(
     where: StudentWhereInput! = {}
     orderBy: [StudentOrderByInput!]! = []

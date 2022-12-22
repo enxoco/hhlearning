@@ -1,0 +1,12 @@
+query GetUser($id: ID!){
+  user(where: { id: $id}) {
+    id
+    isAdmin
+    isParent
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}
