@@ -1,40 +1,44 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, Input, Stack, useColorModeValue, useToast } from "@chakra-ui/react"
-import { useState } from "react"
-import { useCreateStudentMutation, useUpdateStudentInfoMutation } from "../generated/graphql"
+import { ChangeEvent, MouseEventHandler, useState } from "react"
+import { Student, useCreateStudentMutation, useUpdateStudentInfoMutation } from "#/generated/graphql"
 import {useParams} from 'react-router-dom'
 
-const AddStudentCard = ({student}) => {
+const AddStudentCard = ({ student }: { student?: Student }) => {
 
-  const [firstName, setFirstName] = useState(student?.firstName || null)
-  const [lastName, setLastName] = useState(student?.lastName || null)
+  const [firstName, setFirstName] = useState(student?.firstName || "")
+  const [lastName, setLastName] = useState(student?.lastName || "")
   const [{ data, error }, addStudent] = useCreateStudentMutation()
   const [updatedStudentInfo, updateStudentInfo] = useUpdateStudentInfoMutation()
   let { id } = useParams()
   const toast = useToast({ position: 'top', isClosable: true, duration: 9000 });
-  const handleFirstNameUpdate = (e) => {
+  const handleFirstNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value)
   }
 
-  const handleLastNameUpdate = (e) => {
+  const handleLastNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value)
   }
 
-  const handleFormSubmit = (e) => {
-      e.preventDefault()
+  const handleFormSubmit = () => {
     if (!student) {
+      if (firstName && lastName) {
         addStudent({ firstName, lastName })
+      }
         if (error) {
           console.error("error", error)
           return
         }
 
     } else {
+      if (id && firstName && lastName) {
         updateStudentInfo({
           id: id,
           firstName: firstName,
           lastName: lastName,
           isFormer: false
         })
+      }
+
     }
     toast({
       title: 'Success',

@@ -1,21 +1,22 @@
 import { Box, Button, Divider, Flex, HStack, IconButton, Input, List, ListItem, Stack, Text, Tooltip } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { ChangeEvent, ReactNode, useEffect, useState } from "react"
 import { FiArrowDown, FiArrowUp, FiDownloadCloud, FiEdit2 } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { loggedInUser as loggedInUserAtom, students as studentAtom } from "../atom"
-import { Card } from "../components/Card"
+import { loggedInUser as loggedInUserAtom } from "../atom"
 import Layout from "../components/Layout"
-import { useGetMyStudentsQuery, useGetStudentsByParentQuery } from "../generated/graphql"
+import { Student, useGetMyStudentsQuery } from "../generated/graphql"
 import { exportCSVFile } from "../utils/csvExport"
 
-const MyStudents = () => {
+  export default function MyStudents(): ReactNode {
   const [loggedInUser] = useRecoilState(loggedInUserAtom)
-  const [{ data: students }] = useGetMyStudentsQuery({ variables: { teacherId: loggedInUser?.id } })
-  const [searchResults, setSearchResults] = useState([]);
+  const [{ data: students }] = useGetMyStudentsQuery({ variables: { teacherId: loggedInUser?.id || "0" } })
+  const [searchResults, setSearchResults] = useState<Student[]>([]);
   const [sortDirection, setSortDirection] = useState<"ASC" | "DESC">("ASC");
-  const handleStudentSearch = (e) => {
-    setSearchResults(students.students.filter((student) => student.name.toLowerCase().includes(e.target.value.toLowerCase())))
+  const handleStudentSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    if (students?.students){
+      setSearchResults(students?.students?.filter((student) => student?.name?.toLowerCase().includes(e.target.value.toLowerCase())))
+    }
   }
   const handleSortDirection = () => {
     if (sortDirection == "ASC") {
@@ -23,27 +24,36 @@ const MyStudents = () => {
     } else {
       setSortDirection("ASC")
     }
-    setSearchResults(searchResults.sort((a, b) => {
-      switch(sortDirection) {
-        case "ASC":
-          if (a.lastName < b.lastName) {
+    const sortedResults = searchResults.sort((a, b) => {
+      if (a.lastName && b.lastName) {
+        switch(sortDirection) {
+          case "ASC":
+            if (a?.lastName < b?.lastName) {
+              return -1;
+            } else {
+              return 1;
+            }
+          case "DESC":
+          if (a?.lastName > b?.lastName) {
             return -1;
           } else {
             return 1;
           }
-        case "DESC":
-        if (a.lastName > b.lastName) {
-          return -1;
-        } else {
-          return 1;
         }
+      } else {
+        return -1;
       }
-    }))
+    })
+    if (sortedResults.length){
+      setSearchResults(sortedResults)
+    }
   }
 
   useEffect(() => {
-    setSearchResults(students?.students)
-  }, [students?.students])
+    if (students?.students){
+      setSearchResults(students.students)
+    }
+  }, [])
   const handleExport = () => {
     var headers = {
       id: "Id", // remove commas to avoid errors
@@ -51,10 +61,10 @@ const MyStudents = () => {
       lastName: "Last Name",
       portalId: "Portal Id"
     }
-    var itemsFormatted = []
+    var itemsFormatted: Student[] = []
 
     // format the data
-    students?.students.forEach((item) => {
+    students?.students?.forEach((item) => {
       itemsFormatted.push({
         id: item.id, // remove commas to avoid errors,
         portalId: item.portalId,
@@ -68,7 +78,7 @@ const MyStudents = () => {
   }
   return (
     <Layout customTitle="My Students">
-      {loggedInUser?.isParent ? null : (
+      
         <Stack spacing="4" direction={{ base: "column", lg: "row" }} justify="space-between" align={{ base: "start", lg: "center" }}>
           <HStack spacing="3">
             <Button variant="secondary" leftIcon={<FiDownloadCloud fontSize="1.25rem" />} onClick={handleExport}>
@@ -76,12 +86,11 @@ const MyStudents = () => {
             </Button>
           </HStack>
         </Stack>
-      )}
 
       <Stack spacing="5">
         <Box overflowX="auto">
-          {!students?.students.length ? (
-            <Card display={"flex"} justifyContent="center" alignItems={"center"} flexDir="column">
+          {!students?.students?.length ? (
+            <Box display={"flex"} justifyContent="center" alignItems={"center"} flexDir="column">
               <Text size="lg">You don't appear to have any grades entered yet.</Text>
               <Divider w="50%" my={10} />
               <Text>
@@ -93,7 +102,7 @@ const MyStudents = () => {
                   </Link>{" "}
                 </Button>
               </Text>
-            </Card>
+            </Box>
           ) : (
             <List maxWidth="500px">
               <Flex>
@@ -120,5 +129,3 @@ const MyStudents = () => {
     </Layout>
   )
 }
-
-export default MyStudents

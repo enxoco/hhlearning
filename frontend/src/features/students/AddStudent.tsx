@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Stack, Text, Textarea, useColorModeValue } from "@chakra-ui/react"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
-import AddStudentCard from "#/components/AddStudentCard"
+import AddStudentCard from "./components/AddStudentCard"
 import Layout from "#/components/Layout"
 import { useBulkAddStudentsMutation } from "#/generated/graphql"
 import { useNavigate } from "react-router-dom"
@@ -12,10 +12,10 @@ const AddStudent = () => {
   const [bulkStudents, addBulkStudents] = useBulkAddStudentsMutation();
   const navigate = useNavigate();
 
-  const handleBulkNameUpdate = (e) => {
-    setBulkNames(e.target.value)
+  const handleBulkNameUpdate = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setBulkNames(e.target.value);
   }
-  const handleBulkSubmission = (e) => {
+  const handleBulkSubmission = () => {
     let names = bulkNames
     let data = []
     for (const name of names.split("\n")) {
@@ -46,7 +46,7 @@ const AddStudent = () => {
             </Text>
           </Stack>
         </Box>
-      <AddStudentCard student={null} />
+      <AddStudentCard />
       </Stack>
 
       <Stack spacing="5">

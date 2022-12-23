@@ -5,19 +5,7 @@ import Layout from "#/components/Layout"
 import { ArrowUpIcon } from "@chakra-ui/icons"
 import useGetMessages from "./hooks/useGetMessages"
 import { Link } from "react-router-dom"
-type EmailData = {
-  MessageID: string;
-  Recipients: string[];
-  ReceivedAt: string;
-  From: string;
-  Subject: string;
-  Status: "Sent" | "Processed" | "Queued";
-  // messageEvents: {
-  //   Recipient: string;
-  //   Type: "SubscriptionChanged" | "Delivered" | "Transient" | "Opened" | "LinkClicked" | "Bounced"
-  //   ReceivedAt: string;
-  // }
-}[]
+
 export default function Index() {
 
   const [messages, setMessages, _, getMessages] = useGetMessages();
@@ -60,7 +48,7 @@ export default function Index() {
     return () => clearTimeout(debounceTimeout)
   }, [recipientSearchTerm, subjectSearchTerm])
   return (
-    <Layout customTitle="All Parents" description="">
+    <Layout customTitle="All Emails" description="">
       <Box p={0}>
 
         <List bgColor="white" p={5} border="1px solid #f5f5f5" borderRadius={10}>

@@ -4,17 +4,18 @@ import { FiDownloadCloud } from "react-icons/fi"
 import { Link } from "react-router-dom"
 
 import Layout from "#/components/Layout"
-import StudentTable from "#/components/StudentTable"
-import { useGetAllStudentsQuery } from "#/generated/graphql"
+import StudentTable from "#/features/students/components/StudentTable"
+import { Student, useGetAllStudentsQuery } from "#/generated/graphql"
 import { exportCSVFile } from "#/utils/csvExport"
 import DeleteStudentModal from "./components/DeleteStudentModal"
 import TableActions from "./components/TableActions"
+
 
 const Students = ({ isFormer }: { isFormer: boolean }) => {
   const [studentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0, isFormer } })
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const columns = useMemo(
     () => [
 
@@ -43,14 +44,14 @@ const Students = ({ isFormer }: { isFormer: boolean }) => {
         Header: "Name",
         accessor: "name",
         filter: "fuzzyText",
-        Cell: ({ row }) => <Link to={"/student/" + row.values.id}>{row.values.name}</Link>,
+        Cell: ({ row }: { row: { values: Student } }) => <Link to={"/student/" + row.values.id}>{row.values.name}</Link>,
       },
       {
         Header: () => null,
         id: "actions",
         filter: null,
         isSorted: true,
-        Cell: ({ row }) => <TableActions onOpen={onOpen} setStudentId={setStudentId} studentId={studentId} studentName={studentName} setStudentName={setStudentName} id={row.values.id} isFormer={row.values.isFormer} name={row.values.name} />,
+        Cell: ({ row }: { row: { values: Student } }) => <TableActions onOpen={onOpen} setStudentId={setStudentId} studentId={studentId} studentName={studentName} setStudentName={setStudentName} id={row.values.id} isFormer={row.values.isFormer || false} name={row.values.name || ""} />,
       },
     ],
     []
@@ -61,16 +62,18 @@ const Students = ({ isFormer }: { isFormer: boolean }) => {
       firstName: "First Name",
       lastName: "Last Name",
     }
-    var itemsFormatted = []
+    var itemsFormatted: Student[] = []
 
-    // format the data
-    studentData?.data?.students.forEach((item) => {
-      itemsFormatted.push({
-        id: item.id, // remove commas to avoid errors,
-        firstName: item.firstName,
-        lastName: item.lastName,
+    if (studentData.data?.students) {
+      // format the data
+      studentData?.data?.students.forEach((item) => {
+        itemsFormatted.push({
+          id: item.id, // remove commas to avoid errors,
+          firstName: item.firstName,
+          lastName: item.lastName,
+        })
       })
-    })
+    }
 
     var fileTitle = "all-students_" + +new Date() // or 'my-unique-title'
     exportCSVFile(headers, itemsFormatted, fileTitle) // call the exportCSVFile() function to process the JSON and trigger the download
@@ -89,7 +92,7 @@ const Students = ({ isFormer }: { isFormer: boolean }) => {
         </HStack>
       </Stack>
 
-      <Stack spacing="5" key={isFormer ? "active" : "inactive"} data-key={isFormer ? "active" : "inactive"}>
+      <Stack spacing="5" key={isFormer ? "active" : "inactive"}>
         <StudentTable columns={columns} data={studentData.data?.students || []} />
       </Stack>
     </Layout>

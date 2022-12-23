@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`Link changes the class when hovered 1`] = `
+<img
+  alt="Hilger Higher Learning Logo"
+  className="css-1v5z18m"
+  src="/src/logo.png"
+/>
+`;

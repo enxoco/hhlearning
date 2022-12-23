@@ -1,15 +1,17 @@
+import { Course } from '#/generated/graphql'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { Badge, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, IconButton, Input, Stack, Textarea, useColorModeValue, useToast } from '@chakra-ui/react'
-import { useState, useRef } from 'react'
+import { useState, useRef, EventHandler, ChangeEvent } from 'react'
 import {useRecoilState} from 'recoil'
-import {showNewCourseCard} from '../atom'
-import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '../generated/graphql'
+import {showNewCourseCard} from '#/atom'
+import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '#/generated/graphql'
 
-const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherName}) => {
+type IEditCourseProps = { name?: string; grade?: string; feedback?: string; courseId?: string; student: string; teacher: string; teacherName: string };
+const EditStudentCard = ({name, grade, feedback, courseId, student, teacher, teacherName}: IEditCourseProps) => {
 
-    const [courseName, setCourseName] = useState(name)
-    const [courseGrade, setCourseGrade] = useState(grade)
-    const [courseFeedback, setFeedback] = useState(feedback)
+    const [courseName, setCourseName] = useState(name || "");
+    const [courseGrade, setCourseGrade] = useState(grade || "");
+    const [courseFeedback, setFeedback] = useState(feedback || "");
 
     const [updatedCourse, setUpdateCourse] = useUpdateCourseMutation()
     const [createdCourse, createCourse] = useCreateCourseMutation()
@@ -21,47 +23,51 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
       position: 'top',
       isClosable: true
     })
-    const toastIdRef = useRef()
-    const handleCourseNameUpdate = (e) => {
+    const toastIdRef = useRef(toast);
+    const handleCourseNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
         setCourseName(e.target.value)
     }
 
-    const handleCourseGradeUpdate = (e) => {
+    const handleCourseGradeUpdate = (e: ChangeEvent<HTMLInputElement>) => {
         setCourseGrade(e.target.value)
     }
 
-    const handleFeedbackUpdate = (e) => {
+    const handleFeedbackUpdate = (e: ChangeEvent<HTMLInputElement>) => {
       setFeedback(e.target.value)
     }
 
     const handleFormSubmission = async () => {
+      if (teacher){
         await setUpdateCourse({
-            name: courseName,
-            grade: courseGrade,
-            feedback: courseFeedback,
-            teacher: +teacher,
-            id: id
-        })
+          name: courseName,
+          grade: courseGrade,
+          feedback: courseFeedback,
+          id: courseId
+      })
         setNewCourse(false)
         addToast(courseName)
+      }
     }
 
     const handleCreateNewCourse = async () => {
-        await createCourse({
+        if (teacher){
+          await createCourse({
             name: courseName,
             grade: courseGrade,
             feedback: courseFeedback,
             student,
-            teacher: +teacher
+            teacher: teacher
         })
         setNewCourse(false)
         addToast(courseName)
+      }
+
 
     }
 
     const handleDeleteCourse = () => {
-      deleteCourse({id})
-      addDeletedToast()
+      deleteCourse({ id: courseId })
+      addDeletedToast();
     }
     const containerStyle = {
       width: '800px',
@@ -69,18 +75,18 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
       textAlign: 'center'
     }
 
-    function addToast(courseName) {
+    function addToast(courseName: string) {
       toastIdRef.current = toast({
         description: `${courseName || 'Course'} saved successfully`,
-        containerStyle
+        ...containerStyle
       })
     }
 
-    function addDeletedToast(courseName) {
+    function addDeletedToast(courseName: string) {
       toastIdRef.current = toast({
         status: 'error',
         description: `${courseName || 'Course'} deleted successfully`,
-        containerStyle
+        ...containerStyle
       })
     }
     return (
@@ -94,22 +100,22 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
           <Stack spacing="6" direction={{ base: "column", md: "row" }}>
             <FormControl id="courseName">
               <FormLabel>Course Name</FormLabel>
-              <Input defaultValue={courseName} onChange={handleCourseNameUpdate} />
+              <Input defaultValue={courseName || ""} onChange={handleCourseNameUpdate} />
             </FormControl>
             <FormControl id="courseGrade" onChange={handleCourseGradeUpdate}>
               <FormLabel>Grade</FormLabel>
-              <Input defaultValue={courseGrade} />
+              <Input defaultValue={courseGrade || ""} />
             </FormControl>
 
           </Stack>
           <FormControl id="feedback">
               <FormLabel>Feedback</FormLabel>
-              <Textarea onChange={handleFeedbackUpdate} defaultValue={courseFeedback || null} ></Textarea>
+              <Textarea onChange={handleFeedbackUpdate} defaultValue={courseFeedback || ""} ></Textarea>
             </FormControl>
         </Stack>
         <Divider />
         <Flex direction="row-reverse" py="4" px={{ base: "4", md: "6" }}>
-          <Button variant="primary" onClick={(id) ? handleFormSubmission : handleCreateNewCourse} isLoading={updatedCourse.fetching || createdCourse.fetching} data-action="save-course">Save</Button>
+          <Button variant="primary" onClick={(courseId) ? handleFormSubmission : handleCreateNewCourse} isLoading={updatedCourse.fetching || createdCourse.fetching} data-action="save-course">Save</Button>
           <IconButton icon={<DeleteIcon />} variant="ghost" mr={'auto'} aria-label='Delete Course' colorScheme="red" onClick={handleDeleteCourse} data-action="delete-course">Delete</IconButton>
 
         </Flex>

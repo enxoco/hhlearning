@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 
 type ITableActionProps = { 
     id: string, 
-    isFormer: boolean, 
+    isFormer?: boolean, 
     name: string, 
     studentId: string, 
     setStudentId: Dispatch<SetStateAction<string>>,
@@ -19,9 +19,9 @@ type ITableActionProps = {
 export default function TableActions({ id, isFormer, name, studentId, setStudentId, studentName, setStudentName, onOpen }: ITableActionProps) {
     const isLoggedIn = useRecoilValue(loggedInUser)
     const [, toggleActiveStudent] = useToggleStudentActiveStatusMutation()
-    const [, getStudentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0, isFormer } })
+    const [, getStudentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0, isFormer: isFormer || false } })
 
-    const showDeleteModal = (id, name) => {
+    const showDeleteModal = (id: string, name: string) => {
         setStudentId(id)
         setStudentName(name)
         onOpen()
@@ -40,7 +40,7 @@ export default function TableActions({ id, isFormer, name, studentId, setStudent
             <Tooltip label="Delete student">
                 <IconButton icon={<FiTrash2 fontSize="1.25rem" />} variant="ghost" aria-label="Delete Student" onClick={() => showDeleteModal(id, name)} />
             </Tooltip>
-            {isLoggedIn.isAdmin && (
+            {isLoggedIn?.isAdmin && (
                 <FormControl display="flex" alignItems="center">
                     <FormLabel htmlFor="studentStatus">Active</FormLabel>
 
