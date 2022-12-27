@@ -20,11 +20,9 @@ interface MessageDetails extends BasicEmail {
         ReceivedAt: string;
     }[]
 }
-export default function useGetMessages(): [EmailData, (id: string) => void, MessageDetails, (page: number, recipient?: string, subject?: string) => void]{
+export default function useGetMessages(): [EmailData, (id: string) => void, MessageDetails, (page: number, count: number, recipient?: string, subject?: string) => void]{
     const [messageData, setMessageData] = useState<EmailData>();
     const [singleMessage, setSingleMessage] = useState<MessageDetails>();
-    const [count, setCount] = useState(10);// Limit number of emails
-    const [offset, setOffset] = useState(0);// Offset for pagination
 
     const getMessageById = (id: string) => {
         fetch(`/rest/postmark/messages/${id}`)
@@ -35,7 +33,7 @@ export default function useGetMessages(): [EmailData, (id: string) => void, Mess
         .catch((e) => console.log("error", e))
     }
 
-    const getAllMessages = (page: number, recipient?: string, subject?: string) => {
+    const getAllMessages = (page: number, count: number, recipient?: string, subject?: string) => {
         let offset: number;
         if (page > 1) {
             offset = (page - 1) * count
@@ -51,7 +49,7 @@ export default function useGetMessages(): [EmailData, (id: string) => void, Mess
     }
 
     useEffect(() => {
-        getAllMessages(0);
+        getAllMessages(0, 10);
     }, []);
     return [messageData, getMessageById, singleMessage, getAllMessages]
 }

@@ -188,7 +188,7 @@ function get_semester(){
 <body>
     <main>
         <div class="toast-wrapper">
-            <p>You currently have an outstanding balance on your current semesters tuition.<br /> You will not be able to see your student(s) report card(s) until your tuition is paid in full.<br />If you think you have paid this in full, or if you have questions about your balance, <br />please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
+            <p>You currently have an outstanding balance on your current semester's tuition.<br /> You will not be able to see your student(s) report card(s) until your tuition is paid in full.<br />If you think you have paid this in full, or if you have questions about your balance, <br />please contact Eddy Hilger at <a href="tel:423-653-1333">423.653.1333</a>.</p>
         </div>
         <div class="container">
             <img src="../logo.png" class="logo" />
@@ -216,11 +216,20 @@ function get_semester(){
                         ?>
                             <li>
                                 <?= $student['firstName'] . ' ' . $student['lastName'] ?>
+                                <?php
+                                    if($hasPaid) : 
+                                ?>
+                                <a href="/print.php?student=<?= $hashids->encode($student['id']) ?>" target="_blank">
+                                <?php endif ?>
                                     <button <?= !$hasPaid ? 'style="pointer-events:none;background-color:#3182ce70;"' : null ?>>
-                                        <a href="/print.php?student=<?= $hasPaid ? $hashids->encode($student['id']) : null ?>" target="_blank">
-                                            View Grades
-                                        </a>
+                                        View Grades
                                     </button>
+                                <?php
+                                    if ($hasPaid) :
+                                ?>
+                                </a>
+                                <?php endif ?>
+                            
                             </li>
                         <?php
                         }
@@ -244,7 +253,7 @@ function get_semester(){
                         if ($semester_title != "{$current_semester} 2022") {
                 ?>
                             <li>
-                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><button><a href="<?= $semester ?>" target="_blank"><?= $semester_title; ?></a></button>
+                                <?= $student['firstName'] . ' ' . $student['lastName'] ?><a href="<?= $semester ?>" target="_blank"><button><?= $semester_title; ?></button></a>
                             </li>
                         <?php
                         }
