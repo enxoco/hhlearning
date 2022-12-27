@@ -1,0 +1,1473 @@
+// Vitest Snapshot v1
+
+exports[`Pagination renders correctly initially 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="css-k008qs"
+      >
+        {"firstPage":0,"currentPage":1,"lastPage":38,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],"pages":[1,2,3,4,5,6,7,8,9,10],"totalRecords":380,"showFirst":false,"showLast":true,"offset":0,"limit":10}
+        <div
+          class="chakra-form-control css-tn9ygg"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="limit"
+            id="field-:r0:-label"
+          >
+            Limit
+          </label>
+          <div
+            class="chakra-select__wrapper css-42b2qy"
+          >
+            <select
+              class="chakra-select css-1ik61og"
+              data-testid="paginationSelect"
+              id="field-:r0:"
+              name="limit"
+            >
+              <option
+                data-testid="setLimit10"
+                value="10"
+              >
+                10
+              </option>
+              <option
+                data-testid="setLimit20"
+                value="20"
+              >
+                20
+              </option>
+              <option
+                data-testid="setLimit30"
+                value="30"
+              >
+                30
+              </option>
+              <option
+                data-testid="setLimit40"
+                value="40"
+              >
+                40
+              </option>
+              <option
+                data-testid="setLimit50"
+                value="50"
+              >
+                50
+              </option>
+            </select>
+            <div
+              class="chakra-select__icon-wrapper css-162mkon"
+            >
+              <svg
+                aria-hidden="true"
+                class="chakra-select__icon"
+                focusable="false"
+                role="presentation"
+                style="width: 1em; height: 1em; color: currentcolor;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-form-control css-18k54cf"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="gotopage"
+            id="field-:r1:-label"
+          >
+            Go to page: 
+          </label>
+          <input
+            class="chakra-input css-0"
+            id="field-:r1:"
+          />
+        </div>
+      </div>
+      <div
+        class="css-1jds31o"
+        data-testid="paginationButtonContainer"
+      >
+        <button
+          class="chakra-button button-pagination button-active css-4xx2wk"
+          data-active=""
+          type="button"
+        >
+          1
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          2
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          3
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          4
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          5
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          6
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          7
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          8
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          9
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          10
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          last
+        </button>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="css-k008qs"
+    >
+      {"firstPage":0,"currentPage":1,"lastPage":38,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],"pages":[1,2,3,4,5,6,7,8,9,10],"totalRecords":380,"showFirst":false,"showLast":true,"offset":0,"limit":10}
+      <div
+        class="chakra-form-control css-tn9ygg"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="limit"
+          id="field-:r0:-label"
+        >
+          Limit
+        </label>
+        <div
+          class="chakra-select__wrapper css-42b2qy"
+        >
+          <select
+            class="chakra-select css-1ik61og"
+            data-testid="paginationSelect"
+            id="field-:r0:"
+            name="limit"
+          >
+            <option
+              data-testid="setLimit10"
+              value="10"
+            >
+              10
+            </option>
+            <option
+              data-testid="setLimit20"
+              value="20"
+            >
+              20
+            </option>
+            <option
+              data-testid="setLimit30"
+              value="30"
+            >
+              30
+            </option>
+            <option
+              data-testid="setLimit40"
+              value="40"
+            >
+              40
+            </option>
+            <option
+              data-testid="setLimit50"
+              value="50"
+            >
+              50
+            </option>
+          </select>
+          <div
+            class="chakra-select__icon-wrapper css-162mkon"
+          >
+            <svg
+              aria-hidden="true"
+              class="chakra-select__icon"
+              focusable="false"
+              role="presentation"
+              style="width: 1em; height: 1em; color: currentcolor;"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-form-control css-18k54cf"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="gotopage"
+          id="field-:r1:-label"
+        >
+          Go to page: 
+        </label>
+        <input
+          class="chakra-input css-0"
+          id="field-:r1:"
+        />
+      </div>
+    </div>
+    <div
+      class="css-1jds31o"
+      data-testid="paginationButtonContainer"
+    >
+      <button
+        class="chakra-button button-pagination button-active css-4xx2wk"
+        data-active=""
+        type="button"
+      >
+        1
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        2
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        3
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        4
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        5
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        6
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        7
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        8
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        9
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        10
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        last
+      </button>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Pagination renders first and last buttons when on page 8 or higher 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="css-k008qs"
+      >
+        {"firstPage":0,"currentPage":8,"lastPage":38,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],"pages":[4,5,6,7,8,9,10,11,12],"totalRecords":380,"showFirst":true,"showLast":true,"offset":70,"limit":10}
+        <div
+          class="chakra-form-control css-tn9ygg"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="limit"
+            id="field-:r2:-label"
+          >
+            Limit
+          </label>
+          <div
+            class="chakra-select__wrapper css-42b2qy"
+          >
+            <select
+              class="chakra-select css-1ik61og"
+              data-testid="paginationSelect"
+              id="field-:r2:"
+              name="limit"
+            >
+              <option
+                data-testid="setLimit10"
+                value="10"
+              >
+                10
+              </option>
+              <option
+                data-testid="setLimit20"
+                value="20"
+              >
+                20
+              </option>
+              <option
+                data-testid="setLimit30"
+                value="30"
+              >
+                30
+              </option>
+              <option
+                data-testid="setLimit40"
+                value="40"
+              >
+                40
+              </option>
+              <option
+                data-testid="setLimit50"
+                value="50"
+              >
+                50
+              </option>
+            </select>
+            <div
+              class="chakra-select__icon-wrapper css-162mkon"
+            >
+              <svg
+                aria-hidden="true"
+                class="chakra-select__icon"
+                focusable="false"
+                role="presentation"
+                style="width: 1em; height: 1em; color: currentcolor;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-form-control css-18k54cf"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="gotopage"
+            id="field-:r3:-label"
+          >
+            Go to page: 
+          </label>
+          <input
+            class="chakra-input css-0"
+            id="field-:r3:"
+          />
+        </div>
+      </div>
+      <div
+        class="css-1jds31o"
+        data-testid="paginationButtonContainer"
+      >
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          first
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          4
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          5
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          6
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          7
+        </button>
+        <button
+          class="chakra-button button-pagination button-active css-4xx2wk"
+          data-active=""
+          type="button"
+        >
+          8
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          9
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          10
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          11
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          12
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          last
+        </button>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="css-k008qs"
+    >
+      {"firstPage":0,"currentPage":8,"lastPage":38,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],"pages":[4,5,6,7,8,9,10,11,12],"totalRecords":380,"showFirst":true,"showLast":true,"offset":70,"limit":10}
+      <div
+        class="chakra-form-control css-tn9ygg"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="limit"
+          id="field-:r2:-label"
+        >
+          Limit
+        </label>
+        <div
+          class="chakra-select__wrapper css-42b2qy"
+        >
+          <select
+            class="chakra-select css-1ik61og"
+            data-testid="paginationSelect"
+            id="field-:r2:"
+            name="limit"
+          >
+            <option
+              data-testid="setLimit10"
+              value="10"
+            >
+              10
+            </option>
+            <option
+              data-testid="setLimit20"
+              value="20"
+            >
+              20
+            </option>
+            <option
+              data-testid="setLimit30"
+              value="30"
+            >
+              30
+            </option>
+            <option
+              data-testid="setLimit40"
+              value="40"
+            >
+              40
+            </option>
+            <option
+              data-testid="setLimit50"
+              value="50"
+            >
+              50
+            </option>
+          </select>
+          <div
+            class="chakra-select__icon-wrapper css-162mkon"
+          >
+            <svg
+              aria-hidden="true"
+              class="chakra-select__icon"
+              focusable="false"
+              role="presentation"
+              style="width: 1em; height: 1em; color: currentcolor;"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-form-control css-18k54cf"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="gotopage"
+          id="field-:r3:-label"
+        >
+          Go to page: 
+        </label>
+        <input
+          class="chakra-input css-0"
+          id="field-:r3:"
+        />
+      </div>
+    </div>
+    <div
+      class="css-1jds31o"
+      data-testid="paginationButtonContainer"
+    >
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        first
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        4
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        5
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        6
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        7
+      </button>
+      <button
+        class="chakra-button button-pagination button-active css-4xx2wk"
+        data-active=""
+        type="button"
+      >
+        8
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        9
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        10
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        11
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        12
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        last
+      </button>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`limit updates correctly 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="css-k008qs"
+      >
+        {"firstPage":0,"currentPage":8,"lastPage":13,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13],"pages":[4,5,6,7,8,9,10,11,12],"totalRecords":251,"showFirst":true,"showLast":true,"offset":140,"limit":20}
+        <div
+          class="chakra-form-control css-tn9ygg"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="limit"
+            id="field-:r6:-label"
+          >
+            Limit
+          </label>
+          <div
+            class="chakra-select__wrapper css-42b2qy"
+          >
+            <select
+              class="chakra-select css-1ik61og"
+              data-testid="paginationSelect"
+              id="field-:r6:"
+              name="limit"
+            >
+              <option
+                data-testid="setLimit10"
+                value="10"
+              >
+                10
+              </option>
+              <option
+                data-testid="setLimit20"
+                value="20"
+              >
+                20
+              </option>
+              <option
+                data-testid="setLimit30"
+                value="30"
+              >
+                30
+              </option>
+              <option
+                data-testid="setLimit40"
+                value="40"
+              >
+                40
+              </option>
+              <option
+                data-testid="setLimit50"
+                value="50"
+              >
+                50
+              </option>
+            </select>
+            <div
+              class="chakra-select__icon-wrapper css-162mkon"
+            >
+              <svg
+                aria-hidden="true"
+                class="chakra-select__icon"
+                focusable="false"
+                role="presentation"
+                style="width: 1em; height: 1em; color: currentcolor;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-form-control css-18k54cf"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="gotopage"
+            id="field-:r7:-label"
+          >
+            Go to page: 
+          </label>
+          <input
+            class="chakra-input css-0"
+            id="field-:r7:"
+          />
+        </div>
+      </div>
+      <div
+        class="css-1jds31o"
+        data-testid="paginationButtonContainer"
+      >
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          first
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          4
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          5
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          6
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          7
+        </button>
+        <button
+          class="chakra-button button-pagination button-active css-4xx2wk"
+          data-active=""
+          type="button"
+        >
+          8
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          9
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          10
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          11
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          12
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          last
+        </button>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="css-k008qs"
+    >
+      {"firstPage":0,"currentPage":8,"lastPage":13,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13],"pages":[4,5,6,7,8,9,10,11,12],"totalRecords":251,"showFirst":true,"showLast":true,"offset":140,"limit":20}
+      <div
+        class="chakra-form-control css-tn9ygg"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="limit"
+          id="field-:r6:-label"
+        >
+          Limit
+        </label>
+        <div
+          class="chakra-select__wrapper css-42b2qy"
+        >
+          <select
+            class="chakra-select css-1ik61og"
+            data-testid="paginationSelect"
+            id="field-:r6:"
+            name="limit"
+          >
+            <option
+              data-testid="setLimit10"
+              value="10"
+            >
+              10
+            </option>
+            <option
+              data-testid="setLimit20"
+              value="20"
+            >
+              20
+            </option>
+            <option
+              data-testid="setLimit30"
+              value="30"
+            >
+              30
+            </option>
+            <option
+              data-testid="setLimit40"
+              value="40"
+            >
+              40
+            </option>
+            <option
+              data-testid="setLimit50"
+              value="50"
+            >
+              50
+            </option>
+          </select>
+          <div
+            class="chakra-select__icon-wrapper css-162mkon"
+          >
+            <svg
+              aria-hidden="true"
+              class="chakra-select__icon"
+              focusable="false"
+              role="presentation"
+              style="width: 1em; height: 1em; color: currentcolor;"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-form-control css-18k54cf"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="gotopage"
+          id="field-:r7:-label"
+        >
+          Go to page: 
+        </label>
+        <input
+          class="chakra-input css-0"
+          id="field-:r7:"
+        />
+      </div>
+    </div>
+    <div
+      class="css-1jds31o"
+      data-testid="paginationButtonContainer"
+    >
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        first
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        4
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        5
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        6
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        7
+      </button>
+      <button
+        class="chakra-button button-pagination button-active css-4xx2wk"
+        data-active=""
+        type="button"
+      >
+        8
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        9
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        10
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        11
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        12
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        last
+      </button>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`should automatically set last page if greater than last page is provided 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="css-k008qs"
+      >
+        {"firstPage":0,"currentPage":13,"lastPage":13,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13],"pages":[11,12,13],"totalRecords":251,"showFirst":true,"showLast":false,"offset":280,"limit":20}
+        <div
+          class="chakra-form-control css-tn9ygg"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="limit"
+            id="field-:r8:-label"
+          >
+            Limit
+          </label>
+          <div
+            class="chakra-select__wrapper css-42b2qy"
+          >
+            <select
+              class="chakra-select css-1ik61og"
+              data-testid="paginationSelect"
+              id="field-:r8:"
+              name="limit"
+            >
+              <option
+                data-testid="setLimit10"
+                value="10"
+              >
+                10
+              </option>
+              <option
+                data-testid="setLimit20"
+                value="20"
+              >
+                20
+              </option>
+              <option
+                data-testid="setLimit30"
+                value="30"
+              >
+                30
+              </option>
+              <option
+                data-testid="setLimit40"
+                value="40"
+              >
+                40
+              </option>
+              <option
+                data-testid="setLimit50"
+                value="50"
+              >
+                50
+              </option>
+            </select>
+            <div
+              class="chakra-select__icon-wrapper css-162mkon"
+            >
+              <svg
+                aria-hidden="true"
+                class="chakra-select__icon"
+                focusable="false"
+                role="presentation"
+                style="width: 1em; height: 1em; color: currentcolor;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-form-control css-18k54cf"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="gotopage"
+            id="field-:r9:-label"
+          >
+            Go to page: 
+          </label>
+          <input
+            class="chakra-input css-0"
+            id="field-:r9:"
+          />
+        </div>
+      </div>
+      <div
+        class="css-1jds31o"
+        data-testid="paginationButtonContainer"
+      >
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          first
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          11
+        </button>
+        <button
+          class="chakra-button button-pagination css-4xx2wk"
+          type="button"
+        >
+          12
+        </button>
+        <button
+          class="chakra-button button-pagination button-active css-4xx2wk"
+          data-active=""
+          type="button"
+        >
+          13
+        </button>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="css-k008qs"
+    >
+      {"firstPage":0,"currentPage":13,"lastPage":13,"totalPages":[1,2,3,4,5,6,7,8,9,10,11,12,13],"pages":[11,12,13],"totalRecords":251,"showFirst":true,"showLast":false,"offset":280,"limit":20}
+      <div
+        class="chakra-form-control css-tn9ygg"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="limit"
+          id="field-:r8:-label"
+        >
+          Limit
+        </label>
+        <div
+          class="chakra-select__wrapper css-42b2qy"
+        >
+          <select
+            class="chakra-select css-1ik61og"
+            data-testid="paginationSelect"
+            id="field-:r8:"
+            name="limit"
+          >
+            <option
+              data-testid="setLimit10"
+              value="10"
+            >
+              10
+            </option>
+            <option
+              data-testid="setLimit20"
+              value="20"
+            >
+              20
+            </option>
+            <option
+              data-testid="setLimit30"
+              value="30"
+            >
+              30
+            </option>
+            <option
+              data-testid="setLimit40"
+              value="40"
+            >
+              40
+            </option>
+            <option
+              data-testid="setLimit50"
+              value="50"
+            >
+              50
+            </option>
+          </select>
+          <div
+            class="chakra-select__icon-wrapper css-162mkon"
+          >
+            <svg
+              aria-hidden="true"
+              class="chakra-select__icon"
+              focusable="false"
+              role="presentation"
+              style="width: 1em; height: 1em; color: currentcolor;"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-form-control css-18k54cf"
+        role="group"
+      >
+        <label
+          class="chakra-form__label css-uvho5g"
+          for="gotopage"
+          id="field-:r9:-label"
+        >
+          Go to page: 
+        </label>
+        <input
+          class="chakra-input css-0"
+          id="field-:r9:"
+        />
+      </div>
+    </div>
+    <div
+      class="css-1jds31o"
+      data-testid="paginationButtonContainer"
+    >
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        first
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        11
+      </button>
+      <button
+        class="chakra-button button-pagination css-4xx2wk"
+        type="button"
+      >
+        12
+      </button>
+      <button
+        class="chakra-button button-pagination button-active css-4xx2wk"
+        data-active=""
+        type="button"
+      >
+        13
+      </button>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

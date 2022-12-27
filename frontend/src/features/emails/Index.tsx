@@ -7,19 +7,7 @@ import useGetMessages from "./hooks/useGetMessages"
 import { Link } from "react-router-dom"
 import Pagination from "#/components/Pagination";
 import usePagination from "#/hooks/usePagination"
-type EmailData = {
-  MessageID: string;
-  Recipients: string[];
-  ReceivedAt: string;
-  From: string;
-  Subject: string;
-  Status: "Sent" | "Processed" | "Queued";
-  // messageEvents: {
-  //   Recipient: string;
-  //   Type: "SubscriptionChanged" | "Delivered" | "Transient" | "Opened" | "LinkClicked" | "Bounced"
-  //   ReceivedAt: string;
-  // }
-}[]
+
 export default function Index() {
 
   const [messages, setMessages, _, getMessages] = useGetMessages();
@@ -28,29 +16,21 @@ export default function Index() {
   const [subjectSearchTerm, setSubjectSearchTerm] = useState("");
   const [debouncedSubject, setDebouncedSubject] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pagination, setPage, setLimit, setTotalRecords] = usePagination({
-    totalRecords: messages?.TotalCount
+  const [pagination, setPage, setTotalRecords] = usePagination({
+    totalRecords: messages?.TotalCount,
+    initialPage: 8,
+    defaultLimit: 10
   });
 
+  // initial messages fetch.
   useEffect(() => {
-    if (messages?.TotalCount) {
-      if (messages.TotalCount != pagination.totalRecords) {
-        setTotalRecords(messages.TotalCount);
-        getMessages(pagination.currentPage, pagination.limit)
-      }
+    if (pagination.totalPages.length) {
+      getMessages(pagination.currentPage, pagination.limit)
     }
-  }, [messages?.TotalCount])
+  }, [])
 
-  useEffect(() => {
-    console.log("whats the limit", pagination.limit);
-    getMessages(pagination.currentPage, pagination.limit || 10)
-  }, [pagination.currentPage])
-
-  useEffect(() => {
-    getMessages(pagination.currentPage, pagination.limit)
-  }, [pagination.limit])
-  useEffect(() => getMessages(currentPage, pagination.limit, debouncedRecipient, subjectSearchTerm), [debouncedRecipient, subjectSearchTerm])
+  // 
+  useEffect(() => getMessages(1, pagination.limit, debouncedRecipient, subjectSearchTerm), [debouncedRecipient, subjectSearchTerm])
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       if (recipientSearchTerm != debouncedRecipient) {
@@ -97,7 +77,7 @@ export default function Index() {
 
           ))}
         <ListItem mt={5}>
-          <Pagination page={currentPage} setLimit={setLimit} setPage={setPage} pagination={pagination} totalRecords={messages?.TotalCount} />
+          <Pagination setPage={setPage} pagination={pagination} />
         {/* <HStack spacing={10} justifyContent="space-between">
           {currentPage >= 5 ? (
             <Button onClick={() => setCurrentPage(1)}>First</Button>

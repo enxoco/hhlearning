@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { paginationReducer, PaginationState } from "#/reducers/paginationReducer";
-const getTotalPages = (totalRecords: number, limit: number) => {
+export const getTotalPages = (totalRecords: number, limit: number) => {
   const total = [];
   for (var i = 0; i < totalRecords / limit; i++) {
     total.push(i);
@@ -10,22 +10,29 @@ const getTotalPages = (totalRecords: number, limit: number) => {
 
 export default function usePagination({
   totalRecords,
+  initialPage,
+  defaultLimit
 }: {
   totalRecords: number;
-}): [state: PaginationState, setPage: (page: number, limit: number) => void, setLimit: (limit: number) => void, setTotalRecords: (total: number) => void] {
+  initialPage: number;
+  defaultLimit: number;
+}): [state: PaginationState, setPage: (page: number, limit: number) => void, setTotalRecords: (total: number) => void] {
   // Set a default limit of 10
-  const limit = 10;
+
+  const initialState = () => {
+    
+  }
   const [state, dispatch] = useReducer(paginationReducer, {
     firstPage: 0,
-    currentPage: 0,
-    lastPage: totalRecords / limit - 1,
-    totalPages: getTotalPages(totalRecords, limit),
-    pages: getTotalPages(totalRecords, limit),
+    currentPage: initialPage,
+    lastPage: totalRecords / defaultLimit - 1,
+    totalPages: getTotalPages(totalRecords, defaultLimit),
+    pages: getTotalPages(totalRecords, defaultLimit),
     totalRecords: totalRecords,
     showFirst: false,
     showLast: true,
     offset: 0,
-    limit: limit
+    limit: defaultLimit
   });
 
   const setPage = (page: number, limit: number) => {
@@ -38,13 +45,6 @@ export default function usePagination({
     });
   };
 
-  const setLimit = (limit: number) => {
-    dispatch({
-      type: "SET_LIMIT",
-      payload: { limit, nextPage: state.currentPage, totalRecords: state.totalRecords }
-    })
-  }
-
   const setTotalRecords = (total: number) => {
     dispatch({
         type: "SET_TOTAL_RECORDS",
@@ -53,8 +53,16 @@ export default function usePagination({
   }
 
   useEffect(() => {
-    setPage(1, 10);
+    setPage(initialPage, defaultLimit);
   }, []);
 
-  return [state, setPage, setLimit, setTotalRecords];
+  useEffect(() => {
+    if (state.totalRecords != totalRecords) {
+      setTotalRecords(totalRecords)
+      console.log("state.currentPage", state.currentPage)
+      setPage(initialPage, state.limit)
+    }
+  }, [totalRecords])
+
+  return [state, setPage, setTotalRecords];
 }

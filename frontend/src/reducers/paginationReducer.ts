@@ -40,6 +40,7 @@ function getPages({totalRecords, limit, nextPage, totalPages}: { totalRecords: n
     for (var i = 0; i < lastPage; i++) {
       totalPageCount.push(i + 1);
     }
+    console.log("lastPage", lastPage, "totalRecords", totalRecords)
     // This is the default value
     let paginationObj = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     
@@ -69,22 +70,24 @@ export function paginationReducer(
             ...state,
             totalRecords: payload.totalRecords,
         }
-    case "SET_LIMIT":
-
-      return {
-        ...state,
-        limit: payload.limit,
-        lastPage: Math.ceil(payload.totalRecords / payload.limit)
-        
-      };
     case "SET_PAGE":
         const [lastPage, totalPageCount, paginationObj] = getPages({ totalRecords: state.totalRecords, limit: payload.limit, nextPage: payload.nextPage, totalPages: state.totalPages})
-
+        
+        // We should always have a current page set, even on initial render.
+        let curPage: number;
+        if (!lastPage) {
+          curPage = 1;
+        }
+        else if (payload.nextPage < lastPage) {
+          curPage = payload.nextPage;
+        } else {
+          curPage = lastPage;
+        }  
       return {
         ...state,
         limit: payload.limit,
         firstPage: 0,
-        currentPage: payload.nextPage,
+        currentPage: curPage,
         lastPage: lastPage,
         totalPages: totalPageCount,
         pages: paginationObj,
