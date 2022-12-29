@@ -11,35 +11,13 @@ export default function Pagination({
 
     return (
         <>
-            <Flex>
-                {JSON.stringify(pagination)}
-                <FormControl maxWidth="200px">
-                    <FormLabel htmlFor="limit">Limit</FormLabel>
-                    <Select
-                    data-testid="paginationSelect"
-                        name="limit"
-                        onChange={(e) => {
-                            setPage(pagination.currentPage, +e.target.value);
-                        }}
-                    >
-                        {[10,20,30,40,50].map((limit) => (
-                            <option data-testid={`setLimit${limit}`} key={limit} value={limit}>{limit}</option>
-                        ))}
-                    </Select>
-                </FormControl>
-                <FormControl maxWidth="200px" ml={5}>
-                    <FormLabel htmlFor="gotopage">Go to page: </FormLabel>
-                    <Input onChange={(e) => setPage(+e.target.value, pagination.limit)} />
-                </FormControl>
-            </Flex>
-
-
-            <Flex justifyContent="space-between" mt={5} data-testid="paginationButtonContainer">
+            <Flex justifyContent="flex-start" mt={5} data-testid="paginationButtonContainer" alignItems="center">
                 {pagination.showFirst && (
                     <Button
                         className="button-pagination"
                         key="first-button"
                         onClick={() => setPage(1, pagination.limit)}
+                        marginRight="1em"
                     >first</Button>
                 )}
                 {pagination.pages.map((page) => (
@@ -50,6 +28,7 @@ export default function Pagination({
                                 ? "button-pagination button-active"
                                 : "button-pagination"
                         }
+                        marginRight="1em"
                         key={page}
                         onClick={() => setPage(page, pagination.limit)}
                     >
@@ -63,6 +42,26 @@ export default function Pagination({
                         onClick={() => setPage(pagination.lastPage, pagination.limit)}
                     >last</Button>
                 )}
+                <Flex marginLeft="auto">
+                <FormControl display="flex" alignItems="center" mr={5}>
+                    <FormLabel htmlFor="limit">Limit</FormLabel>
+                    <Select
+                    data-testid="paginationSelect"
+                        name="limit"
+                        onChange={(e) => {
+                            setPage(pagination.currentPage, +e.target.value);
+                        }}
+                    >
+                        {[10,20,30,40,50].map((limit) => (
+                            <option data-testid={`setLimit${limit}`} key={limit} value={limit}>{limit}</option>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl display="flex" alignItems="center">
+                    <FormLabel htmlFor="gotopage">Go to page: </FormLabel>
+                    <Input value={pagination.currentPage || 1} onChange={(e) => setPage(+e.target.value, pagination.limit)} />
+                </FormControl>
+            </Flex>
             </Flex>
 
         </>

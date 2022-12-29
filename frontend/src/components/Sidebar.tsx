@@ -1,26 +1,22 @@
-import { loggedInUser } from "#/atom";
 import { EmailIcon } from "@chakra-ui/icons";
 import {
   Divider,
   Flex,
   Image,
   Stack,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { FiHome, FiLogOut, FiUsers, FiSettings, FiGlobe, FiMessageSquare, FiSend, FiMessageCircle } from "react-icons/fi";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { useCheckLoginQuery, useLogoutMutation } from "../generated/graphql";
+import { FiGlobe, FiHome, FiLogOut, FiSettings, FiUsers } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogoutMutation, User } from "../generated/graphql";
 import logo from "../logo.jpg";
 import { NavButton } from "./NavButton";
-import { UserProfile } from "./UserProfile";
+import UserProfile from "./UserProfile";
 
-export const Sidebar = () => {
-  const location = useLocation();
+export default function Sidebar({ user, path }: { user: User, path: string }) {
   const navigate = useNavigate();
   const [, logOut] = useLogoutMutation();
 
-  const [user, setUser] = useRecoilState(loggedInUser)
 
   async function handleLogout(e) {
     e.preventDefault();
@@ -43,13 +39,13 @@ export const Sidebar = () => {
           <Stack spacing={{ base: "5", sm: "6" }} shouldWrapChildren>
             <Image mx="auto" src={logo} h={217} w={225} />
 
-            <Stack spacing="1">
+            <Stack spacing="1" data-testid="sidebarLinks">
               <Link to="/dashboard">
                 <NavButton
                   label="Dashboard"
                   icon={FiHome}
                   aria-current={
-                    location.pathname.includes("dashboard") ? "page" : null
+                    path.includes("dashboard") ? "page" : null
                   }
                 />
               </Link>
@@ -60,7 +56,7 @@ export const Sidebar = () => {
                   label="Current Students"
                   icon={FiUsers}
                   aria-current={
-                    location.pathname === "/students" ? "page" : null
+                    path === "/students" ? "page" : null
                   }
                 />
               </Link>
@@ -69,7 +65,7 @@ export const Sidebar = () => {
                   label="Former Students"
                   icon={FiUsers}
                   aria-current={
-                    location.pathname === "/former-students" ? "page" : null
+                    path === "/former-students" ? "page" : null
                   }
                 />
               </Link>
@@ -80,7 +76,7 @@ export const Sidebar = () => {
                   label="All Students"
                   icon={FiUsers}
                   aria-current={
-                    location.pathname === "/students" ? "page" : null
+                    path === "/students" ? "page" : null
                   }
                 />
               </Link>
@@ -93,7 +89,7 @@ export const Sidebar = () => {
                       label="My Students"
                       icon={FiUsers}
                       aria-current={
-                        location.pathname ===
+                        path ===
                         "/students/" + user?.id
                           ? "page"
                           : null
@@ -105,7 +101,7 @@ export const Sidebar = () => {
                       label="Profile"
                       icon={FiSettings}
                       aria-current={
-                        location.pathname === "/profile" ? "page" : null
+                        path === "/profile" ? "page" : null
                       }
                     />
                   </Link>
@@ -119,7 +115,7 @@ export const Sidebar = () => {
                       label="Teachers"
                       icon={FiUsers}
                       aria-current={
-                        location.pathname === "/teachers" ? "page" : null
+                        path === "/teachers" ? "page" : null
                       }
                     />
                   </Link>
@@ -129,7 +125,7 @@ export const Sidebar = () => {
                       label="Parents"
                       icon={FiGlobe}
                       aria-current={
-                        location.pathname === "/families" ? "page" : null
+                        path === "/families" ? "page" : null
                       }
                     />
                   </Link>
@@ -138,7 +134,7 @@ export const Sidebar = () => {
                       label="Emails"
                       icon={EmailIcon}
                       aria-current={
-                        location.pathname === "/emails" ? "page" : null
+                        path === "/emails" ? "page" : null
                       }
                     />
                   </Link>
@@ -147,7 +143,7 @@ export const Sidebar = () => {
                       label="Settings"
                       icon={FiSettings}
                       aria-current={
-                        location.pathname === "/settings" ? "page" : null
+                        path === "/settings" ? "page" : null
                       }
                     />
                   </Link>

@@ -18,12 +18,16 @@ test("Pagination renders correctly initially", () => {
   // Get our button container
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
 
-  expect(buttonWrapper.childElementCount).toEqual(11)
-  const buttons = buttonWrapper.children
+  const buttons = buttonWrapper.querySelectorAll("button")
+  expect(buttons.length).toEqual(11)
+  // const buttons = buttonWrapper.children
   expect(buttons[0].innerHTML).toEqual("1")
   expect(buttons[0].classList.contains("button-active")).toBeTruthy()
   expect(buttons[buttons.length - 2].innerHTML.trim()).toEqual("10")
   expect(buttons[buttons.length - 1].innerHTML.trim()).toEqual("last")
+
+  // expect(buttonWrapper.style.justifyContent).toEqual("space-between")
+  expect(buttonWrapper.getElementsByTagName("button")[0].style.marginRight).toBeFalsy()
   expect(component).toMatchSnapshot()
 });
 
@@ -39,9 +43,8 @@ test("Pagination renders first and last buttons when on page 8 or higher", () =>
   const component = render(<Pagination pagination={pagination} setPage={setPage} />)
   // Get our button container
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
-
-  expect(buttonWrapper.childElementCount).toEqual(11)
-  const buttons = buttonWrapper.children
+  const buttons = buttonWrapper.querySelectorAll("button")
+  expect(buttons.length).toEqual(11)
   expect(buttons[0].innerHTML).toEqual("first")
   expect(buttons[1].innerHTML).toEqual("4")
   expect(buttons[buttons.length - 2].innerHTML.trim()).toEqual("12")
@@ -110,8 +113,10 @@ test("should automatically set last page if greater than last page is provided",
   expect(pagination.currentPage).toEqual(pagination.lastPage)
   
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
-  expect(buttonWrapper.children[buttonWrapper.childElementCount - 1].innerHTML).toEqual("13")
-  expect(buttonWrapper.children[buttonWrapper.childElementCount -1].classList.contains("button-active")).toBe(true)
+  const buttons = buttonWrapper.querySelectorAll("button")
+  expect(buttons.length).toEqual(4)
+  expect(buttons[buttons.length - 1].innerHTML).toEqual("13")
+  expect(buttons[buttons.length -1].classList.contains("button-active")).toBe(true)
 
   expect(component).toMatchSnapshot()
 }) 
@@ -130,6 +135,10 @@ test("shows correct number of buttons in relation to results", async () => {
   screen.findAllByRole("button")
     .then((buttons) => {
       expect(buttons.length).toEqual(2)
-    })
+  })
+  const buttonWrapper = screen.getByTestId("paginationButtonContainer");
+
+  expect(buttonWrapper.getElementsByTagName("button")[0].style.marginRight).toBeDefined()
+  expect(component).toMatchSnapshot()
   
 })

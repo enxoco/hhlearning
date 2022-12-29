@@ -40,21 +40,18 @@ function getPages({totalRecords, limit, nextPage, totalPages}: { totalRecords: n
     for (var i = 0; i < lastPage; i++) {
       totalPageCount.push(i + 1);
     }
-    console.log("lastPage", lastPage, "totalRecords", totalRecords)
     // This is the default value
-    let paginationObj = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // We only want to show 10 pages of results max.
+    // If we have less than 10 pages then we should show all the buttons.
+    let paginationObj = totalPageCount.length < 10 ? totalPageCount : [1,2,3,4,5,6,7,8,9,10];
     
-    // let page = nextPage < totalPageCount.at(-1) ? nextPage : totalPageCount.at(-1)
     if (nextPage >= 7 && totalPageCount.length > 10) {
       paginationObj = totalPageCount.slice(
         totalPageCount[nextPage - 6],
         totalPageCount[nextPage + 3]
       );
     }
-    // if (totalPageCount.length < 10) {
-    //     console.log("pagination object", paginationObj)
-    //     paginationObj = totalPageCount
-    // }
+
     return [lastPage, totalPageCount, paginationObj]
 }
 
@@ -91,8 +88,8 @@ export function paginationReducer(
         lastPage: lastPage,
         totalPages: totalPageCount,
         pages: paginationObj,
-        showFirst: payload.nextPage > 6,
-        showLast: payload.nextPage < totalPageCount[totalPageCount.length - 1],
+        showFirst: payload.nextPage > 6 && totalPageCount.length > 5,
+        showLast: payload.nextPage < totalPageCount[totalPageCount.length - 1] && totalPageCount.length > 5,
         offset: (payload.nextPage - 1) * payload.limit
       };
   }

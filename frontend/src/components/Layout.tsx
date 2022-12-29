@@ -1,8 +1,11 @@
+import { loggedInUser } from "#/atom"
 import { Box, Container, Flex, Heading, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { ReactElement } from "react"
+import { useLocation } from "react-router-dom"
+import { useRecoilState } from "recoil"
 import { ImpersonateUserBanner } from "../components/ImpersonatedUserBanner"
 import { Navbar } from "../components/Navbar"
-import { Sidebar } from "../components/Sidebar"
+import Sidebar from "../components/Sidebar"
 import useDocumentTitle from "../utils/useDocumentTitle"
 
 interface ILayoutProps {
@@ -12,15 +15,16 @@ interface ILayoutProps {
 
 }
 const Layout = ({ children, customTitle, description }: ILayoutProps) => {
+  const [user, setUser] = useRecoilState(loggedInUser)
 
   const isDesktop = useBreakpointValue({ base: false, lg: true })
-
+  const location = useLocation()
   let title = ""
   useDocumentTitle(`Hilger Portal - ${customTitle || title}`)
 
   return (
     <Flex as="section" direction={{ base: "column", lg: "row" }} height="100vh" bg="bg-canvas" overflowY="auto">
-      <Sidebar />
+      <Sidebar user={user} path={location.pathname} />
 
       <Box bg="bg-surface" pt={{ base: "0", lg: "3" }} flex="1">
         <Box bg="bg-canvas" borderTopLeftRadius={{ base: "none", lg: "2rem" }} height="full">

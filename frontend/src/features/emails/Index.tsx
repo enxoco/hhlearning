@@ -18,7 +18,7 @@ export default function Index() {
 
   const [pagination, setPage, setTotalRecords] = usePagination({
     totalRecords: messages?.TotalCount,
-    initialPage: 8,
+    initialPage: 1,
     defaultLimit: 10
   });
 
@@ -30,7 +30,7 @@ export default function Index() {
   }, [])
 
   // 
-  useEffect(() => getMessages(1, pagination.limit, debouncedRecipient, subjectSearchTerm), [debouncedRecipient, subjectSearchTerm])
+  useEffect(() => getMessages(pagination.currentPage, pagination.limit, debouncedRecipient, subjectSearchTerm), [debouncedRecipient, subjectSearchTerm, pagination.currentPage, pagination.limit])
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       if (recipientSearchTerm != debouncedRecipient) {

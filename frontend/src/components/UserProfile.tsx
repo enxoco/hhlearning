@@ -2,18 +2,17 @@ import { Box, HStack, Text } from '@chakra-ui/react'
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
  
-interface UserProfileProps {
+type UserProfileProps = {
   name: string
   email: string
 }
 
-export const UserProfile = (props: UserProfileProps) => {
+export default function UserProfile({ name, email }: UserProfileProps) {
     
-  const { name, email } = props
   return (
     <HStack spacing="3" ps="2">
       <InitialsAvatar name={name} />
-      <Box>
+      <Box data-testid="userProfileBadge">
         <Text fontWeight="medium" fontSize="sm">
           {name}
         </Text>

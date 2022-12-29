@@ -1,22 +1,7 @@
 import Layout from "#/components/Layout";
 import { Box, Divider, Heading, List, ListItem, Stack, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Skeleton from "./Email.skeleton";
-import useGetMessages from "./hooks/useGetMessages";
+export default function Skeleton({ }) {
 
-export default function Email() {
-    const { id } = useParams();
-    const [, getMessageById, message] = useGetMessages();
-
-    useEffect(() => {
-        if (id) {
-            getMessageById(id)
-        }
-    }, [])
-    if (!message) {
-       return <Skeleton />
-    }
     return (
         <Layout customTitle="Email" description="">
             <Stack spacing="5">
@@ -24,29 +9,28 @@ export default function Email() {
                     <List>
                         <ListItem display="flex">
                             <Text fontWeight="bold" mr={5}>Recipient: </Text>
-                            <Text>{message.Recipients[0]}</Text>
+                            <Text></Text>
                         </ListItem>
                         <ListItem my={5} display="flex">
                             <Text fontWeight="bold" mr={5}>Subject: </Text>
-                            <Text>{message.Subject}</Text>
+                            <Text></Text>
                         </ListItem>
                         <ListItem display="flex">
                             <Text fontWeight="bold" mr={5}>Status: </Text>
-                            <Text>{message.MessageEvents[0].Type || ""} at {new Date(message.MessageEvents[0].ReceivedAt).toLocaleString() || ""}</Text>
+                            <Text> at </Text>
                         </ListItem>
                         <ListItem my={5} display="flex">
                             <Text fontWeight="bold" mr={5}>Last Action: </Text>
-                            <Text>{message.MessageEvents[message.MessageEvents.length - 1].Type.replace(/([A-Z])/g, " $1").trim() || ""} at {new Date(message.MessageEvents[message.MessageEvents.length - 1].ReceivedAt).toLocaleString() || ""}</Text>
+                            <Text> at </Text>
                         </ListItem>
                     </List>
                     <Divider />
                     <Heading my={5} size="xs">Email Content</Heading>
-                    <Box dangerouslySetInnerHTML={{ __html: message?.HtmlBody }}>
+                    <Box>
 
                     </Box>
                 </Box>
             </Stack>
         </Layout>
-
     )
 }
