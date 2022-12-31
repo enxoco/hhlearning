@@ -3,7 +3,7 @@
  * 
  * @param {String} property Key of the object to sort.
  */
-export default function dynamicSort(property) {
+export default function dynamicSort(property: string) {
     var sortOrder = 1;
 
     if (property[0] === "-") {

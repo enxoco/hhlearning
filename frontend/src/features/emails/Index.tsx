@@ -1,22 +1,21 @@
-import { Box, Heading, HStack, List, ListItem, Skeleton, Stack, useDisclosure, Flex, Grid, Button, Input } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 import Layout from "#/components/Layout"
+import { Box, Grid, Heading, Input, List, ListItem } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 
-import { ArrowUpIcon } from "@chakra-ui/icons"
-import useGetMessages from "./hooks/useGetMessages"
-import { Link } from "react-router-dom"
-import Pagination from "#/components/Pagination";
+import Pagination from "#/components/Pagination"
 import usePagination from "#/hooks/usePagination"
+import { Link } from "react-router-dom"
+import useGetMessages from "./hooks/useGetMessages"
 
 export default function Index() {
 
-  const [messages, setMessages, _, getMessages] = useGetMessages();
+  const [messages, , , getMessages] = useGetMessages();
   const [recipientSearchTerm, setRecipientSearchTerm] = useState("");
   const [debouncedRecipient, setDebouncedRecipient] = useState("");
   const [subjectSearchTerm, setSubjectSearchTerm] = useState("");
   const [debouncedSubject, setDebouncedSubject] = useState("");
 
-  const [pagination, setPage, setTotalRecords] = usePagination({
+  const [pagination, setPage] = usePagination({
     totalRecords: messages?.TotalCount,
     initialPage: 1,
     defaultLimit: 10
@@ -44,7 +43,7 @@ export default function Index() {
   }, [recipientSearchTerm, subjectSearchTerm])
 
   return (
-    <Layout customTitle="All Parents" description="">
+    <Layout customTitle="All Emails" description="">
       <Box p={0}>
 
         <List bgColor="white" p={5} border="1px solid #f5f5f5" borderRadius={10}>
@@ -78,17 +77,6 @@ export default function Index() {
           ))}
         <ListItem mt={5}>
           <Pagination setPage={setPage} pagination={pagination} />
-        {/* <HStack spacing={10} justifyContent="space-between">
-          {currentPage >= 5 ? (
-            <Button onClick={() => setCurrentPage(1)}>First</Button>
-          ) : null }
-          {pages.pagination.map((page) => (
-            <Button key={page} isActive={page == currentPage} onClick={() => setCurrentPage(page)}>{page}</Button>
-          ))}
-          {currentPage < pages.lastPage ? (
-            <Button onClick={() => setCurrentPage(pages.lastPage)}>Last</Button>
-          ): null}
-        </HStack> */}
         </ListItem>
         </List>
       </Box>

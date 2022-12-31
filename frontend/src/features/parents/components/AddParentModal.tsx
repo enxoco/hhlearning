@@ -27,7 +27,6 @@ export default function AddParentModal() {
 
         await getParents()
         if (newParent.error) {
-            console.log(newParent.error.message)
             if (newParent.error.message == "[GraphQL] Prisma error: Unique constraint failed on the fields: (`email`)")
                 toast({
                     status: "error",

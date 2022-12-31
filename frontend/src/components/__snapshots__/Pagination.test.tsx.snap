@@ -80,7 +80,7 @@ exports[`Pagination renders correctly initially 1`] = `
           class="css-1y4kgfw"
         >
           <div
-            class="chakra-form-control css-1c714fi"
+            class="chakra-form-control css-q5g1j5"
             role="group"
           >
             <label
@@ -150,7 +150,7 @@ exports[`Pagination renders correctly initially 1`] = `
             </div>
           </div>
           <div
-            class="chakra-form-control css-70qvj9"
+            class="chakra-form-control css-dntb9e"
             role="group"
           >
             <label
@@ -165,6 +165,16 @@ exports[`Pagination renders correctly initially 1`] = `
               defaultvalue="1"
               id="field-:r1:"
             />
+          </div>
+          <div
+            class="css-k67pli"
+            data-testid="paginationCurrentResults"
+          >
+            1
+             - 
+            10
+             of 
+            380
           </div>
         </div>
       </div>
@@ -246,7 +256,7 @@ exports[`Pagination renders correctly initially 1`] = `
         class="css-1y4kgfw"
       >
         <div
-          class="chakra-form-control css-1c714fi"
+          class="chakra-form-control css-q5g1j5"
           role="group"
         >
           <label
@@ -316,7 +326,7 @@ exports[`Pagination renders correctly initially 1`] = `
           </div>
         </div>
         <div
-          class="chakra-form-control css-70qvj9"
+          class="chakra-form-control css-dntb9e"
           role="group"
         >
           <label
@@ -331,6 +341,16 @@ exports[`Pagination renders correctly initially 1`] = `
             defaultvalue="1"
             id="field-:r1:"
           />
+        </div>
+        <div
+          class="css-k67pli"
+          data-testid="paginationCurrentResults"
+        >
+          1
+           - 
+          10
+           of 
+          380
         </div>
       </div>
     </div>
@@ -469,7 +489,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
           class="css-1y4kgfw"
         >
           <div
-            class="chakra-form-control css-1c714fi"
+            class="chakra-form-control css-q5g1j5"
             role="group"
           >
             <label
@@ -539,7 +559,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
             </div>
           </div>
           <div
-            class="chakra-form-control css-70qvj9"
+            class="chakra-form-control css-dntb9e"
             role="group"
           >
             <label
@@ -554,6 +574,16 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
               defaultvalue="8"
               id="field-:r3:"
             />
+          </div>
+          <div
+            class="css-k67pli"
+            data-testid="paginationCurrentResults"
+          >
+            71
+             - 
+            80
+             of 
+            380
           </div>
         </div>
       </div>
@@ -635,7 +665,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
         class="css-1y4kgfw"
       >
         <div
-          class="chakra-form-control css-1c714fi"
+          class="chakra-form-control css-q5g1j5"
           role="group"
         >
           <label
@@ -705,7 +735,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
           </div>
         </div>
         <div
-          class="chakra-form-control css-70qvj9"
+          class="chakra-form-control css-dntb9e"
           role="group"
         >
           <label
@@ -720,6 +750,16 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
             defaultvalue="8"
             id="field-:r3:"
           />
+        </div>
+        <div
+          class="css-k67pli"
+          data-testid="paginationCurrentResults"
+        >
+          71
+           - 
+          80
+           of 
+          380
         </div>
       </div>
     </div>
@@ -858,7 +898,7 @@ exports[`limit updates correctly 1`] = `
           class="css-1y4kgfw"
         >
           <div
-            class="chakra-form-control css-1c714fi"
+            class="chakra-form-control css-q5g1j5"
             role="group"
           >
             <label
@@ -928,7 +968,7 @@ exports[`limit updates correctly 1`] = `
             </div>
           </div>
           <div
-            class="chakra-form-control css-70qvj9"
+            class="chakra-form-control css-dntb9e"
             role="group"
           >
             <label
@@ -943,6 +983,16 @@ exports[`limit updates correctly 1`] = `
               defaultvalue="8"
               id="field-:r7:"
             />
+          </div>
+          <div
+            class="css-k67pli"
+            data-testid="paginationCurrentResults"
+          >
+            141
+             - 
+            160
+             of 
+            251
           </div>
         </div>
       </div>
@@ -1024,7 +1074,7 @@ exports[`limit updates correctly 1`] = `
         class="css-1y4kgfw"
       >
         <div
-          class="chakra-form-control css-1c714fi"
+          class="chakra-form-control css-q5g1j5"
           role="group"
         >
           <label
@@ -1094,7 +1144,7 @@ exports[`limit updates correctly 1`] = `
           </div>
         </div>
         <div
-          class="chakra-form-control css-70qvj9"
+          class="chakra-form-control css-dntb9e"
           role="group"
         >
           <label
@@ -1109,6 +1159,16 @@ exports[`limit updates correctly 1`] = `
             defaultvalue="8"
             id="field-:r7:"
           />
+        </div>
+        <div
+          class="css-k67pli"
+          data-testid="paginationCurrentResults"
+        >
+          141
+           - 
+          160
+           of 
+          251
         </div>
       </div>
     </div>
@@ -1205,7 +1265,7 @@ exports[`should automatically set last page if greater than last page is provide
           class="css-1y4kgfw"
         >
           <div
-            class="chakra-form-control css-1c714fi"
+            class="chakra-form-control css-q5g1j5"
             role="group"
           >
             <label
@@ -1275,7 +1335,7 @@ exports[`should automatically set last page if greater than last page is provide
             </div>
           </div>
           <div
-            class="chakra-form-control css-70qvj9"
+            class="chakra-form-control css-dntb9e"
             role="group"
           >
             <label
@@ -1290,6 +1350,16 @@ exports[`should automatically set last page if greater than last page is provide
               defaultvalue="13"
               id="field-:r9:"
             />
+          </div>
+          <div
+            class="css-k67pli"
+            data-testid="paginationCurrentResults"
+          >
+            281
+             - 
+            300
+             of 
+            251
           </div>
         </div>
       </div>
@@ -1329,7 +1399,7 @@ exports[`should automatically set last page if greater than last page is provide
         class="css-1y4kgfw"
       >
         <div
-          class="chakra-form-control css-1c714fi"
+          class="chakra-form-control css-q5g1j5"
           role="group"
         >
           <label
@@ -1399,7 +1469,7 @@ exports[`should automatically set last page if greater than last page is provide
           </div>
         </div>
         <div
-          class="chakra-form-control css-70qvj9"
+          class="chakra-form-control css-dntb9e"
           role="group"
         >
           <label
@@ -1414,6 +1484,16 @@ exports[`should automatically set last page if greater than last page is provide
             defaultvalue="13"
             id="field-:r9:"
           />
+        </div>
+        <div
+          class="css-k67pli"
+          data-testid="paginationCurrentResults"
+        >
+          281
+           - 
+          300
+           of 
+          251
         </div>
       </div>
     </div>
@@ -1498,7 +1578,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
           class="css-1y4kgfw"
         >
           <div
-            class="chakra-form-control css-1c714fi"
+            class="chakra-form-control css-q5g1j5"
             role="group"
           >
             <label
@@ -1568,7 +1648,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
             </div>
           </div>
           <div
-            class="chakra-form-control css-70qvj9"
+            class="chakra-form-control css-dntb9e"
             role="group"
           >
             <label
@@ -1583,6 +1663,16 @@ exports[`shows correct number of buttons in relation to results 1`] = `
               defaultvalue="1"
               id="field-:rb:"
             />
+          </div>
+          <div
+            class="css-k67pli"
+            data-testid="paginationCurrentResults"
+          >
+            1
+             - 
+            10
+             of 
+            20
           </div>
         </div>
       </div>
@@ -1610,7 +1700,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
         class="css-1y4kgfw"
       >
         <div
-          class="chakra-form-control css-1c714fi"
+          class="chakra-form-control css-q5g1j5"
           role="group"
         >
           <label
@@ -1680,7 +1770,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
           </div>
         </div>
         <div
-          class="chakra-form-control css-70qvj9"
+          class="chakra-form-control css-dntb9e"
           role="group"
         >
           <label
@@ -1695,6 +1785,16 @@ exports[`shows correct number of buttons in relation to results 1`] = `
             defaultvalue="1"
             id="field-:rb:"
           />
+        </div>
+        <div
+          class="css-k67pli"
+          data-testid="paginationCurrentResults"
+        >
+          1
+           - 
+          10
+           of 
+          20
         </div>
       </div>
     </div>

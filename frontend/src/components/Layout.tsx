@@ -4,7 +4,6 @@ import { ReactElement } from "react"
 import { useLocation } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { ImpersonateUserBanner } from "../components/ImpersonatedUserBanner"
-import { Navbar } from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 import useDocumentTitle from "../utils/useDocumentTitle"
 
@@ -15,9 +14,8 @@ interface ILayoutProps {
 
 }
 const Layout = ({ children, customTitle, description }: ILayoutProps) => {
-  const [user, setUser] = useRecoilState(loggedInUser)
+  const [user] = useRecoilState(loggedInUser)
 
-  const isDesktop = useBreakpointValue({ base: false, lg: true })
   const location = useLocation()
   let title = ""
   useDocumentTitle(`Hilger Portal - ${customTitle || title}`)

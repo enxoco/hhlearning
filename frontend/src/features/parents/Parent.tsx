@@ -16,8 +16,6 @@ interface IParentProps {
     }[]
 }
 
-
-
 export default function Parent({ parent }: { parent: IParentProps }) {
     const { id } = useParams();
     const [email, setEmail] = useState("");
@@ -47,8 +45,8 @@ export default function Parent({ parent }: { parent: IParentProps }) {
         )
     }
     useEffect(() => {
-        if(data?.user?.email) {
-            if (data.user.email != email){
+        if (data?.user?.email) {
+            if (data.user.email != email) {
                 setEmail(data.user.email);
                 getStudents();
             }

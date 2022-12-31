@@ -81,12 +81,12 @@ export const courses = atom({
   default: {id: null, name: "", grade: ""},
 })
 
-export const pageSize = atom({
+export const pageSize = atom<number>({
   key: "pageSize",
   default: 50
 })
 
-export const pageOffset = atom({
+export const pageOffset = atom<number>({
   key: "pageOffset",
   default: 0
 })
@@ -101,7 +101,7 @@ export const settings = atom({
   default: null
 })
 
-export const showNewCourseCard = atom({
+export const showNewCourseCard = atom<boolean>({
   key: "showNewCourseCard",
   default: false
 })

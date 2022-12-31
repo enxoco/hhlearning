@@ -34,7 +34,6 @@ export default function AddStudentModal({ lastName, parentId, setParentId, setPa
     }
 
     useEffect(() => {
-        console.log("render add student modal");
         fetchParents();
     }, [relation, childrenSearchResults, connectedStudent, removedChild, firstName])
 

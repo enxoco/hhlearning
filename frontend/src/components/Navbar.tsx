@@ -1,3 +1,4 @@
+import { loggedInUser } from '#/atom'
 import {
     Box,
     Drawer,
@@ -8,10 +9,11 @@ import {
     useDisclosure,
     Image
   } from '@chakra-ui/react'
+import { useRecoilState } from 'recoil'
 
-  import { Sidebar } from './Sidebar'
+  import Sidebar from './Sidebar'
   import { ToggleButton } from './ToggleButton'
-  
+  const [user] = useRecoilState(loggedInUser);
   export const Navbar = () => {
     const { isOpen, onToggle, onClose } = useDisclosure()
     return (
@@ -36,7 +38,7 @@ import {
           >
             <DrawerOverlay />
             <DrawerContent>
-              <Sidebar />
+              <Sidebar user={user} path={location.pathname} />
             </DrawerContent>
           </Drawer>
         </Flex>

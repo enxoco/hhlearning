@@ -31,7 +31,7 @@ import {
   useToggleAdminMutation,
 } from "../generated/graphql";
 
-function TeacherTable({ studentProp, columns }) {
+function TeacherTable({ studentProp }) {
   const orderDirection = "asc";
 
   const [fetchStudents, setStudents] = useRecoilState(studentAtom);

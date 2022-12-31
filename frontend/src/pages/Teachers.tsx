@@ -1,4 +1,5 @@
 import { Box, Button, ButtonGroup, HStack, Icon, Input, InputGroup, InputLeftElement, Stack, Text, useBreakpointValue } from "@chakra-ui/react"
+import { ChangeEvent, EventHandler } from "react"
 
 import { FiDownloadCloud, FiSearch } from "react-icons/fi"
 import { Link } from "react-router-dom"
@@ -31,7 +32,7 @@ const Teachers = () => {
     getStudents({ limit: pageSize, offset: pageOffset })
   }
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
   }
   return (
@@ -62,7 +63,7 @@ const Teachers = () => {
           </Stack>
         </Box>
         <Box overflowX="auto">
-          <TeacherTable studentProp={studentData?.data?.users} columns={["Name", "Email"]} />
+          <TeacherTable studentProp={studentData?.data?.users} />
         </Box>
         <Box px={{ base: "4", md: "6" }} pb="5">
           <HStack spacing="3" justify="space-between">

@@ -1,22 +1,22 @@
 import { loggedInUser } from "#/atom";
 import { useGetAllStudentsQuery, useToggleStudentActiveStatusMutation } from "#/generated/graphql";
-import { FormControl, FormLabel, HStack, IconButton, Switch, Tooltip, useDisclosure } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { FormControl, FormLabel, HStack, IconButton, Switch, Tooltip } from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
-type ITableActionProps = { 
-    id: string, 
-    isFormer: boolean, 
-    name: string, 
-    studentId: string, 
+type ITableActionProps = {
+    id: string,
+    isFormer: boolean,
+    name: string,
+    studentId: string,
     setStudentId: Dispatch<SetStateAction<string>>,
-    studentName: string, 
-    setStudentName: Dispatch<SetStateAction<string>>, 
-    onOpen: () => void 
+    studentName: string,
+    setStudentName: Dispatch<SetStateAction<string>>,
+    onOpen: () => void
 }
-export default function TableActions({ id, isFormer, name, studentId, setStudentId, studentName, setStudentName, onOpen }: ITableActionProps) {
+export default function TableActions({ id, isFormer, name, setStudentId, setStudentName, onOpen }: ITableActionProps) {
     const isLoggedIn = useRecoilValue(loggedInUser)
     const [, toggleActiveStudent] = useToggleStudentActiveStatusMutation()
     const [, getStudentData] = useGetAllStudentsQuery({ variables: { limit: 1000, offset: 0, isFormer } })

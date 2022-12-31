@@ -1,6 +1,6 @@
 import { screen, render } from "@testing-library/react"
 
-import UserProfile from "./UserProfile";
+import InitialsAvatar from "./InitialsAvatar";
 
 
 test("initials render correctly", async () => {
@@ -10,7 +10,7 @@ test("initials render correctly", async () => {
     email: "mike.conrad.hhl@gmail.com"
   }
   const component = render(
-    <UserProfile {...testUser}/>
+    <InitialsAvatar {...testUser}/>
   );
 
   const badge = await screen.getByRole("img")

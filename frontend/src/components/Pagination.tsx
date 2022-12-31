@@ -1,5 +1,5 @@
 import { PaginationState } from "#/reducers/paginationReducer";
-import { Button, Flex, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
 
 export default function Pagination({
     pagination,
@@ -10,7 +10,6 @@ export default function Pagination({
 }) {
 
     return (
-        <>
             <Flex justifyContent="flex-start" mt={5} data-testid="paginationButtonContainer" alignItems="center">
                 {pagination.showFirst && (
                     <Button
@@ -43,27 +42,29 @@ export default function Pagination({
                     >last</Button>
                 )}
                 <Flex marginLeft="auto">
-                <FormControl display="flex" alignItems="center" mr={5}>
-                    <FormLabel htmlFor="limit">Limit</FormLabel>
-                    <Select
-                    data-testid="paginationSelect"
-                        name="limit"
-                        onChange={(e) => {
-                            setPage(pagination.currentPage, +e.target.value);
-                        }}
-                    >
-                        {[10,20,30,40,50].map((limit) => (
-                            <option data-testid={`setLimit${limit}`} key={limit} value={limit}>{limit}</option>
-                        ))}
-                    </Select>
-                </FormControl>
-                <FormControl display="flex" alignItems="center">
-                    <FormLabel htmlFor="gotopage">Go to page: </FormLabel>
-                    <Input value={pagination.currentPage || 1} onChange={(e) => setPage(+e.target.value, pagination.limit)} />
-                </FormControl>
-            </Flex>
-            </Flex>
 
-        </>
+                    <FormControl display="flex" alignItems="left" flexDirection="column" mr={5} maxWidth="120px">
+                        <FormLabel htmlFor="limit">Limit</FormLabel>
+                        <Select
+                            data-testid="paginationSelect"
+                            name="limit"
+                            onChange={(e) => {
+                                setPage(pagination.currentPage, +e.target.value);
+                            }}
+                        >
+                            {[10, 20, 30, 40, 50].map((limit) => (
+                                <option data-testid={`setLimit${limit}`} key={limit} value={limit}>{limit}</option>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl display="flex" alignItems="left" flexDirection="column" maxWidth="150px" mr={5}>
+                        <FormLabel htmlFor="gotopage">Go to page: </FormLabel>
+                        <Input value={pagination.currentPage || 1} onChange={(e) => setPage(+e.target.value, pagination.limit)} />
+                    </FormControl>
+                    <Box display="flex" alignItems="center" mt={5} minWidth="100px" data-testid="paginationCurrentResults">
+                        {pagination.offset + 1} - {pagination.offset + pagination.limit} of {pagination.totalRecords}
+                    </Box>
+                </Flex>
+            </Flex>
     );
 }

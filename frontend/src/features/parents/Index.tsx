@@ -1,14 +1,13 @@
-import { Box, HStack, List, ListItem, Skeleton, Stack, useDisclosure } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 import Layout from "#/components/Layout"
+import { useGetAllParentsQuery } from "#/generated/graphql"
+import { Skeleton, Stack, useDisclosure } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 import AddParentModal from "./components/AddParentModal"
 import AddStudentModal from "./components/AddStudentModal"
 import ParentsActionBar from "./components/ParentsActionBar"
 import StudentsList from "./components/StudentsList"
 import Table from "./components/Table"
 import TuitionStatusToggle from "./components/TuitionStatusToggle"
-import { useGetAllParentsQuery } from "#/generated/graphql"
-import { ArrowUpIcon } from "@chakra-ui/icons"
 
 function Parents() {
   // Prevent the table from going back to page 1 after flipping a toggle switch.

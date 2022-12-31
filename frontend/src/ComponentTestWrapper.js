@@ -1,8 +1,7 @@
-import React from "react"
+import { Suspense } from "react"
 import { RecoilRoot } from "recoil"
 import { createClient, Provider } from "urql"
 import { Router } from "react-router-dom"
-const { createBrowserHistory } = require("history");
 
 // import { fireEvent, render } from '@testing-library/react';
 import { createMemoryHistory } from "history"
@@ -17,11 +16,11 @@ export default function ComponentTestWrapper({ component, location }) {
   return (
     <Provider value={client}>
       <RecoilRoot>
-        <React.Suspense fallback="...loading">
+        <Suspense fallback="...loading">
           <Router navigator={history} location={location}>
             {component}
           </Router>
-        </React.Suspense>
+        </Suspense>
       </RecoilRoot>
     </Provider>
   )

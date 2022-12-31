@@ -10,8 +10,8 @@ import { FiGlobe, FiHome, FiLogOut, FiSettings, FiUsers } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation, User } from "../generated/graphql";
 import logo from "../logo.jpg";
+import InitialsAvatar from "./InitialsAvatar";
 import { NavButton } from "./NavButton";
-import UserProfile from "./UserProfile";
 
 export default function Sidebar({ user, path }: { user: User, path: string }) {
   const navigate = useNavigate();
@@ -164,15 +164,7 @@ export default function Sidebar({ user, path }: { user: User, path: string }) {
             </Stack>
 
             <Divider />
-            {user ? (
-              <UserProfile
-                name={
-                  user.name ||
-                  user.firstName
-                }
-                email={user.email}
-              />
-            ) : null}
+            {!user || <InitialsAvatar name={user.name || `${user.firstName} ${user.lastName}`} email={user.email}/>}
           </Stack>
         </Stack>
       </Flex>

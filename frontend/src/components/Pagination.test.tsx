@@ -4,7 +4,7 @@ import { screen, render } from "@testing-library/react"
 import { renderHook } from '@testing-library/react-hooks'
 
 
-test("Pagination renders correctly initially", () => {
+test("Pagination renders correctly initially", async () => {
   const { result } = renderHook(() => usePagination({
     totalRecords: 380,
     initialPage: 1,
@@ -28,6 +28,9 @@ test("Pagination renders correctly initially", () => {
 
   // expect(buttonWrapper.style.justifyContent).toEqual("space-between")
   expect(buttonWrapper.getElementsByTagName("button")[0].style.marginRight).toBeFalsy()
+  let currentResults = await component.findByTestId("paginationCurrentResults")
+  expect(currentResults.textContent).toBe(`1 - 10 of 380`)
+
   expect(component).toMatchSnapshot()
 });
 
@@ -142,3 +145,24 @@ test("shows correct number of buttons in relation to results", async () => {
   expect(component).toMatchSnapshot()
   
 })
+
+// test("shows index of results", async () => {
+//   const { result } = renderHook(() => usePagination({
+//     totalRecords: 200,
+//     initialPage: 1,
+//     defaultLimit: 10
+//   }));
+
+//   const [pagination, setPage] = result.current
+//   const component = render(
+//     <Pagination pagination={pagination} setPage={setPage} />
+//   );
+//   let currentResults = await component.findByTestId("paginationCurrentResults")
+//   expect(currentResults.textContent).toBe("1 - 10 of 200")
+
+//   // setPage(2, 10)
+//   // component.rerender(<Pagination pagination={pagination} setPage={setPage} />);
+//   // currentResults = await component.findByTestId("paginationCurrentResults")
+//   // expect(currentResults.textContent).toBe("11 - 20 of 200")
+
+// })

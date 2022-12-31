@@ -1,11 +1,11 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 
-type UserProfileProps = {
+type InitialsAvatarProps = {
   name: string
   email: string
 }
 
-export default function UserProfile({ name, email }: UserProfileProps) {
+export default function InitialsAvatar({ name, email }: InitialsAvatarProps) {
   const initials = [...new Set(name.replace(/ /g, "").split(/[a-z]/))].join("");
   return (
     <HStack spacing="3" ps="2">

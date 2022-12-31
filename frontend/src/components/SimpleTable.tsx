@@ -32,7 +32,7 @@ interface IStudentProp {
     feedback?: string;
   }[];
 }
-function SimpleTable({ studentProp }: { studentProp: IStudentProp[] }) {
+export default function SimpleTable({ studentProp }: { studentProp: IStudentProp[] }) {
   const [loggedInUser] = useRecoilState(loggedInUserAtom);
 
   return (
@@ -123,4 +123,3 @@ function SimpleTable({ studentProp }: { studentProp: IStudentProp[] }) {
     </>
   );
 }
-export default SimpleTable;
