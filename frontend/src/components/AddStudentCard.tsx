@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, Input, Stack, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
-import { useCreateStudentMutation, useUpdateStudentInfoMutation } from "../generated/graphql"
+import { useCreateStudentMutation, useUpdateStudentInfoMutation } from "#/generated/graphql"
 import {useParams} from 'react-router-dom'
 
 const AddStudentCard = ({student}) => {

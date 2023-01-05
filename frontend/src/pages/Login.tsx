@@ -1,10 +1,10 @@
-import { Alert, AlertIcon, AlertTitle, Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue, useToast } from "@chakra-ui/react"
+import { Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, useBreakpointValue, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { Logo } from "../components/Logo"
-import { PasswordField } from "../components/PasswordField"
-import { useLoginMutation } from "../generated/graphql"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import { Link } from "react-router-dom"
+import Logo from "#/features/layout/components/Logo"
+import { PasswordField } from "#/components/PasswordField"
+import { useLoginMutation } from "#/generated/graphql"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 
 
 function Login() {

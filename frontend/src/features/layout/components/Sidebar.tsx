@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { FiGlobe, FiHome, FiLogOut, FiSettings, FiUsers } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogoutMutation, User } from "../generated/graphql";
-import logo from "../logo.jpg";
+import { useLogoutMutation, User } from "#/generated/graphql";
+import logo from "#/logo.jpg";
 import InitialsAvatar from "./InitialsAvatar";
 import { NavButton } from "./NavButton";
 

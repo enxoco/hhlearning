@@ -3,9 +3,9 @@ import { Box, Container, Flex, Heading, Stack, Text, useBreakpointValue, VStack 
 import { ReactElement } from "react"
 import { useLocation } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { ImpersonateUserBanner } from "../components/ImpersonatedUserBanner"
-import Sidebar from "../components/Sidebar"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import { ImpersonateUserBanner } from "./ImpersonatedUserBanner"
+import Sidebar from "./Sidebar"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 
 interface ILayoutProps {
   children: ReactElement | ReactElement[];
@@ -13,7 +13,7 @@ interface ILayoutProps {
   description?: string;
 
 }
-const Layout = ({ children, customTitle, description }: ILayoutProps) => {
+export default function ({ children, customTitle, description }: ILayoutProps) {
   const [user] = useRecoilState(loggedInUser)
 
   const location = useLocation()
@@ -47,5 +47,3 @@ const Layout = ({ children, customTitle, description }: ILayoutProps) => {
     </Flex>
   )
 }
-
-export default Layout

@@ -12,23 +12,17 @@ import {
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Hashids from "hashids";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PasswordField } from "../../components/PasswordField";
+import { PasswordField } from "#/components/PasswordField";
 import {
   useForgotPasswordMutation,
   useLoginMutation,
   useRedeemPasswordResetTokenMutation,
-} from "../../generated/graphql";
-import useDocumentTitle from "../../utils/useDocumentTitle";
+} from "#/generated/graphql";
+import useDocumentTitle from "#/utils/useDocumentTitle";
 function ResetPassword() {
   useDocumentTitle("Hilger Portal - Reset password");
-  const hashids = new Hashids(
-    "this is my salt",
-    8,
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-  );
 
   const { id, token } = useParams();
   const navigate = useNavigate();

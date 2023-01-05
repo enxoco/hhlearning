@@ -1547,19 +1547,25 @@ export type FindStudentsForParentsQueryVariables = Exact<{
 
 export type FindStudentsForParentsQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, id: string, firstName?: string | null, parent?: { __typename?: 'User', id: string } | null }> | null };
 
-export type GetAllParentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllParentsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+  searchString: Scalars['String'];
+  sortParams: Array<UserOrderByInput> | UserOrderByInput;
+}>;
 
 
-export type GetAllParentsQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
+export type GetAllParentsQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
 
 export type GetAllStudentsQueryVariables = Exact<{
   limit: Scalars['Int'];
   offset: Scalars['Int'];
   isFormer: Scalars['Boolean'];
+  search: Scalars['String'];
 }>;
 
 
-export type GetAllStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, isFormer?: boolean | null }> | null };
+export type GetAllStudentsQuery = { __typename?: 'Query', studentsCount?: number | null, students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, isFormer?: boolean | null }> | null };
 
 export type GetAllTeachersQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -2090,8 +2096,13 @@ export function useFindStudentsForParentsQuery(options: Omit<Urql.UseQueryArgs<F
   return Urql.useQuery<FindStudentsForParentsQuery, FindStudentsForParentsQueryVariables>({ query: FindStudentsForParentsDocument, ...options });
 };
 export const GetAllParentsDocument = gql`
-    query GetAllParents {
-  users(where: {isParent: {equals: true}}, orderBy: {lastName: asc}) {
+    query GetAllParents($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
+  users(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
+    orderBy: $sortParams
+    take: $limit
+    skip: $offset
+  ) {
     name
     firstName
     lastName
@@ -2105,19 +2116,22 @@ export const GetAllParentsDocument = gql`
       portalId
     }
   }
+  usersCount(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
+  )
 }
     `;
 
-export function useGetAllParentsQuery(options?: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
+export function useGetAllParentsQuery(options: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
 };
 export const GetAllStudentsDocument = gql`
-    query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!) {
+    query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!, $search: String!) {
   students(
     take: $limit
     skip: $offset
     orderBy: {lastName: asc}
-    where: {isFormer: {equals: $isFormer}}
+    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
   ) {
     __typename
     id
@@ -2127,6 +2141,9 @@ export const GetAllStudentsDocument = gql`
     portalId
     isFormer
   }
+  studentsCount(
+    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
+  )
 }
     `;
 

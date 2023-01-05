@@ -1,9 +1,9 @@
 import { Box, CloseButton, Container, Link, Stack, Text } from "@chakra-ui/react"
 import { useRecoilState } from "recoil"
-import {impersonateUser as impersonateUserAtom} from '../atom'
+import {impersonateUser as impersonateUserAtom} from '#/atom'
 export const ImpersonateUserBanner = () => {
 
-  const [impersonatedUser, setImpersonatedUser] = useRecoilState(impersonateUserAtom)
+  const [impersonatedUser] = useRecoilState(impersonateUserAtom)
   return (
     !impersonatedUser ? null : (
         <Box bg="bg-accent" color="on-accent" position="relative" w="100%">

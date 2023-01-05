@@ -1,4 +1,4 @@
-import Layout from "#/components/Layout";
+import Layout from "#/features/layout/Layout";
 import { Box, Divider, Heading, List, ListItem, Stack, Text } from "@chakra-ui/react";
 export default function Skeleton({ }) {
 

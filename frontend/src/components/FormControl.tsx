@@ -2,7 +2,7 @@
 import { Button, FormControl, FormLabel, HStack, Input } from "@chakra-ui/react"
 
 import { useState } from 'react'
-import { useUpdateSettingsMutation } from "../generated/graphql"
+import { useUpdateSettingsMutation } from "#/generated/graphql"
 
 const FormBlock = ({ id, name, value }) => {
     const [setting, updateSetting] = useUpdateSettingsMutation()

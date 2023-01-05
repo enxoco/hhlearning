@@ -1,7 +1,7 @@
 import { Divider, Flex, Stack, useColorModeValue, Image } from "@chakra-ui/react";
 import { FiHome, FiLogOut } from "react-icons/fi";
 import { NavButton } from "./NavButton";
-import logo from "../logo.jpg";
+import logo from "#/logo.jpg";
 
 export default function SidebarSkeleton(){
     return (

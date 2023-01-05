@@ -6,8 +6,7 @@ import {
     DrawerOverlay,
     Flex,
     useColorModeValue,
-    useDisclosure,
-    Image
+    useDisclosure
   } from '@chakra-ui/react'
 import { useRecoilState } from 'recoil'
 

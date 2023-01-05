@@ -1,11 +1,42 @@
-query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!) {
-    students(take: $limit, skip: $offset, orderBy: {lastName: asc}, where: { isFormer: { equals: $isFormer } }) {
-        __typename
-        id
-        name
-        firstName
-        lastName
-        portalId
-        isFormer
+query GetAllStudents(
+  $limit: Int!
+  $offset: Int!
+  $isFormer: Boolean!
+  $search: String!
+) {
+  students(
+    take: $limit
+    skip: $offset
+    orderBy: { lastName: asc }
+    where: {
+      AND: [
+        { isFormer: { equals: $isFormer } }
+        { lastName: { contains: $search, mode: insensitive } }
+      ]
+      OR: [
+        { isFormer: { equals: $isFormer } }
+        { firstName: { contains: $search, mode: insensitive } }
+      ]
     }
+  ) {
+    __typename
+    id
+    name
+    firstName
+    lastName
+    portalId
+    isFormer
+  }
+  studentsCount(
+    where: {
+      AND: [
+        { isFormer: { equals: $isFormer } }
+        { lastName: { contains: $search, mode: insensitive } }
+      ]
+      OR: [
+        { isFormer: { equals: $isFormer } }
+        { firstName: { contains: $search, mode: insensitive } }
+      ]
+    }
+  )
 }

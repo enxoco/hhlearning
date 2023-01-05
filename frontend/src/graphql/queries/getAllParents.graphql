@@ -1,5 +1,21 @@
-query GetAllParents{
-  users(where: {isParent: {equals: true}}, orderBy: {lastName: asc}){
+query GetAllParents($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
+  users(
+    where: {
+      OR: [
+        { name: { contains: $searchString, mode: insensitive } }
+        { email: { contains: $searchString, mode: insensitive } }
+        {
+          student: {
+            some: { firstName: { contains: $searchString, mode: insensitive } }
+          }
+        }
+      ]
+      AND: [{ isParent: { equals: true } }]
+    }
+    orderBy: $sortParams
+    take: $limit
+    skip: $offset
+  ) {
     name
     firstName
     lastName
@@ -13,4 +29,18 @@ query GetAllParents{
       portalId
     }
   }
+  usersCount(
+    where: {
+      OR: [
+        { name: { contains: $searchString, mode: insensitive } }
+        { email: { contains: $searchString, mode: insensitive } }
+        {
+          student: {
+            some: { firstName: { contains: $searchString, mode: insensitive } }
+          }
+        }
+      ]
+      AND: [{ isParent: { equals: true } }]
+    }
+  )
 }

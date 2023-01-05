@@ -1,12 +1,12 @@
-import { Box, Button, Heading, HStack, Image, Skeleton, Stack, Text, useColorModeValue, VStack } from "@chakra-ui/react"
+import { Box, Heading, HStack, Stack, Text, useColorModeValue, VStack } from "@chakra-ui/react"
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { loggedInUser } from "../atom"
-import Layout from "../components/Layout"
-import { Logo } from "../components/Logo"
-import { useCoursesByStudentQuery, useGetStudentQuery, useFetchSettingsQuery } from "../generated/graphql"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import { loggedInUser } from "#/atom"
+import Layout from "#/features/layout/components/Layout"
+import Logo from "#/features/layout/components/Logo"
+import { useCoursesByStudentQuery, useGetStudentQuery, useFetchSettingsQuery } from "#/generated/graphql"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 import Dashboard from "./Dashboard"
 
 const StudentReport = () => {

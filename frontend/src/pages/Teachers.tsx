@@ -1,14 +1,14 @@
 import { Box, Button, ButtonGroup, HStack, Icon, Input, InputGroup, InputLeftElement, Stack, Text, useBreakpointValue } from "@chakra-ui/react"
-import { ChangeEvent, EventHandler } from "react"
+import { ChangeEvent } from "react"
 
 import { FiDownloadCloud, FiSearch } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { pageOffset as pageOffsetAtom, pageSize as pageSizeAtom, searchTerm as searchTermAtom } from "../atom"
-import Layout from "../components/Layout"
-import TeacherTable from "../components/TeacherTable"
-import { useGetAllTeachersQuery } from "../generated/graphql"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import { pageOffset as pageOffsetAtom, pageSize as pageSizeAtom, searchTerm as searchTermAtom } from "#/atom"
+import Layout from "#/features/layout/Layout"
+import TeacherTable from "#/components/TeacherTable"
+import { useGetAllTeachersQuery } from "#/generated/graphql"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 const Teachers = () => {
   useDocumentTitle("Hilger Portal - Teachers")
 
@@ -58,7 +58,7 @@ const Teachers = () => {
               <InputLeftElement pointerEvents="none">
                 <Icon as={FiSearch} color="muted" boxSize="5" />
               </InputLeftElement>
-              <Input placeholder="Search" onChange={handleSearch} />
+              <Input placeholder="Search" onChange={handleSearch} />h
             </InputGroup>
           </Stack>
         </Box>

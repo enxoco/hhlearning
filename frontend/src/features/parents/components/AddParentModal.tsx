@@ -1,13 +1,12 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, FormControl, FormLabel, Input, Button, useDisclosure, useToast, HStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { useCreateParentMutation, useGetAllParentsQuery } from "#/generated/graphql"
+import { useCreateParentMutation } from "#/generated/graphql"
 
-export default function AddParentModal() {
+export default function() {
     const [parentFirstName, setParentFirstName] = useState("");
     const [parentLastName, setParentLastName] = useState("");
     const [parentEmail, setParentEmail] = useState("");
     const [newParent, createNewParent] = useCreateParentMutation();
-    const [allParents, getParents] = useGetAllParentsQuery()
     const { onOpen, isOpen, onClose } = useDisclosure();
     const toast = useToast({
         position: "top",
@@ -25,7 +24,6 @@ export default function AddParentModal() {
             password: uuid
         })
 
-        await getParents()
         if (newParent.error) {
             if (newParent.error.message == "[GraphQL] Prisma error: Unique constraint failed on the fields: (`email`)")
                 toast({
@@ -69,7 +67,6 @@ export default function AddParentModal() {
                             </FormControl>
                             <FormControl display="flex" my={5}>
                                 <Button ml="auto" colorScheme="blue" type="submit" isDisabled={!parentFirstName || !parentLastName || !parentEmail} onClick={handleAddParent} isLoading={newParent.fetching}>Save</Button>
-
                             </FormControl>
                         </form>
                     </ModalBody>

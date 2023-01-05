@@ -14,7 +14,7 @@ type IAddStudentProps = {
     onClose: () => void;
     fetchParents: (opts?: Partial<OperationContext>) => void;
 }
-export default function AddStudentModal({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose, fetchParents }: IAddStudentProps) {
+export default function ({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose, fetchParents }: IAddStudentProps) {
     const [relation, createRelation] = useCreateRelatedStudentMutation();
     const [childrenSearchResults, findChildren] = useFindStudentsForParentsQuery({ variables: { where: { lastName: { contains: lastName } } }, pause: !lastName })
     const [connectedStudent, setConnectedStudent] = useAddChildToParentMutation();

@@ -3,11 +3,11 @@ import { useEffect, useState } from "react"
 import { FiArrowDown, FiArrowUp, FiDownloadCloud, FiEdit2 } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { loggedInUser as loggedInUserAtom, students as studentAtom } from "../atom"
-import { Card } from "../components/Card"
-import Layout from "../components/Layout"
-import { useGetMyStudentsQuery, useGetStudentsByParentQuery } from "../generated/graphql"
-import { exportCSVFile } from "../utils/csvExport"
+import { loggedInUser as loggedInUserAtom } from "#/atom"
+import { Card } from "#/components/Card"
+import Layout from "#/features/layout/Layout"
+import { useGetMyStudentsQuery } from "#/generated/graphql"
+import { exportCSVFile } from "#/utils/csvExport"
 
 const MyStudents = () => {
   const [loggedInUser] = useRecoilState(loggedInUserAtom)

@@ -25,11 +25,11 @@ import {
   students as studentAtom,
   loggedInUser,
   impersonateUser as impersonateUserAtom,
-} from "../atom";
+} from "#/atom";
 import {
   useForgotPasswordMutation,
   useToggleAdminMutation,
-} from "../generated/graphql";
+} from "#/generated/graphql";
 
 function TeacherTable({ studentProp }) {
   const orderDirection = "asc";

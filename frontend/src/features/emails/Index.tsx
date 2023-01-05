@@ -1,4 +1,4 @@
-import Layout from "#/components/Layout"
+import Layout from "#/features/layout/Layout"
 import { Box, Grid, Heading, Input, List, ListItem } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 

@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { loggedInUser as loggedInUserAtom } from "../atom";
+import { loggedInUser as loggedInUserAtom } from "#/atom";
 
 interface IStudentProp {
   __typename?: "Student";

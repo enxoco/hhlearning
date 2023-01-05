@@ -167,7 +167,7 @@ exports[`Pagination renders correctly initially 1`] = `
             />
           </div>
           <div
-            class="css-k67pli"
+            class="css-1a79dau"
             data-testid="paginationCurrentResults"
           >
             1
@@ -343,7 +343,7 @@ exports[`Pagination renders correctly initially 1`] = `
           />
         </div>
         <div
-          class="css-k67pli"
+          class="css-1a79dau"
           data-testid="paginationCurrentResults"
         >
           1
@@ -576,7 +576,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
             />
           </div>
           <div
-            class="css-k67pli"
+            class="css-1a79dau"
             data-testid="paginationCurrentResults"
           >
             71
@@ -752,7 +752,7 @@ exports[`Pagination renders first and last buttons when on page 8 or higher 1`] 
           />
         </div>
         <div
-          class="css-k67pli"
+          class="css-1a79dau"
           data-testid="paginationCurrentResults"
         >
           71
@@ -985,7 +985,7 @@ exports[`limit updates correctly 1`] = `
             />
           </div>
           <div
-            class="css-k67pli"
+            class="css-1a79dau"
             data-testid="paginationCurrentResults"
           >
             141
@@ -1161,7 +1161,7 @@ exports[`limit updates correctly 1`] = `
           />
         </div>
         <div
-          class="css-k67pli"
+          class="css-1a79dau"
           data-testid="paginationCurrentResults"
         >
           141
@@ -1352,12 +1352,12 @@ exports[`should automatically set last page if greater than last page is provide
             />
           </div>
           <div
-            class="css-k67pli"
+            class="css-1a79dau"
             data-testid="paginationCurrentResults"
           >
             281
              - 
-            300
+            251
              of 
             251
           </div>
@@ -1486,12 +1486,12 @@ exports[`should automatically set last page if greater than last page is provide
           />
         </div>
         <div
-          class="css-k67pli"
+          class="css-1a79dau"
           data-testid="paginationCurrentResults"
         >
           281
            - 
-          300
+          251
            of 
           251
         </div>
@@ -1665,7 +1665,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
             />
           </div>
           <div
-            class="css-k67pli"
+            class="css-1a79dau"
             data-testid="paginationCurrentResults"
           >
             1
@@ -1787,7 +1787,7 @@ exports[`shows correct number of buttons in relation to results 1`] = `
           />
         </div>
         <div
-          class="css-k67pli"
+          class="css-1a79dau"
           data-testid="paginationCurrentResults"
         >
           1

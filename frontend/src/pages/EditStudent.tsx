@@ -3,12 +3,12 @@ import { useEffect } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
 import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { impersonateUser, loggedInUser, showNewCourseCard as showNewCourseCardAtom } from "../atom"
+import { impersonateUser, loggedInUser, showNewCourseCard as showNewCourseCardAtom } from "#/atom"
 
-import AddStudentCard from "../components/AddStudentCard"
-import EditStudentCard from "../components/EditCourseCard"
-import Layout from "../components/Layout"
-import { useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "../generated/graphql"
+import AddStudentCard from "#/components/AddStudentCard"
+import EditStudentCard from "#/components/EditCourseCard"
+import Layout from "#/features/layout/Layout"
+import { useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "#/generated/graphql"
 
 export default function EditStudent() {
   let { id } = useParams()

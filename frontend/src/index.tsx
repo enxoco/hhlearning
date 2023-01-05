@@ -17,18 +17,19 @@ import EditStudent from "./pages/EditStudent"
 import Login from "./pages/Login"
 import MyStudents from "./pages/MyStudents"
 import Parents from "./features/parents/Index"
-const Register = lazy(() => import("./pages/Register"));
+const Register = lazy(() => import("#/pages/Register"));
 // import Register from "./pages/Register"
 // import StudentReport from "./pages/StudentReport"
-import Students from "./features/students/Students"
-import Teachers from "./pages/Teachers"
-import { MyProfile } from "./pages/MyProfile"
-import Settings from "./pages/Settings"
+import Students from "#/features/students/Students"
+import Teachers from "#/pages/Teachers"
+import { MyProfile } from "#/pages/MyProfile"
+import Settings from "#/pages/Settings"
 import { useRecoilState } from "recoil"
-import { loggedInUser } from "./atom"
-import PageSkeleton from "./components/PageSkeleton"
-import Emails from "./features/emails/Index"
-import Email from "./features/emails/Email"
+import { loggedInUser } from "#/atom"
+import PageSkeleton from "#/features/layout/components/PageSkeleton"
+import Emails from "#/features/emails/Index"
+import Email from "#/features/emails/Email"
+import Parent from "./features/parents/Parent"
 
 // import Parents from "./pages/Parents"
 const client = createClient({
@@ -73,6 +74,7 @@ root.render(
                 <Route path="/teachers" element={<RequireAuth adminOnly><Teachers /></RequireAuth>} />
                 <Route path="/parents" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
                 <Route path="/families" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
+                <Route path="/families/:id" element={<RequireAuth adminOnly><Parent /></RequireAuth>}></Route>
                 <Route path="/emails" element={<RequireAuth adminOnly><Emails /></RequireAuth>} />
                 <Route path="/emails/:id" element={<RequireAuth adminOnly><Email /></RequireAuth>} />
                 {/* <Route path="/families/:id" element={<RequireAuth adminOnly><Parent /></RequireAuth>} /> */}

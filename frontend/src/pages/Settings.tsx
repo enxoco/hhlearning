@@ -1,9 +1,9 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Stack, Text, Divider, Heading } from "@chakra-ui/react"
+import { Box, Button, FormControl, HStack, Input, Stack, Text, Divider, Heading } from "@chakra-ui/react"
 import { useEffect, useState } from 'react'
-import Layout from "../components/Layout"
-import { useFetchSettingsQuery, useUpdateSettingsMutation } from "../generated/graphql"
-import useDeleteCourses from "../hooks/useDeleteCourses"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import Layout from "#/features/layout/Layout"
+import { useFetchSettingsQuery, useUpdateSettingsMutation } from "#/generated/graphql"
+import useDeleteCourses from "#/hooks/useDeleteCourses"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 
 function Settings() {
   useDocumentTitle("Hilger Portal - Settings")

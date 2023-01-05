@@ -2,7 +2,7 @@ import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, 
 import { useState } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
 import AddStudentCard from "#/components/AddStudentCard"
-import Layout from "#/components/Layout"
+import Layout from "#/features/layout/Layout"
 import { useBulkAddStudentsMutation } from "#/generated/graphql"
 import { useNavigate } from "react-router-dom"
 

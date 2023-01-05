@@ -10,7 +10,7 @@ import {
     Stack,
     useColorModeValue,
   } from '@chakra-ui/react'
-  import {useCheckLoginQuery, useGetMyProfileQuery} from '../generated/graphql'
+  import {useCheckLoginQuery, useGetMyProfileQuery} from "#/generated/graphql"
 
   export const PersonalInfoCard = (props: BoxProps) => {
     const [me] = useCheckLoginQuery()

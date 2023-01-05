@@ -1,10 +1,10 @@
 import { Box, Button, Divider, Flex, SimpleGrid, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { loggedInUser } from "../atom"
-import Layout from "../components/Layout"
-import Stat from "../components/Stat"
+import { loggedInUser } from "#/atom"
+import Layout from "#/features/layout/Layout"
+import Stat from "#/features/layout/components/Stat"
 import { useGetMyCoursesCountByTeacherQuery, useStudentsCountQuery, useTotalCourseCountQuery } from "../generated/graphql"
 const Dashboard = () => {
   const [studentCountQuery] = useStudentsCountQuery({ variables: { isFormer: false } })

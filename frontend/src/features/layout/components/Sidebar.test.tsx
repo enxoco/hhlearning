@@ -1,15 +1,11 @@
 import Sidebar from "./Sidebar";
-import { screen, render } from "@testing-library/react"
-import userEvent from '@testing-library/user-event'
-
-import { renderHook } from '@testing-library/react-hooks'
-import { User } from "#/generated/graphql";
-import { BrowserRouter, MemoryRouter } from 'react-router-dom'
+import { render } from "@testing-library/react"
+import { BrowserRouter } from 'react-router-dom'
 
 
 test("Sidebar renders correct links for admin users", async () => {
 
-  const testUser: User = {
+  const testUser = {
     id: "1",
     name: "Mike Conrad",
     firstName: "Mike",
@@ -35,7 +31,7 @@ test("Sidebar renders correct links for admin users", async () => {
 
 test("Sidebar renders correct links for non admin users", async () => {
 
-  const testUser: User = {
+  const testUser = {
     id: "1",
     name: "Mike Conrad",
     firstName: "Mike",

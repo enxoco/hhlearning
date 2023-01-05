@@ -1,20 +1,32 @@
+import '@testing-library/jest-dom'
 import usePagination from "../hooks/usePagination";
 import Pagination from "./Pagination";
-import { screen, render } from "@testing-library/react"
+import { screen, render, RenderResult } from "@testing-library/react"
 import { renderHook } from '@testing-library/react-hooks'
+import { PaginationState } from "#/reducers/paginationReducer";
 
 
-test("Pagination renders correctly initially", async () => {
+function renderPagination(totalRecords: number, initialPage: number, defaultLimit: number): [
+  component: RenderResult<typeof import("/home/node/app/node_modules/@testing-library/dom/types/queries"), HTMLElement, HTMLElement>,
+  pagination: PaginationState
+] {
   const { result } = renderHook(() => usePagination({
-    totalRecords: 380,
-    initialPage: 1,
-    defaultLimit: 10
+    totalRecords,
+    initialPage,
+    defaultLimit
   }));
 
   const [pagination, setPage] = result.current
   const component = render(
     <Pagination pagination={pagination} setPage={setPage} />
   );
+  return [component, pagination]
+}
+
+test("Pagination renders correctly initially", async () => {
+
+  const [component] = renderPagination(380, 1, 10)
+
   // Get our button container
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
 
@@ -35,15 +47,8 @@ test("Pagination renders correctly initially", async () => {
 });
 
 test("Pagination renders first and last buttons when on page 8 or higher", () => {
-  const { result } = renderHook(() => usePagination({
-    totalRecords: 380,
-    initialPage: 8,
-    defaultLimit: 10
-  }));
+  const [component] = renderPagination(380, 8, 10)
 
-  const [pagination, setPage] = result.current
-
-  const component = render(<Pagination pagination={pagination} setPage={setPage} />)
   // Get our button container
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
   const buttons = buttonWrapper.querySelectorAll("button")
@@ -57,47 +62,35 @@ test("Pagination renders first and last buttons when on page 8 or higher", () =>
 });
 
 test("Pagination initial state is correct", () => {
-  const { result } = renderHook(() => usePagination({
-    totalRecords: 251,
-    initialPage: 1,
-    defaultLimit: 10
-  }));
-  const [pagination, setPage] = result.current
 
-  render(
-    <Pagination pagination={pagination} setPage={setPage} />
-  );
+  const [component, state] = renderPagination(251, 1, 10)
 
-  const { firstPage, currentPage, lastPage, totalPages, pages, totalRecords, showFirst, showLast, offset, limit } = result.current[0];
+  const { firstPage, currentPage, lastPage, totalPages, pages, totalRecords, showFirst, showLast, offset, limit } = state;
   expect(firstPage).toEqual(0);
   expect(currentPage).toEqual(1);
   expect(lastPage).toEqual(26);
-  expect(totalPages).toEqual([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]);
-  expect(pages).toEqual([1,2,3,4,5,6,7,8,9,10])
+  expect(totalPages).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]);
+  expect(pages).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   expect(showFirst).toBe(false);
   expect(showLast).toBe(true);
 
 });
 
 test("limit updates correctly", () => {
-  const { result } = renderHook(() => usePagination({
-    totalRecords: 251,
-    initialPage: 8,
-    defaultLimit: 20
-  }));
+  const [component, state] = renderPagination(251, 8, 20)
 
 
-  const [pagination, setPage] = result.current
+  expect(state.lastPage).toEqual(13)
+  expect(state.totalPages).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
+  expect(state.currentPage).toEqual(8)
+  expect(state.pages).toEqual([4, 5, 6, 7, 8, 9, 10, 11, 12])
+  expect(state.showFirst).toBe(true)
+  expect(state.showLast).toBe(true)
+  expect(screen.queryByDisplayValue("20")).toBeInTheDocument()
+  expect(screen.queryByDisplayValue("20").getAttribute("name")).toBe("limit")
+  expect(screen.queryByDisplayValue("10")).not.toBeInTheDocument()
 
-  const component = render(<Pagination pagination={pagination} setPage={setPage} />)
 
-  expect(pagination.lastPage).toEqual(13)
-  expect(pagination.totalPages).toEqual([1,2,3,4,5,6,7,8,9,10,11,12,13])
-  expect(pagination.currentPage).toEqual(8)
-  expect(pagination.pages).toEqual([4,5,6,7,8,9,10,11,12])
-  expect(pagination.showFirst).toBe(true)
-  expect(pagination.showLast).toBe(true)
-  
   expect(component).toMatchSnapshot()
 })
 
@@ -107,22 +100,17 @@ test("should automatically set last page if greater than last page is provided",
     initialPage: 15,
     defaultLimit: 20
   }));
+  const [component, state] = renderPagination(251, 15, 20)
+  expect(state.currentPage).toEqual(state.lastPage)
 
-  const [pagination, setPage] = result.current
-  const component = render(
-    <Pagination pagination={pagination} setPage={setPage} />
-  );
-
-  expect(pagination.currentPage).toEqual(pagination.lastPage)
-  
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
   const buttons = buttonWrapper.querySelectorAll("button")
   expect(buttons.length).toEqual(4)
   expect(buttons[buttons.length - 1].innerHTML).toEqual("13")
-  expect(buttons[buttons.length -1].classList.contains("button-active")).toBe(true)
+  expect(buttons[buttons.length - 1].classList.contains("button-active")).toBe(true)
 
   expect(component).toMatchSnapshot()
-}) 
+})
 
 test("shows correct number of buttons in relation to results", async () => {
   const { result } = renderHook(() => usePagination({
@@ -131,38 +119,28 @@ test("shows correct number of buttons in relation to results", async () => {
     defaultLimit: 10
   }));
 
-  const [pagination, setPage] = result.current
-  const component = render(
-    <Pagination pagination={pagination} setPage={setPage} />
-  );
+  const [component] = renderPagination(20, 1, 10)
   screen.findAllByRole("button")
     .then((buttons) => {
       expect(buttons.length).toEqual(2)
-  })
+    })
   const buttonWrapper = screen.getByTestId("paginationButtonContainer");
 
   expect(buttonWrapper.getElementsByTagName("button")[0].style.marginRight).toBeDefined()
   expect(component).toMatchSnapshot()
-  
+
 })
 
-// test("shows index of results", async () => {
-//   const { result } = renderHook(() => usePagination({
-//     totalRecords: 200,
-//     initialPage: 1,
-//     defaultLimit: 10
-//   }));
+test("shows correct number of results when less than the limit size", async () => {
+  const [component, state] = renderPagination(15, 1, 20)
+  expect(state.pages).toEqual([1])
+  let currentResults = await component.findByTestId("paginationCurrentResults")
+  expect(currentResults.textContent).toBe(`1 - 15 of 15`)
+})
 
-//   const [pagination, setPage] = result.current
-//   const component = render(
-//     <Pagination pagination={pagination} setPage={setPage} />
-//   );
-//   let currentResults = await component.findByTestId("paginationCurrentResults")
-//   expect(currentResults.textContent).toBe("1 - 10 of 200")
-
-//   // setPage(2, 10)
-//   // component.rerender(<Pagination pagination={pagination} setPage={setPage} />);
-//   // currentResults = await component.findByTestId("paginationCurrentResults")
-//   // expect(currentResults.textContent).toBe("11 - 20 of 200")
-
-// })
+test("shows 0 when no results", async () => {
+  const [component, state] = renderPagination(0, 1, 20)
+  expect(state.pages).toEqual([])
+  let currentResults = await component.findByTestId("paginationCurrentResults")
+  expect(currentResults.textContent).toBe(`0 results`)
+})

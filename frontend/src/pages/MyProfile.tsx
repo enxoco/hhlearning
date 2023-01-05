@@ -1,10 +1,10 @@
 import { Box, Button, FormControl, Heading, Stack, Text, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRecoilState } from "recoil"
-import { loggedInUser } from "../atom"
-import Layout from "../components/Layout"
-import { PasswordField } from "../components/PasswordField"
-import { useUpdatePasswordMutation } from "../generated/graphql"
+import { loggedInUser } from "#/atom"
+import Layout from "#/features/layout/Layout"
+import { PasswordField } from "#/components/PasswordField"
+import { useUpdatePasswordMutation } from "#/generated/graphql"
 
 export const MyProfile = () => {
   const [me] = useRecoilState(loggedInUser)

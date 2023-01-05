@@ -1,16 +1,12 @@
-import { Box, Button, Container, Divider, Flex, FormControl, FormLabel, Input, Stack, Switch, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
-import * as React from "react"
-import Layout from "../components/Layout"
-import { MouseEventHandler, useState } from "react"
+import { Box, Button, Divider, Flex, FormControl, FormLabel, Input, Stack, Switch, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { PasswordField } from "../components/PasswordField"
+import Layout from "../features/layout/Layout"
 import { useCreateTeacherMutation } from "../generated/graphql"
 import useDocumentTitle from "../utils/useDocumentTitle"
 function AddTeacher() {
   useDocumentTitle("Hiler Portal - Add teacher")
-  const navigate = useNavigate()
-  const isDesktop = useBreakpointValue({ base: false, lg: true })
-  const isMobile = useBreakpointValue({ base: true, md: false })
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
