@@ -1,7 +1,7 @@
 import { Lists } from ".keystone/types"
 import { graphql } from "@graphql-ts/schema"
 import { list } from "@keystone-6/core"
-import { checkbox, relationship, text, virtual } from "@keystone-6/core/fields"
+import { checkbox, decimal, file, integer, relationship, select, text, timestamp, virtual } from "@keystone-6/core/fields"
 import { KeystoneContext } from "@keystone-6/core/types"
 import User from "./schema/User"
 import Hashids from 'hashids'
@@ -26,6 +26,11 @@ export const lists: Lists = {
     }
   }),
   User: list(User),
+  Family: list({
+    fields: {
+      parents: text({})
+    }
+  }),
   Student: list({
     access: {
       operation: {
@@ -77,6 +82,13 @@ export const lists: Lists = {
       }),
     },
   }),
+  // ReportCard: list({
+  //   fields: {
+  //     semester: relationship({ ref: "Semester", many: false }),
+  //     student: relationship({ ref: "Student", many: false }),
+  //     reportCard: file()
+  //   }
+  // }),
   Course: list({
     access: {
       operation: {
@@ -114,7 +126,18 @@ export const lists: Lists = {
   }),
   Semester: list({
     fields: {
-      name: text(),
+      year: integer(),
+      semester: select({ options: [{ label: "Spring", value: "spring" }, { label: "Fall", value: "fall" }]}),
+      reportCardTitle: text(),
+      slug: virtual({
+        field: {
+          type: graphql.String,
+          resolve(item) {
+            return item.reportCardTitle.toLowerCase().replace(/ /g, "_");
+            
+          }
+        }
+      })
     },
   }),
   ReportCardSetting: list({

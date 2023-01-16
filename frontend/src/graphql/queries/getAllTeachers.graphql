@@ -1,5 +1,19 @@
-query GetAllTeachers($limit: Int!, $offset: Int!) {
-    users(take: $limit, skip: $offset, orderBy: {name: asc}, where: {NOT: {isParent: {equals: true}}} ) {
+query GetAllTeachers($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
+      users(where: {
+      OR: [
+        { name: { contains: $searchString, mode: insensitive } }
+        { email: { contains: $searchString, mode: insensitive } }
+        {
+          student: {
+            some: { firstName: { contains: $searchString, mode: insensitive } }
+          }
+        }
+      ]
+      AND: [{ isParent: { equals: false } }]
+    }
+    orderBy: $sortParams
+    take: $limit
+    skip: $offset) {
         __typename
         id
         name
@@ -7,4 +21,13 @@ query GetAllTeachers($limit: Int!, $offset: Int!) {
         isAdmin
         isParent
     }
+    usersCount(
+    where: {
+      OR: [
+        { name: { contains: $searchString, mode: insensitive } }
+        { email: { contains: $searchString, mode: insensitive } }
+      ]
+      AND: [{ isParent: { equals: false } }]
+    }
+  )
 }

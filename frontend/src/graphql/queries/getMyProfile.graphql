@@ -4,11 +4,5 @@ query GetMyProfile($id: ID!) {
     name
     firstName
     lastName
-    street
-    city
-    state
-    zipcode
-    phoneMother
-    phoneFather
   }
 }

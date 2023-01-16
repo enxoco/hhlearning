@@ -21,7 +21,7 @@ const Register = lazy(() => import("#/pages/Register"));
 // import Register from "./pages/Register"
 // import StudentReport from "./pages/StudentReport"
 import Students from "#/features/students/Students"
-import Teachers from "#/pages/Teachers"
+import Teachers from "#/features/teachers/Teachers"
 import { MyProfile } from "#/pages/MyProfile"
 import Settings from "#/pages/Settings"
 import { useRecoilState } from "recoil"
@@ -56,20 +56,20 @@ root.render(
             <Router>
               <Routes>
 
-                <Route path="/" element={<RequireAuth adminOnly={false} ><Dashboard /></RequireAuth>} />
+                <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                <Route path="/dashboard" element={<RequireAuth adminOnly={false} ><Dashboard /></RequireAuth>} />
-                <Route path="/students" element={<RequireAuth adminOnly={false}><Students isFormer={false} /></RequireAuth>} />
-                <Route path="/former-students" element={<RequireAuth adminOnly={false}><Students isFormer={true} /></RequireAuth>} />
-                <Route path="/students/:id" element={<RequireAuth adminOnly={false} ><MyStudents /></RequireAuth>} />
-                <Route path="/student/:id" element={<RequireAuth adminOnly={false}><EditStudent /></RequireAuth>} />
+                <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+                <Route path="/students" element={<RequireAuth><Students isFormer={false} /></RequireAuth>} />
+                <Route path="/former-students" element={<RequireAuth><Students isFormer={true} /></RequireAuth>} />
+                <Route path="/students/:id" element={<RequireAuth><MyStudents /></RequireAuth>} />
+                <Route path="/student/:id" element={<RequireAuth><EditStudent /></RequireAuth>} />
                 {/* Deprecated as we are now using the legacy php scripts to print reports.
-                <Route path="/student/:id/report" element={<RequireAuth adminOnly={false} ><StudentReport /></RequireAuth>} /> */}
+                <Route path="/student/:id/report" element={<RequireAuth><StudentReport /></RequireAuth>} /> */}
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
-                <Route path="/profile" element={<RequireAuth adminOnly={false} ><MyProfile /></RequireAuth>} />
+                <Route path="/profile" element={<RequireAuth><MyProfile /></RequireAuth>} />
                 <Route path="/add-student" element={<RequireAuth adminOnly><AddStudent /></RequireAuth>} />
                 <Route path="/teachers" element={<RequireAuth adminOnly><Teachers /></RequireAuth>} />
                 <Route path="/parents" element={<RequireAuth adminOnly><Parents /></RequireAuth>} />
@@ -100,7 +100,7 @@ root.render(
  * 
  * Custom auth wrapper to protect auth routes.
  */
-function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly: boolean }) {
+function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly?: boolean }) {
   const location = useLocation()
   const [user, setUser] = useRecoilState(loggedInUser)
   if (!user) {
@@ -123,6 +123,7 @@ function RequireAuth({ children, adminOnly }: { children: JSX.Element, adminOnly
   // If we are getting to this point, then we know we have an
   // authenticated user so set them in state for the rest of
   // the application
+  console.log("user", user)
   if (!user) {
     return (<></>)
   } else if (adminOnly && !user.isAdmin) {

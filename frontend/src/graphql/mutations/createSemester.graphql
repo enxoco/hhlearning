@@ -1,0 +1,9 @@
+mutation CreateSemester($data: SemesterCreateInput!) {
+  createSemester(data: $data) {
+    id
+    year
+    semester
+    reportCardTitle
+    slug
+  }
+}

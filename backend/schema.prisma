@@ -29,13 +29,7 @@ model User {
   email                   String    @unique @default("")
   firstName               String    @default("")
   lastName                String    @default("")
-  street                  String    @default("")
-  city                    String    @default("")
-  state                   String    @default("")
-  phone                   String?
-  phoneMother             String?
-  phoneFather             String?
-  zipcode                 String    @default("")
+  coParents               Json?     @default("[]")
   role                    Role[]    @relation("User_role")
   isAdmin                 Boolean   @default(false)
   isParent                Boolean   @default(false)
@@ -49,6 +43,11 @@ model User {
   magicAuthToken          String?
   magicAuthIssuedAt       DateTime?
   magicAuthRedeemedAt     DateTime?
+}
+
+model Family {
+  id      Int    @id @default(autoincrement())
+  parents String @default("")
 }
 
 model Student {
@@ -79,7 +78,9 @@ model Course {
 
 model Semester {
   id                              Int                 @id @default(autoincrement())
-  name                            String              @default("")
+  year                            Int?
+  semester                        String?
+  reportCardTitle                 String              @default("")
   from_ReportCardSetting_semester ReportCardSetting[] @relation("ReportCardSetting_semester")
 }
 

@@ -1,0 +1,9 @@
+query GetAllSemesters {
+  semesters {
+    id
+    year
+    semester
+    reportCardTitle
+    slug
+  }
+}

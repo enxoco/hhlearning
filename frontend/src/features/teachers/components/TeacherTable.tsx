@@ -28,13 +28,12 @@ import {
 } from "#/atom";
 import {
   useForgotPasswordMutation,
+  User,
   useToggleAdminMutation,
 } from "#/generated/graphql";
 
-function TeacherTable({ studentProp }) {
-  const orderDirection = "asc";
+function TeacherTable({ teachers }: { teachers: User[] }) {
 
-  const [fetchStudents, setStudents] = useRecoilState(studentAtom);
   const [searchTerm, setSearchTerm] = useRecoilState(searchTermAtom);
   // No need to run our query if we already have students.
   const [user, setUser] = useRecoilState(loggedInUser);
@@ -66,45 +65,6 @@ function TeacherTable({ studentProp }) {
       }
     };
   }
-  const handleFirstNameAsc = async () => {
-    let sorted = [...studentProp];
-    setStudents(sorted.sort(dynamicSort("firstName")));
-    setFirstNameSort("desc");
-  };
-
-  const handleFirstNameDesc = async () => {
-    let sorted = [...studentProp];
-    setStudents(sorted.sort(dynamicSort("-firstName")));
-    setFirstNameSort("asc");
-  };
-
-  const handleLastNameAsc = async () => {
-    let sorted = [...studentProp];
-    setStudents(sorted.sort(dynamicSort("lastName")));
-    setLastNameSort("desc");
-  };
-
-  const handleLastNameDesc = async () => {
-    let sorted = [...studentProp];
-    setStudents(sorted.sort(dynamicSort("-lastName")));
-    setLastNameSort("asc");
-  };
-
-  const handleFirstNameSort = () => {
-    if (firstNameSort == "asc") {
-      handleFirstNameAsc();
-    } else {
-      handleFirstNameDesc();
-    }
-  };
-
-  const handleLastNameSort = () => {
-    if (lastNameSort == "asc") {
-      handleLastNameAsc();
-    } else {
-      handleLastNameDesc();
-    }
-  };
 
   function handleToggleAdmin(e, member) {
     toggleAdmin({ id: member.id, isAdmin: e.target.checked });
@@ -128,7 +88,6 @@ function TeacherTable({ studentProp }) {
                   <Button
                     aria-label="sort"
                     color="muted"
-                    onClick={handleFirstNameSort}
                   >
                     <Icon
                       as={firstNameSort === "asc" ? IoArrowDown : IoArrowUp}
@@ -146,7 +105,6 @@ function TeacherTable({ studentProp }) {
                   <Button
                     aria-label="sort"
                     color="muted"
-                    onClick={handleLastNameSort}
                   >
                     <Icon
                       as={lastNameSort === "asc" ? IoArrowDown : IoArrowUp}
@@ -169,9 +127,9 @@ function TeacherTable({ studentProp }) {
           </Tr>
         </Thead>
         <Tbody>
-          {!studentProp
+          {!teachers
             ? null
-            : studentProp.map((member) => {
+            : teachers.map((member) => {
                 if (
                   member.name.toLowerCase().includes(searchTerm.toLowerCase())
                 )

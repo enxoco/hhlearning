@@ -3,6 +3,7 @@ query GetUser($id: ID!){
     id
     isAdmin
     isParent
+    name
     firstName
     lastName
     email

@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-type PaginationActionKind = "SET_LIMIT" | "SET_PAGE" | "SET_TOTAL_RECORDS";
+type PaginationActionKind = "SET_LIMIT" | "SET_PAGE" | "SET_TOTAL_RECORDS" | "SET_OFFSET";
 
 export interface PaginationState {
   firstPage: number;
@@ -21,6 +21,7 @@ type PaginationActionType = {
     nextPage: number;
     limit: number;
     totalRecords?: number;
+    offset?: number;
   };
 };
 
@@ -92,6 +93,16 @@ export function paginationReducer(
         showLast: payload.nextPage < totalPageCount[totalPageCount.length - 1] && totalPageCount.length > 5,
         offset: (payload.nextPage - 1) * payload.limit
       };
-  }
+      case "SET_LIMIT":
+        return {
+          ...state, limit: payload.limit
+        }
+      case "SET_OFFSET":
+        return {
+          ...state, 
+          offset: payload.offset
+        }
+    }
+
 }
 

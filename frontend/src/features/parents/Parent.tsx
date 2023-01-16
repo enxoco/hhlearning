@@ -43,8 +43,8 @@ export default function () {
 
 
     return (
-        <Layout customTitle="Edit Parents">
-            {data.user && (
+        <Layout customTitle="Edit Parent">
+            {data?.user && (
                 <Stack spacing="5">
                     <Box px={{ base: "4", md: "6" }} pt="5">
                         {updatedUserData.error ? (
@@ -54,7 +54,7 @@ export default function () {
                             <form ref={formRef}>
                                 <Stack spacing="5" px={{ base: "4", md: "6" }} py={{ base: "5", md: "6" }}>
                                     <Stack spacing="6" direction={{ base: "column", md: "row" }}>
-                                        <FormField id="firstName" label="First Name" />
+                                        <FormField id="name" label="First Name" />
                                         <FormField id="lastName" label="Last Name" />
                                         <FormField id="email" label="Email Address" />
                                     </Stack>
@@ -62,7 +62,7 @@ export default function () {
                                         <Text fontWeight="bold">Portal Link</Text><Link href={`https://portal.hhlearning.com/parents/${data?.user?.portalId}`}>https://portal.hhlearning.com/parents/{data?.user?.portalId}</Link>
                                     </Stack>
                                     <Divider />
-                                    <VStack spacing="6" direction={{ base: "column", md: "row" }}>
+                                    {/* <VStack spacing="6" direction={{ base: "column", md: "row" }}>
                                         <Heading size="xs">Students</Heading>
                                         <List my={5}>
                                             {students.data?.students.map((student) => {
@@ -79,7 +79,7 @@ export default function () {
                                                 )
                                             })}
                                         </List>
-                                    </VStack>
+                                    </VStack> */}
                                 </Stack>
                                 <Divider />
                                 <Flex direction="row-reverse" py="4" px={{ base: "4", md: "6" }}>

@@ -114,6 +114,42 @@ export type DateTimeNullableFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
+export type Family = {
+  __typename?: 'Family';
+  id: Scalars['ID'];
+  parents?: Maybe<Scalars['String']>;
+};
+
+export type FamilyCreateInput = {
+  parents?: InputMaybe<Scalars['String']>;
+};
+
+export type FamilyOrderByInput = {
+  id?: InputMaybe<OrderDirection>;
+  parents?: InputMaybe<OrderDirection>;
+};
+
+export type FamilyUpdateArgs = {
+  data: FamilyUpdateInput;
+  where: FamilyWhereUniqueInput;
+};
+
+export type FamilyUpdateInput = {
+  parents?: InputMaybe<Scalars['String']>;
+};
+
+export type FamilyWhereInput = {
+  AND?: InputMaybe<Array<FamilyWhereInput>>;
+  NOT?: InputMaybe<Array<FamilyWhereInput>>;
+  OR?: InputMaybe<Array<FamilyWhereInput>>;
+  id?: InputMaybe<IdFilter>;
+  parents?: InputMaybe<StringFilter>;
+};
+
+export type FamilyWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type IdFilter = {
   equals?: InputMaybe<Scalars['ID']>;
   gt?: InputMaybe<Scalars['ID']>;
@@ -123,6 +159,17 @@ export type IdFilter = {
   lte?: InputMaybe<Scalars['ID']>;
   not?: InputMaybe<IdFilter>;
   notIn?: InputMaybe<Array<Scalars['ID']>>;
+};
+
+export type IntNullableFilter = {
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<IntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 export type KeystoneAdminMeta = {
@@ -236,6 +283,8 @@ export type Mutation = {
   authenticateUserWithPassword?: Maybe<UserAuthenticationWithPasswordResult>;
   createCourse?: Maybe<Course>;
   createCourses?: Maybe<Array<Maybe<Course>>>;
+  createFamilies?: Maybe<Array<Maybe<Family>>>;
+  createFamily?: Maybe<Family>;
   createInitialUser: UserAuthenticationWithPasswordSuccess;
   createReportCardSetting?: Maybe<ReportCardSetting>;
   createReportCardSettings?: Maybe<Array<Maybe<ReportCardSetting>>>;
@@ -251,6 +300,8 @@ export type Mutation = {
   createUsers?: Maybe<Array<Maybe<User>>>;
   deleteCourse?: Maybe<Course>;
   deleteCourses?: Maybe<Array<Maybe<Course>>>;
+  deleteFamilies?: Maybe<Array<Maybe<Family>>>;
+  deleteFamily?: Maybe<Family>;
   deleteReportCardSetting?: Maybe<ReportCardSetting>;
   deleteReportCardSettings?: Maybe<Array<Maybe<ReportCardSetting>>>;
   deleteRole?: Maybe<Role>;
@@ -270,6 +321,8 @@ export type Mutation = {
   sendUserPasswordResetLink: Scalars['Boolean'];
   updateCourse?: Maybe<Course>;
   updateCourses?: Maybe<Array<Maybe<Course>>>;
+  updateFamilies?: Maybe<Array<Maybe<Family>>>;
+  updateFamily?: Maybe<Family>;
   updateReportCardSetting?: Maybe<ReportCardSetting>;
   updateReportCardSettings?: Maybe<Array<Maybe<ReportCardSetting>>>;
   updateRole?: Maybe<Role>;
@@ -298,6 +351,16 @@ export type MutationCreateCourseArgs = {
 
 export type MutationCreateCoursesArgs = {
   data: Array<CourseCreateInput>;
+};
+
+
+export type MutationCreateFamiliesArgs = {
+  data: Array<FamilyCreateInput>;
+};
+
+
+export type MutationCreateFamilyArgs = {
+  data: FamilyCreateInput;
 };
 
 
@@ -373,6 +436,16 @@ export type MutationDeleteCourseArgs = {
 
 export type MutationDeleteCoursesArgs = {
   where: Array<CourseWhereUniqueInput>;
+};
+
+
+export type MutationDeleteFamiliesArgs = {
+  where: Array<FamilyWhereUniqueInput>;
+};
+
+
+export type MutationDeleteFamilyArgs = {
+  where: FamilyWhereUniqueInput;
 };
 
 
@@ -467,6 +540,17 @@ export type MutationUpdateCourseArgs = {
 
 export type MutationUpdateCoursesArgs = {
   data: Array<CourseUpdateArgs>;
+};
+
+
+export type MutationUpdateFamiliesArgs = {
+  data: Array<FamilyUpdateArgs>;
+};
+
+
+export type MutationUpdateFamilyArgs = {
+  data: FamilyUpdateInput;
+  where: FamilyWhereUniqueInput;
 };
 
 
@@ -589,6 +673,9 @@ export type Query = {
   course?: Maybe<Course>;
   courses?: Maybe<Array<Course>>;
   coursesCount?: Maybe<Scalars['Int']>;
+  families?: Maybe<Array<Family>>;
+  familiesCount?: Maybe<Scalars['Int']>;
+  family?: Maybe<Family>;
   keystone: KeystoneMeta;
   reportCardSetting?: Maybe<ReportCardSetting>;
   reportCardSettings?: Maybe<Array<ReportCardSetting>>;
@@ -627,6 +714,24 @@ export type QueryCoursesArgs = {
 
 export type QueryCoursesCountArgs = {
   where?: CourseWhereInput;
+};
+
+
+export type QueryFamiliesArgs = {
+  orderBy?: Array<FamilyOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: FamilyWhereInput;
+};
+
+
+export type QueryFamiliesCountArgs = {
+  where?: FamilyWhereInput;
+};
+
+
+export type QueryFamilyArgs = {
+  where: FamilyWhereUniqueInput;
 };
 
 
@@ -870,16 +975,23 @@ export type RoleWhereUniqueInput = {
 export type Semester = {
   __typename?: 'Semester';
   id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  reportCardTitle?: Maybe<Scalars['String']>;
+  semester?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  year?: Maybe<Scalars['Int']>;
 };
 
 export type SemesterCreateInput = {
-  name?: InputMaybe<Scalars['String']>;
+  reportCardTitle?: InputMaybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['String']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 export type SemesterOrderByInput = {
   id?: InputMaybe<OrderDirection>;
-  name?: InputMaybe<OrderDirection>;
+  reportCardTitle?: InputMaybe<OrderDirection>;
+  semester?: InputMaybe<OrderDirection>;
+  year?: InputMaybe<OrderDirection>;
 };
 
 export type SemesterRelateToOneForCreateInput = {
@@ -899,7 +1011,9 @@ export type SemesterUpdateArgs = {
 };
 
 export type SemesterUpdateInput = {
-  name?: InputMaybe<Scalars['String']>;
+  reportCardTitle?: InputMaybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['String']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 export type SemesterWhereInput = {
@@ -907,7 +1021,9 @@ export type SemesterWhereInput = {
   NOT?: InputMaybe<Array<SemesterWhereInput>>;
   OR?: InputMaybe<Array<SemesterWhereInput>>;
   id?: InputMaybe<IdFilter>;
-  name?: InputMaybe<StringFilter>;
+  reportCardTitle?: InputMaybe<StringFilter>;
+  semester?: InputMaybe<StringNullableFilter>;
+  year?: InputMaybe<IntNullableFilter>;
 };
 
 export type SemesterWhereUniqueInput = {
@@ -1087,7 +1203,7 @@ export type StudentWhereUniqueInput = {
 
 export type User = {
   __typename?: 'User';
-  city?: Maybe<Scalars['String']>;
+  coParents?: Maybe<Scalars['JSON']>;
   courses?: Maybe<Array<Course>>;
   coursesCount?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
@@ -1105,17 +1221,11 @@ export type User = {
   passwordResetIssuedAt?: Maybe<Scalars['DateTime']>;
   passwordResetRedeemedAt?: Maybe<Scalars['DateTime']>;
   passwordResetToken?: Maybe<PasswordState>;
-  phone?: Maybe<Scalars['String']>;
-  phoneFather?: Maybe<Scalars['String']>;
-  phoneMother?: Maybe<Scalars['String']>;
   portalId?: Maybe<Scalars['String']>;
   role?: Maybe<Array<Role>>;
   roleCount?: Maybe<Scalars['Int']>;
-  state?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
   student?: Maybe<Array<Student>>;
   studentCount?: Maybe<Scalars['Int']>;
-  zipcode?: Maybe<Scalars['String']>;
 };
 
 
@@ -1171,7 +1281,7 @@ export type UserAuthenticationWithPasswordSuccess = {
 };
 
 export type UserCreateInput = {
-  city?: InputMaybe<Scalars['String']>;
+  coParents?: InputMaybe<Scalars['JSON']>;
   courses?: InputMaybe<CourseRelateToManyForCreateInput>;
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -1187,18 +1297,11 @@ export type UserCreateInput = {
   passwordResetIssuedAt?: InputMaybe<Scalars['DateTime']>;
   passwordResetRedeemedAt?: InputMaybe<Scalars['DateTime']>;
   passwordResetToken?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  phoneFather?: InputMaybe<Scalars['String']>;
-  phoneMother?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<RoleRelateToManyForCreateInput>;
-  state?: InputMaybe<Scalars['String']>;
-  street?: InputMaybe<Scalars['String']>;
   student?: InputMaybe<StudentRelateToManyForCreateInput>;
-  zipcode?: InputMaybe<Scalars['String']>;
 };
 
 export type UserOrderByInput = {
-  city?: InputMaybe<OrderDirection>;
   email?: InputMaybe<OrderDirection>;
   firstName?: InputMaybe<OrderDirection>;
   hasPaidTuition?: InputMaybe<OrderDirection>;
@@ -1211,12 +1314,6 @@ export type UserOrderByInput = {
   name?: InputMaybe<OrderDirection>;
   passwordResetIssuedAt?: InputMaybe<OrderDirection>;
   passwordResetRedeemedAt?: InputMaybe<OrderDirection>;
-  phone?: InputMaybe<OrderDirection>;
-  phoneFather?: InputMaybe<OrderDirection>;
-  phoneMother?: InputMaybe<OrderDirection>;
-  state?: InputMaybe<OrderDirection>;
-  street?: InputMaybe<OrderDirection>;
-  zipcode?: InputMaybe<OrderDirection>;
 };
 
 export type UserRelateToOneForCreateInput = {
@@ -1236,7 +1333,7 @@ export type UserUpdateArgs = {
 };
 
 export type UserUpdateInput = {
-  city?: InputMaybe<Scalars['String']>;
+  coParents?: InputMaybe<Scalars['JSON']>;
   courses?: InputMaybe<CourseRelateToManyForUpdateInput>;
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -1252,21 +1349,14 @@ export type UserUpdateInput = {
   passwordResetIssuedAt?: InputMaybe<Scalars['DateTime']>;
   passwordResetRedeemedAt?: InputMaybe<Scalars['DateTime']>;
   passwordResetToken?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  phoneFather?: InputMaybe<Scalars['String']>;
-  phoneMother?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<RoleRelateToManyForUpdateInput>;
-  state?: InputMaybe<Scalars['String']>;
-  street?: InputMaybe<Scalars['String']>;
   student?: InputMaybe<StudentRelateToManyForUpdateInput>;
-  zipcode?: InputMaybe<Scalars['String']>;
 };
 
 export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
-  city?: InputMaybe<StringFilter>;
   courses?: InputMaybe<CourseManyRelationFilter>;
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
@@ -1282,14 +1372,8 @@ export type UserWhereInput = {
   passwordResetIssuedAt?: InputMaybe<DateTimeNullableFilter>;
   passwordResetRedeemedAt?: InputMaybe<DateTimeNullableFilter>;
   passwordResetToken?: InputMaybe<PasswordFilter>;
-  phone?: InputMaybe<StringNullableFilter>;
-  phoneFather?: InputMaybe<StringNullableFilter>;
-  phoneMother?: InputMaybe<StringNullableFilter>;
   role?: InputMaybe<RoleManyRelationFilter>;
-  state?: InputMaybe<StringFilter>;
-  street?: InputMaybe<StringFilter>;
   student?: InputMaybe<StudentManyRelationFilter>;
-  zipcode?: InputMaybe<StringFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -1356,6 +1440,13 @@ export type CreateCourseMutationVariables = Exact<{
 
 
 export type CreateCourseMutation = { __typename?: 'Mutation', createCourse?: { __typename: 'Course', id: string } | null };
+
+export type CreateSemesterMutationVariables = Exact<{
+  data: SemesterCreateInput;
+}>;
+
+
+export type CreateSemesterMutation = { __typename?: 'Mutation', createSemester?: { __typename?: 'Semester', id: string, year?: number | null, semester?: string | null, reportCardTitle?: string | null, slug?: string | null } | null };
 
 export type CreateRelatedStudentMutationVariables = Exact<{
   parentId: Scalars['ID'];
@@ -1557,6 +1648,11 @@ export type GetAllParentsQueryVariables = Exact<{
 
 export type GetAllParentsQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
 
+export type GetAllSemestersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSemestersQuery = { __typename?: 'Query', semesters?: Array<{ __typename?: 'Semester', id: string, year?: number | null, semester?: string | null, reportCardTitle?: string | null, slug?: string | null }> | null };
+
 export type GetAllStudentsQueryVariables = Exact<{
   limit: Scalars['Int'];
   offset: Scalars['Int'];
@@ -1570,10 +1666,12 @@ export type GetAllStudentsQuery = { __typename?: 'Query', studentsCount?: number
 export type GetAllTeachersQueryVariables = Exact<{
   limit: Scalars['Int'];
   offset: Scalars['Int'];
+  searchString: Scalars['String'];
+  sortParams: Array<UserOrderByInput> | UserOrderByInput;
 }>;
 
 
-export type GetAllTeachersQuery = { __typename?: 'Query', users?: Array<{ __typename: 'User', id: string, name?: string | null, email?: string | null, isAdmin?: boolean | null, isParent?: boolean | null }> | null };
+export type GetAllTeachersQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename: 'User', id: string, name?: string | null, email?: string | null, isAdmin?: boolean | null, isParent?: boolean | null }> | null };
 
 export type GetMyCoursesCountByTeacherQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1587,7 +1685,7 @@ export type GetMyProfileQueryVariables = Exact<{
 }>;
 
 
-export type GetMyProfileQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, street?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, phoneMother?: string | null, phoneFather?: string | null } | null };
+export type GetMyProfileQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name?: string | null, firstName?: string | null, lastName?: string | null } | null };
 
 export type GetMyStudentsQueryVariables = Exact<{
   teacherId: Scalars['ID'];
@@ -1620,7 +1718,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
 
 export type GetUsersByRoleQueryVariables = Exact<{
   tag: Scalars['String'];
@@ -1732,6 +1830,21 @@ export const CreateCourseDocument = gql`
 
 export function useCreateCourseMutation() {
   return Urql.useMutation<CreateCourseMutation, CreateCourseMutationVariables>(CreateCourseDocument);
+};
+export const CreateSemesterDocument = gql`
+    mutation CreateSemester($data: SemesterCreateInput!) {
+  createSemester(data: $data) {
+    id
+    year
+    semester
+    reportCardTitle
+    slug
+  }
+}
+    `;
+
+export function useCreateSemesterMutation() {
+  return Urql.useMutation<CreateSemesterMutation, CreateSemesterMutationVariables>(CreateSemesterDocument);
 };
 export const CreateRelatedStudentDocument = gql`
     mutation CreateRelatedStudent($parentId: ID!, $firstName: String!, $lastName: String!) {
@@ -2125,6 +2238,21 @@ export const GetAllParentsDocument = gql`
 export function useGetAllParentsQuery(options: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
 };
+export const GetAllSemestersDocument = gql`
+    query GetAllSemesters {
+  semesters {
+    id
+    year
+    semester
+    reportCardTitle
+    slug
+  }
+}
+    `;
+
+export function useGetAllSemestersQuery(options?: Omit<Urql.UseQueryArgs<GetAllSemestersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllSemestersQuery, GetAllSemestersQueryVariables>({ query: GetAllSemestersDocument, ...options });
+};
 export const GetAllStudentsDocument = gql`
     query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!, $search: String!) {
   students(
@@ -2151,12 +2279,12 @@ export function useGetAllStudentsQuery(options: Omit<Urql.UseQueryArgs<GetAllStu
   return Urql.useQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>({ query: GetAllStudentsDocument, ...options });
 };
 export const GetAllTeachersDocument = gql`
-    query GetAllTeachers($limit: Int!, $offset: Int!) {
+    query GetAllTeachers($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
   users(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: false}}]}
+    orderBy: $sortParams
     take: $limit
     skip: $offset
-    orderBy: {name: asc}
-    where: {NOT: {isParent: {equals: true}}}
   ) {
     __typename
     id
@@ -2165,6 +2293,9 @@ export const GetAllTeachersDocument = gql`
     isAdmin
     isParent
   }
+  usersCount(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}], AND: [{isParent: {equals: false}}]}
+  )
 }
     `;
 
@@ -2187,12 +2318,6 @@ export const GetMyProfileDocument = gql`
     name
     firstName
     lastName
-    street
-    city
-    state
-    zipcode
-    phoneMother
-    phoneFather
   }
 }
     `;
@@ -2269,6 +2394,7 @@ export const GetUserDocument = gql`
     id
     isAdmin
     isParent
+    name
     firstName
     lastName
     email

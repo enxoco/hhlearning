@@ -132,13 +132,7 @@ type User {
   email: String
   firstName: String
   lastName: String
-  street: String
-  city: String
-  state: String
-  phone: String
-  phoneMother: String
-  phoneFather: String
-  zipcode: String
+  coParents: JSON
   role(
     where: RoleWhereInput! = {}
     orderBy: [RoleOrderByInput!]! = []
@@ -194,13 +188,6 @@ input UserWhereInput {
   email: StringFilter
   firstName: StringFilter
   lastName: StringFilter
-  street: StringFilter
-  city: StringFilter
-  state: StringFilter
-  phone: StringNullableFilter
-  phoneMother: StringNullableFilter
-  phoneFather: StringNullableFilter
-  zipcode: StringFilter
   role: RoleManyRelationFilter
   isAdmin: BooleanFilter
   isParent: BooleanFilter
@@ -213,35 +200,6 @@ input UserWhereInput {
   magicAuthToken: PasswordFilter
   magicAuthIssuedAt: DateTimeNullableFilter
   magicAuthRedeemedAt: DateTimeNullableFilter
-}
-
-input StringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  mode: QueryMode
-  not: NestedStringNullableFilter
-}
-
-input NestedStringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringNullableFilter
 }
 
 input RoleManyRelationFilter {
@@ -288,13 +246,6 @@ input UserOrderByInput {
   email: OrderDirection
   firstName: OrderDirection
   lastName: OrderDirection
-  street: OrderDirection
-  city: OrderDirection
-  state: OrderDirection
-  phone: OrderDirection
-  phoneMother: OrderDirection
-  phoneFather: OrderDirection
-  zipcode: OrderDirection
   isAdmin: OrderDirection
   isParent: OrderDirection
   hasPaidTuition: OrderDirection
@@ -309,13 +260,7 @@ input UserUpdateInput {
   email: String
   firstName: String
   lastName: String
-  street: String
-  city: String
-  state: String
-  phone: String
-  phoneMother: String
-  phoneFather: String
-  zipcode: String
+  coParents: JSON
   role: RoleRelateToManyForUpdateInput
   isAdmin: Boolean
   isParent: Boolean
@@ -362,13 +307,7 @@ input UserCreateInput {
   email: String
   firstName: String
   lastName: String
-  street: String
-  city: String
-  state: String
-  phone: String
-  phoneMother: String
-  phoneFather: String
-  zipcode: String
+  coParents: JSON
   role: RoleRelateToManyForCreateInput
   isAdmin: Boolean
   isParent: Boolean
@@ -397,6 +336,41 @@ input CourseRelateToManyForCreateInput {
 input StudentRelateToManyForCreateInput {
   create: [StudentCreateInput!]
   connect: [StudentWhereUniqueInput!]
+}
+
+type Family {
+  id: ID!
+  parents: String
+}
+
+input FamilyWhereUniqueInput {
+  id: ID
+}
+
+input FamilyWhereInput {
+  AND: [FamilyWhereInput!]
+  OR: [FamilyWhereInput!]
+  NOT: [FamilyWhereInput!]
+  id: IDFilter
+  parents: StringFilter
+}
+
+input FamilyOrderByInput {
+  id: OrderDirection
+  parents: OrderDirection
+}
+
+input FamilyUpdateInput {
+  parents: String
+}
+
+input FamilyUpdateArgs {
+  where: FamilyWhereUniqueInput!
+  data: FamilyUpdateInput!
+}
+
+input FamilyCreateInput {
+  parents: String
 }
 
 type Student {
@@ -498,6 +472,35 @@ input CourseWhereInput {
   teacher: UserWhereInput
 }
 
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
 input CourseOrderByInput {
   id: OrderDirection
   name: OrderDirection
@@ -539,7 +542,10 @@ input StudentRelateToOneForCreateInput {
 
 type Semester {
   id: ID!
-  name: String
+  year: Int
+  semester: String
+  reportCardTitle: String
+  slug: String
 }
 
 input SemesterWhereUniqueInput {
@@ -551,16 +557,33 @@ input SemesterWhereInput {
   OR: [SemesterWhereInput!]
   NOT: [SemesterWhereInput!]
   id: IDFilter
-  name: StringFilter
+  year: IntNullableFilter
+  semester: StringNullableFilter
+  reportCardTitle: StringFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
 }
 
 input SemesterOrderByInput {
   id: OrderDirection
-  name: OrderDirection
+  year: OrderDirection
+  semester: OrderDirection
+  reportCardTitle: OrderDirection
 }
 
 input SemesterUpdateInput {
-  name: String
+  year: Int
+  semester: String
+  reportCardTitle: String
 }
 
 input SemesterUpdateArgs {
@@ -569,7 +592,9 @@ input SemesterUpdateArgs {
 }
 
 input SemesterCreateInput {
-  name: String
+  year: Int
+  semester: String
+  reportCardTitle: String
 }
 
 type ReportCardSetting {
@@ -657,6 +682,12 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
+  createFamily(data: FamilyCreateInput!): Family
+  createFamilies(data: [FamilyCreateInput!]!): [Family]
+  updateFamily(where: FamilyWhereUniqueInput!, data: FamilyUpdateInput!): Family
+  updateFamilies(data: [FamilyUpdateArgs!]!): [Family]
+  deleteFamily(where: FamilyWhereUniqueInput!): Family
+  deleteFamilies(where: [FamilyWhereUniqueInput!]!): [Family]
   createStudent(data: StudentCreateInput!): Student
   createStudents(data: [StudentCreateInput!]!): [Student]
   updateStudent(
@@ -796,6 +827,14 @@ type Query {
   ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
+  families(
+    where: FamilyWhereInput! = {}
+    orderBy: [FamilyOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Family!]
+  family(where: FamilyWhereUniqueInput!): Family
+  familiesCount(where: FamilyWhereInput! = {}): Int
   students(
     where: StudentWhereInput! = {}
     orderBy: [StudentOrderByInput!]! = []

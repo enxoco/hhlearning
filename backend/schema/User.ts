@@ -1,5 +1,5 @@
 import { graphql } from "@graphql-ts/schema"
-import { checkbox, password, relationship, text, virtual } from "@keystone-6/core/fields"
+import { checkbox, json, password, relationship, text, virtual } from "@keystone-6/core/fields"
 import { KeystoneContext } from "@keystone-6/core/types"
 import Hashids from 'hashids'
 let saltLength: number = 5;
@@ -25,13 +25,7 @@ export default {
       }),
       firstName: text(),
       lastName: text(),
-      street: text(),
-      city: text(),
-      state: text(),      
-      phone: text({db: {isNullable: true}}),
-      phoneMother: text({db: {isNullable: true}}),
-      phoneFather: text({db: {isNullable: true}}),
-      zipcode: text(),
+      coParents: json({defaultValue: []}),
       role: relationship({ref: 'Role', many: true}),
       isAdmin: checkbox(),
       isParent: checkbox({defaultValue: false}),
