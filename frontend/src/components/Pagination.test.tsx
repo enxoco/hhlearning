@@ -1,23 +1,23 @@
 import '@testing-library/jest-dom'
 import usePagination from "../hooks/usePagination";
 import Pagination from "./Pagination";
-
 import { screen, RenderResult, render, queries } from "@testing-library/react"
 import { renderHook } from '@testing-library/react-hooks'
 import { PaginationState } from "#/reducers/paginationReducer";
 import { MemoryRouter } from 'react-router-dom';
-// import { render } from "../../test-utils";
 import { ReactNode } from 'react';
 
 const wrapper = ({ children }: { children: ReactNode}) => <MemoryRouter>{children}</MemoryRouter>
 
+/**
+ *  Function that takes in some state, renders the component and then returns the component and the updated state
+ */
 async function renderPagination(totalRecords: number, initialPage: number, defaultLimit: number): Promise<[
   component: RenderResult<typeof queries, HTMLElement, HTMLElement>,
   pagination: PaginationState
 ]> {
   
   const wrapper = ({ children }: { children: ReactNode}) => <MemoryRouter>{children}</MemoryRouter>
-
   const { result } = renderHook(() => usePagination({
     totalRecords
   }), { wrapper });
@@ -102,7 +102,6 @@ test("Pagination initial state is correct", async () => {
 
 test("limit updates correctly", async () => {
   const [component, state] = await renderPagination(251, 8, 20)
-
 
   expect(state.lastPage).toEqual(13)
   expect(state.totalPages).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
