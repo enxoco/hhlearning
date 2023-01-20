@@ -9,6 +9,7 @@ export function useSearchParamsState(
 ] {
     const [searchParams, setSearchParams] = useSearchParams();
 
+    
     const acquiredSearchParam = searchParams.get(searchParamName);
     const searchParamsState = acquiredSearchParam ?? defaultValue;
 

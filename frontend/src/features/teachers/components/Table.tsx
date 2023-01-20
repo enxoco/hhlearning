@@ -11,8 +11,8 @@ import { FiSearch } from "react-icons/fi";
 export type SortFields = "email" | "name"
 
 export default function ({ tableHeading, columnHeadings }: ITableProps) {
-    const [limit] = useState(20);
-    const [offset] = useState(0);
+    const [limit, setLimit] = useState(20);
+    const [offset, setOffset] = useState(0);
     const [searchString, setSearchString] = useState("");
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const [sortField, setSortField] = useState<SortFields>("name");
@@ -21,10 +21,16 @@ export default function ({ tableHeading, columnHeadings }: ITableProps) {
 
     const [pagination, setPage] = usePagination({
         totalRecords: data?.usersCount,
-        initialPage: 1,
-        defaultLimit: limit
     });
-
+    useEffect(() => {
+        if (limit != pagination?.limit) {
+          setLimit(pagination?.limit);
+        }
+        if (offset != pagination?.offset) {
+          setOffset(pagination?.offset)
+        }
+      }, [pagination?.currentPage, pagination?.limit])
+    
 
     useEffect(() => {
         const timeout = setTimeout(() => {

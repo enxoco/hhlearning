@@ -1,5 +1,0 @@
-mutation DeleteTeacher($id: ID!){
-  deleteUser(where: {id: $id}) {
-    __typename
-  }
-}

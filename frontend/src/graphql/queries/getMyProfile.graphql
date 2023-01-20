@@ -1,8 +1,0 @@
-query GetMyProfile($id: ID!) {
-  user(where: {id: $id}){
-    id
-    name
-    firstName
-    lastName
-  }
-}

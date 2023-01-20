@@ -3,7 +3,7 @@ import ToggleButton from "#/components/buttons/ToggleButton";
 import Pagination from "#/components/Pagination";
 import { useGetAllStudentsQuery, useToggleStudentActiveStatusMutation } from "#/generated/graphql";
 import usePagination from "#/hooks/usePagination";
-import { Box, List, ListItem, Grid, Heading, Input, Skeleton, GridItem, useDisclosure, FormControl } from "@chakra-ui/react";
+import { Box, List, ListItem, Grid, Heading, Input, Skeleton, GridItem, FormControl } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -20,8 +20,6 @@ export default function StudentTable({ isFormer }: { isFormer: boolean }) {
 
   const [pagination, setPage] = usePagination({
     totalRecords: data?.studentsCount,
-    initialPage: 1,
-    defaultLimit: limit
   });
   useEffect(() => {
     if (limit != pagination?.limit) {

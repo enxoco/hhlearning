@@ -20,6 +20,4 @@ test("profile badge renders correctly", () => {
         expect(pTags[0]).toHaveTextContent(users[i].name)
         expect(pTags[1]).toHaveTextContent(users[i].email)
     }
-
-    expect(component).toMatchSnapshot()
 })

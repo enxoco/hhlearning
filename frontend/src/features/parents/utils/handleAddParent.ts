@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { UseMutationState, UseQueryState, OperationContext } from "urql";
-import { CreateParentMutation, Exact, GetAllParentsQuery, useCreateParentMutation, useGetAllParentsQuery } from "../../../generated/graphql";
+import { CreateUserMutation, Exact, GetAllParentsQuery, useCreateUserMutation, useGetAllParentsQuery, UserCreateInput, UserOrderByInput } from "#/generated/graphql";
 
 type IAddParentProps = {
     parentFirstName: string;
@@ -9,31 +9,27 @@ type IAddParentProps = {
     parentEmail: string;
 }
 export default function useHandleAddingParent({ parentFirstName, parentLastName, parentEmail }: IAddParentProps): [
-    UseMutationState<CreateParentMutation, Exact<{
-        name: string;
-        lastName: string;
-        password: string;
-        email: string;
+    UseMutationState<CreateUserMutation, Exact<{
+data: UserCreateInput
     }>>, 
-    UseQueryState<GetAllParentsQuery, Exact<{
-        [key: string]: never;
-    }>>, 
+    UseQueryState<GetAllParentsQuery, Exact<{ limit: number; offset: number; searchString: string; sortParams: UserOrderByInput | UserOrderByInput[]; }>>, 
     (opts?: Partial<OperationContext>) => void] 
     {
     const [isPaused, setIsPaused] = useState(true);
     const [isCreatingParent, setIsCreatingParent] = useState(false);
-    const [newParent, createNewParent] = useCreateParentMutation();
+    const [newParent, createNewParent] = useCreateUserMutation();
     const [parentData, getParents] = useGetAllParentsQuery({ pause: isPaused });
     const toast = useToast();
     const handleAddParent = async (e) => {
         e.preventDefault()
         let uuid = self.crypto.randomUUID();
-        createNewParent({
+        createNewParent({data: {
             name: parentFirstName,
             lastName: parentLastName,
             email: parentEmail,
-            password: uuid
-        })
+            password: uuid,
+            isParent: true
+        }})
 
         await getParents()
         if (newParent.error) {

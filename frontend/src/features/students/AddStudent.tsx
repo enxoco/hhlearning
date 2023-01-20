@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, Stack, Text, Textarea, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
 import { FiDownloadCloud } from "react-icons/fi"
-import AddStudentCard from "#/components/AddStudentCard"
+import AddStudentCard from "#/features/students/components/AddStudentCard"
 import Layout from "#/features/layout/Layout"
 import { useBulkAddStudentsMutation } from "#/generated/graphql"
 import { useNavigate } from "react-router-dom"

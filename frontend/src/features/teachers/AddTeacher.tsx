@@ -1,10 +1,10 @@
 import { Box, Button, Divider, Flex, FormControl, FormLabel, Input, Stack, Switch, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { PasswordField } from "../components/PasswordField"
-import Layout from "../features/layout/Layout"
-import { useCreateTeacherMutation } from "../generated/graphql"
-import useDocumentTitle from "../utils/useDocumentTitle"
+import { PasswordField } from "#/components/PasswordField"
+import Layout from "../layout/Layout"
+import { useCreateTeacherMutation } from "#/generated/graphql"
+import useDocumentTitle from "#/utils/useDocumentTitle"
 function AddTeacher() {
   useDocumentTitle("Hiler Portal - Add teacher")
 
@@ -42,7 +42,6 @@ function AddTeacher() {
       console.log("error");
     }
     const createTeacherData = await addTeacher({ name, email, password, admin: isAdmin })
-    console.log("createTeat", createTeacherData)
     if (error) {
       return
     }

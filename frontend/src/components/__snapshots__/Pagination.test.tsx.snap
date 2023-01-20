@@ -172,7 +172,7 @@ exports[`Pagination renders correctly initially 1`] = `
           >
             1
              - 
-            10
+            20
              of 
             380
           </div>
@@ -348,7 +348,7 @@ exports[`Pagination renders correctly initially 1`] = `
         >
           1
            - 
-          10
+          20
            of 
           380
         </div>

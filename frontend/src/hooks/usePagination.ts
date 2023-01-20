@@ -1,6 +1,5 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { paginationReducer, PaginationState } from "#/reducers/paginationReducer";
-import { useSearchParams } from "react-router-dom";
 import { useSearchParamsState } from "./useSearchParamsState";
 
 export const getTotalPages = (totalRecords: number, limit: number) => {
@@ -28,7 +27,7 @@ export default function usePagination({
   totalRecords,
 }: IPaginationProps): IPaginationReturnType {
 
-  const [page, setInitialPage] = useSearchParamsState("page", "1")
+  const [page, setInitialPage] = useSearchParamsState("page", "1");
   const [limit, setLimitState] = useSearchParamsState("limit", "20");
   const numPages = getTotalPages(totalRecords, +limit);
   const [state, dispatch] = useReducer(paginationReducer, {

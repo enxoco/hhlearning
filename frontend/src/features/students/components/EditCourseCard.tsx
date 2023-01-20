@@ -2,8 +2,8 @@ import { DeleteIcon } from '@chakra-ui/icons'
 import { Badge, Box, Button, Divider, Flex, FormControl, FormLabel, HStack, IconButton, Input, Stack, Textarea, useColorModeValue, useToast } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import {useRecoilState} from 'recoil'
-import {showNewCourseCard} from '../atom'
-import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '../generated/graphql'
+import {showNewCourseCard} from '#/atom'
+import { useCreateCourseMutation, useDeleteCourseMutation, useUpdateCourseMutation } from '#/generated/graphql'
 
 const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherName}) => {
 
@@ -21,7 +21,6 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
       position: 'top',
       isClosable: true
     })
-    const toastIdRef = useRef()
     const handleCourseNameUpdate = (e) => {
         setCourseName(e.target.value)
     }
@@ -39,8 +38,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
             name: courseName,
             grade: courseGrade,
             feedback: courseFeedback,
-            teacher: +teacher,
-            id: id
+            id: teacher,
         })
         setNewCourse(false)
         addToast(courseName)
@@ -52,7 +50,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
             grade: courseGrade,
             feedback: courseFeedback,
             student,
-            teacher: +teacher
+            teacher: teacher
         })
         setNewCourse(false)
         addToast(courseName)
@@ -61,7 +59,7 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
 
     const handleDeleteCourse = () => {
       deleteCourse({id})
-      addDeletedToast()
+      // addDeletedToast()
     }
     const containerStyle = {
       width: '800px',
@@ -70,19 +68,19 @@ const EditStudentCard = ({name, grade, feedback, id, student, teacher, teacherNa
     }
 
     function addToast(courseName) {
-      toastIdRef.current = toast({
+      toast({
         description: `${courseName || 'Course'} saved successfully`,
-        containerStyle
+        ...containerStyle
       })
     }
 
-    function addDeletedToast(courseName) {
-      toastIdRef.current = toast({
-        status: 'error',
-        description: `${courseName || 'Course'} deleted successfully`,
-        containerStyle
-      })
-    }
+    // function addDeletedToast(courseName) {
+    //   toastIdRef.current = toast({
+    //     status: 'error',
+    //     description: `${courseName || 'Course'} deleted successfully`,
+    //     containerStyle
+    //   })
+    // }
     return (
         <Box as="form" bg="bg-surface" boxShadow={useColorModeValue("sm", "sm-dark")} borderRadius="lg" data-label="course-card">
           <HStack justifyContent="space-between">

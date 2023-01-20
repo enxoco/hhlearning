@@ -1395,15 +1395,75 @@ export type AddChildToParentMutationVariables = Exact<{
 
 export type AddChildToParentMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string } | null };
 
-export type CreateParentMutationVariables = Exact<{
-  name: Scalars['String'];
+export type CreateRelatedStudentMutationVariables = Exact<{
+  parentId: Scalars['ID'];
+  firstName: Scalars['String'];
   lastName: Scalars['String'];
-  password: Scalars['String'];
+}>;
+
+
+export type CreateRelatedStudentMutation = { __typename?: 'Mutation', createStudent?: { __typename?: 'Student', id: string, portalId?: string | null } | null };
+
+export type CreateUserMutationVariables = Exact<{
+  data: UserCreateInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename: 'User', id: string } | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars['ID'];
+  data: UserUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
+
+export type RemoveChildFromParentMutationVariables = Exact<{
+  studentId: Scalars['ID'];
+}>;
+
+
+export type RemoveChildFromParentMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string } | null };
+
+export type TogglePaidTuitionMutationVariables = Exact<{
+  id: Scalars['ID'];
+  hasPaid: Scalars['Boolean'];
+}>;
+
+
+export type TogglePaidTuitionMutation = { __typename?: 'Mutation', updateUser?: { __typename: 'User', id: string } | null };
+
+export type FindStudentsForParentsQueryVariables = Exact<{
+  where: StudentWhereInput;
+}>;
+
+
+export type FindStudentsForParentsQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, id: string, firstName?: string | null, parent?: { __typename?: 'User', id: string } | null }> | null };
+
+export type GetAllParentsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+  searchString: Scalars['String'];
+  sortParams: Array<UserOrderByInput> | UserOrderByInput;
+}>;
+
+
+export type GetAllParentsQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
+
+export type GetStudentsByParentQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type CreateParentMutation = { __typename?: 'Mutation', createUser?: { __typename: 'User', id: string } | null };
+export type GetStudentsByParentQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, firstName?: string | null, lastName?: string | null, id: string, portalId?: string | null, courses?: Array<{ __typename?: 'Course', name?: string | null, grade?: string | null, feedback?: string | null }> | null }> | null };
+
+export type GetUserQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
 
 export type CreateStudentMutationVariables = Exact<{
   firstName: Scalars['String'];
@@ -1412,16 +1472,6 @@ export type CreateStudentMutationVariables = Exact<{
 
 
 export type CreateStudentMutation = { __typename?: 'Mutation', createStudent?: { __typename: 'Student', id: string } | null };
-
-export type CreateTeacherMutationVariables = Exact<{
-  name: Scalars['String'];
-  password: Scalars['String'];
-  email: Scalars['String'];
-  admin: Scalars['Boolean'];
-}>;
-
-
-export type CreateTeacherMutation = { __typename?: 'Mutation', createUser?: { __typename: 'User', id: string } | null };
 
 export type BulkAddStudentsMutationVariables = Exact<{
   data: Array<StudentCreateInput> | StudentCreateInput;
@@ -1441,42 +1491,12 @@ export type CreateCourseMutationVariables = Exact<{
 
 export type CreateCourseMutation = { __typename?: 'Mutation', createCourse?: { __typename: 'Course', id: string } | null };
 
-export type CreateSemesterMutationVariables = Exact<{
-  data: SemesterCreateInput;
-}>;
-
-
-export type CreateSemesterMutation = { __typename?: 'Mutation', createSemester?: { __typename?: 'Semester', id: string, year?: number | null, semester?: string | null, reportCardTitle?: string | null, slug?: string | null } | null };
-
-export type CreateRelatedStudentMutationVariables = Exact<{
-  parentId: Scalars['ID'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-}>;
-
-
-export type CreateRelatedStudentMutation = { __typename?: 'Mutation', createStudent?: { __typename?: 'Student', id: string, portalId?: string | null } | null };
-
-export type DeleteCourseMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type DeleteCourseMutation = { __typename?: 'Mutation', deleteCourse?: { __typename: 'Course' } | null };
-
 export type DeleteStudentMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
 export type DeleteStudentMutation = { __typename?: 'Mutation', deleteStudent?: { __typename: 'Student' } | null };
-
-export type DeleteTeacherMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type DeleteTeacherMutation = { __typename?: 'Mutation', deleteUser?: { __typename: 'User' } | null };
 
 export type UpdateStudentInfoMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -1488,13 +1508,89 @@ export type UpdateStudentInfoMutationVariables = Exact<{
 
 export type UpdateStudentInfoMutation = { __typename?: 'Mutation', updateStudent?: { __typename: 'Student', id: string } | null };
 
-export type UpdateUserMutationVariables = Exact<{
+export type ToggleStudentActiveStatusMutationVariables = Exact<{
   id: Scalars['ID'];
-  data: UserUpdateInput;
+  isFormer: Scalars['Boolean'];
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
+export type ToggleStudentActiveStatusMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string, isFormer?: boolean | null, firstName?: string | null } | null };
+
+export type UpdateCourseMutationVariables = Exact<{
+  name: Scalars['String'];
+  grade: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  feedback: Scalars['String'];
+}>;
+
+
+export type UpdateCourseMutation = { __typename?: 'Mutation', updateCourse?: { __typename: 'Course', id: string } | null };
+
+export type GetCoursesByStudentAndTeacherQueryVariables = Exact<{
+  studentId: Scalars['ID'];
+  teacherId: Scalars['ID'];
+}>;
+
+
+export type GetCoursesByStudentAndTeacherQuery = { __typename?: 'Query', courses?: Array<{ __typename: 'Course', name?: string | null, grade?: string | null, feedback?: string | null, id: string }> | null };
+
+export type GetAllStudentsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+  isFormer: Scalars['Boolean'];
+  search: Scalars['String'];
+}>;
+
+
+export type GetAllStudentsQuery = { __typename?: 'Query', studentsCount?: number | null, students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, isFormer?: boolean | null }> | null };
+
+export type GetStudentQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetStudentQuery = { __typename?: 'Query', student?: { __typename: 'Student', id: string, firstName?: string | null, lastName?: string | null, portalId?: string | null } | null };
+
+export type CreateTeacherMutationVariables = Exact<{
+  name: Scalars['String'];
+  password: Scalars['String'];
+  email: Scalars['String'];
+  admin: Scalars['Boolean'];
+}>;
+
+
+export type CreateTeacherMutation = { __typename?: 'Mutation', createUser?: { __typename: 'User', id: string } | null };
+
+export type GetAllTeachersQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+  searchString: Scalars['String'];
+  sortParams: Array<UserOrderByInput> | UserOrderByInput;
+}>;
+
+
+export type GetAllTeachersQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename: 'User', id: string, name?: string | null, email?: string | null, isAdmin?: boolean | null, isParent?: boolean | null }> | null };
+
+export type GetMyStudentsQueryVariables = Exact<{
+  teacherId: Scalars['ID'];
+}>;
+
+
+export type GetMyStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, courses?: Array<{ __typename?: 'Course', id: string, name?: string | null }> | null }> | null };
+
+export type CreateSemesterMutationVariables = Exact<{
+  data: SemesterCreateInput;
+}>;
+
+
+export type CreateSemesterMutation = { __typename?: 'Mutation', createSemester?: { __typename?: 'Semester', id: string, year?: number | null, semester?: string | null, reportCardTitle?: string | null, slug?: string | null } | null };
+
+export type DeleteCourseMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteCourseMutation = { __typename?: 'Mutation', deleteCourse?: { __typename: 'Course' } | null };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -1535,13 +1631,6 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', createUser?: { __typename: 'User', id: string, email?: string | null } | null };
 
-export type RemoveChildFromParentMutationVariables = Exact<{
-  studentId: Scalars['ID'];
-}>;
-
-
-export type RemoveChildFromParentMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string } | null };
-
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -1556,32 +1645,6 @@ export type ToggleAdminMutationVariables = Exact<{
 
 
 export type ToggleAdminMutation = { __typename?: 'Mutation', updateUser?: { __typename: 'User', id: string } | null };
-
-export type TogglePaidTuitionMutationVariables = Exact<{
-  id: Scalars['ID'];
-  hasPaid: Scalars['Boolean'];
-}>;
-
-
-export type TogglePaidTuitionMutation = { __typename?: 'Mutation', updateUser?: { __typename: 'User', id: string } | null };
-
-export type ToggleStudentActiveStatusMutationVariables = Exact<{
-  id: Scalars['ID'];
-  isFormer: Scalars['Boolean'];
-}>;
-
-
-export type ToggleStudentActiveStatusMutation = { __typename?: 'Mutation', updateStudent?: { __typename?: 'Student', id: string, isFormer?: boolean | null, firstName?: string | null } | null };
-
-export type UpdateCourseMutationVariables = Exact<{
-  name: Scalars['String'];
-  grade: Scalars['String'];
-  id?: InputMaybe<Scalars['ID']>;
-  feedback: Scalars['String'];
-}>;
-
-
-export type UpdateCourseMutation = { __typename?: 'Mutation', updateCourse?: { __typename: 'Course', id: string } | null };
 
 export type UpdatePasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -1599,79 +1662,15 @@ export type UpdateSettingsMutationVariables = Exact<{
 
 export type UpdateSettingsMutation = { __typename?: 'Mutation', updateSetting?: { __typename: 'Setting' } | null };
 
-export type GetUserEmailByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-}>;
-
-
-export type GetUserEmailByIdQuery = { __typename?: 'Query', user?: { __typename: 'User', email?: string | null, name?: string | null, firstName?: string | null, lastName?: string | null, isAdmin?: boolean | null, isParent?: boolean | null, hasPaidTuition?: boolean | null } | null };
-
-export type CheckLoginQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CheckLoginQuery = { __typename?: 'Query', authenticatedItem?: { __typename: 'User', id: string, email?: string | null, name?: string | null, firstName?: string | null, lastName?: string | null, isAdmin?: boolean | null, isParent?: boolean | null, hasPaidTuition?: boolean | null } | null };
-
-export type CoursesByStudentQueryVariables = Exact<{
-  studentId: Scalars['ID'];
-}>;
-
-
-export type CoursesByStudentQuery = { __typename?: 'Query', courses?: Array<{ __typename: 'Course', name?: string | null, grade?: string | null, feedback?: string | null, id: string, feedbackLength?: string | null, teacher?: { __typename?: 'User', name?: string | null, id: string } | null }> | null };
-
-export type GetCoursesByStudentAndTeacherQueryVariables = Exact<{
-  studentId: Scalars['ID'];
-  teacherId: Scalars['ID'];
-}>;
-
-
-export type GetCoursesByStudentAndTeacherQuery = { __typename?: 'Query', courses?: Array<{ __typename: 'Course', name?: string | null, grade?: string | null, feedback?: string | null, id: string }> | null };
-
 export type FetchSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FetchSettingsQuery = { __typename?: 'Query', settings?: Array<{ __typename?: 'Setting', id: string, name?: string | null, value?: string | null }> | null };
 
-export type FindStudentsForParentsQueryVariables = Exact<{
-  where: StudentWhereInput;
-}>;
-
-
-export type FindStudentsForParentsQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, id: string, firstName?: string | null, parent?: { __typename?: 'User', id: string } | null }> | null };
-
-export type GetAllParentsQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  offset: Scalars['Int'];
-  searchString: Scalars['String'];
-  sortParams: Array<UserOrderByInput> | UserOrderByInput;
-}>;
-
-
-export type GetAllParentsQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename?: 'User', name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, hasPaidTuition?: boolean | null, id: string, portalId?: string | null, student?: Array<{ __typename?: 'Student', firstName?: string | null, id: string, portalId?: string | null }> | null }> | null };
-
 export type GetAllSemestersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllSemestersQuery = { __typename?: 'Query', semesters?: Array<{ __typename?: 'Semester', id: string, year?: number | null, semester?: string | null, reportCardTitle?: string | null, slug?: string | null }> | null };
-
-export type GetAllStudentsQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  offset: Scalars['Int'];
-  isFormer: Scalars['Boolean'];
-  search: Scalars['String'];
-}>;
-
-
-export type GetAllStudentsQuery = { __typename?: 'Query', studentsCount?: number | null, students?: Array<{ __typename: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, isFormer?: boolean | null }> | null };
-
-export type GetAllTeachersQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  offset: Scalars['Int'];
-  searchString: Scalars['String'];
-  sortParams: Array<UserOrderByInput> | UserOrderByInput;
-}>;
-
-
-export type GetAllTeachersQuery = { __typename?: 'Query', usersCount?: number | null, users?: Array<{ __typename: 'User', id: string, name?: string | null, email?: string | null, isAdmin?: boolean | null, isParent?: boolean | null }> | null };
 
 export type GetMyCoursesCountByTeacherQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1680,68 +1679,10 @@ export type GetMyCoursesCountByTeacherQueryVariables = Exact<{
 
 export type GetMyCoursesCountByTeacherQuery = { __typename?: 'Query', coursesCount?: number | null };
 
-export type GetMyProfileQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type GetMyProfileQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name?: string | null, firstName?: string | null, lastName?: string | null } | null };
-
-export type GetMyStudentsQueryVariables = Exact<{
-  teacherId: Scalars['ID'];
-}>;
-
-
-export type GetMyStudentsQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, portalId?: string | null, courses?: Array<{ __typename?: 'Course', id: string, name?: string | null }> | null }> | null };
-
-export type GetStudentQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type GetStudentQuery = { __typename?: 'Query', student?: { __typename: 'Student', id: string, firstName?: string | null, lastName?: string | null, portalId?: string | null } | null };
-
-export type GetStudentsByParentQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
-
-
-export type GetStudentsByParentQuery = { __typename?: 'Query', students?: Array<{ __typename?: 'Student', name?: string | null, firstName?: string | null, lastName?: string | null, id: string, portalId?: string | null, courses?: Array<{ __typename?: 'Course', name?: string | null, grade?: string | null, feedback?: string | null }> | null }> | null };
-
 export type TotalCourseCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TotalCourseCountQuery = { __typename?: 'Query', coursesCount?: number | null };
-
-export type GetUserQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, isAdmin?: boolean | null, isParent?: boolean | null, name?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, portalId?: string | null, hasPaidTuition?: boolean | null } | null };
-
-export type GetUsersByRoleQueryVariables = Exact<{
-  tag: Scalars['String'];
-}>;
-
-
-export type GetUsersByRoleQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: string, name?: string | null, firstName?: string | null, lastName?: string | null, role?: Array<{ __typename?: 'Role', name?: string | null }> | null }> | null };
-
-export type SearchStudentsByNamePaginatedQueryVariables = Exact<{
-  search: Scalars['String'];
-  limit: Scalars['Int'];
-  offset: Scalars['Int'];
-}>;
-
-
-export type SearchStudentsByNamePaginatedQuery = { __typename?: 'Query', students?: Array<{ __typename: 'Student', id: string, firstName?: string | null, lastName?: string | null, name?: string | null }> | null };
-
-export type SearchStudentsByNameCountQueryVariables = Exact<{
-  search: Scalars['String'];
-}>;
-
-
-export type SearchStudentsByNameCountQuery = { __typename?: 'Query', studentsCount?: number | null };
 
 export type StudentsCountQueryVariables = Exact<{
   isFormer: Scalars['Boolean'];
@@ -1765,19 +1706,157 @@ export const AddChildToParentDocument = gql`
 export function useAddChildToParentMutation() {
   return Urql.useMutation<AddChildToParentMutation, AddChildToParentMutationVariables>(AddChildToParentDocument);
 };
-export const CreateParentDocument = gql`
-    mutation CreateParent($name: String!, $lastName: String!, $password: String!, $email: String!) {
-  createUser(
-    data: {name: $name, lastName: $lastName, password: $password, email: $email, isParent: true}
+export const CreateRelatedStudentDocument = gql`
+    mutation CreateRelatedStudent($parentId: ID!, $firstName: String!, $lastName: String!) {
+  createStudent(
+    data: {firstName: $firstName, lastName: $lastName, parent: {connect: {id: $parentId}}}
   ) {
+    id
+    portalId
+  }
+}
+    `;
+
+export function useCreateRelatedStudentMutation() {
+  return Urql.useMutation<CreateRelatedStudentMutation, CreateRelatedStudentMutationVariables>(CreateRelatedStudentDocument);
+};
+export const CreateUserDocument = gql`
+    mutation CreateUser($data: UserCreateInput!) {
+  createUser(data: $data) {
     id
     __typename
   }
 }
     `;
 
-export function useCreateParentMutation() {
-  return Urql.useMutation<CreateParentMutation, CreateParentMutationVariables>(CreateParentDocument);
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($id: ID!, $data: UserUpdateInput!) {
+  updateUser(where: {id: $id}, data: $data) {
+    id
+    isAdmin
+    isParent
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
+};
+export const RemoveChildFromParentDocument = gql`
+    mutation RemoveChildFromParent($studentId: ID!) {
+  updateStudent(where: {id: $studentId}, data: {parent: {disconnect: true}}) {
+    id
+  }
+}
+    `;
+
+export function useRemoveChildFromParentMutation() {
+  return Urql.useMutation<RemoveChildFromParentMutation, RemoveChildFromParentMutationVariables>(RemoveChildFromParentDocument);
+};
+export const TogglePaidTuitionDocument = gql`
+    mutation TogglePaidTuition($id: ID!, $hasPaid: Boolean!) {
+  updateUser(where: {id: $id}, data: {hasPaidTuition: $hasPaid}) {
+    id
+    __typename
+  }
+}
+    `;
+
+export function useTogglePaidTuitionMutation() {
+  return Urql.useMutation<TogglePaidTuitionMutation, TogglePaidTuitionMutationVariables>(TogglePaidTuitionDocument);
+};
+export const FindStudentsForParentsDocument = gql`
+    query FindStudentsForParents($where: StudentWhereInput!) {
+  students(where: $where) {
+    name
+    id
+    firstName
+    parent {
+      id
+    }
+  }
+}
+    `;
+
+export function useFindStudentsForParentsQuery(options: Omit<Urql.UseQueryArgs<FindStudentsForParentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<FindStudentsForParentsQuery, FindStudentsForParentsQueryVariables>({ query: FindStudentsForParentsDocument, ...options });
+};
+export const GetAllParentsDocument = gql`
+    query GetAllParents($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
+  users(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
+    orderBy: $sortParams
+    take: $limit
+    skip: $offset
+  ) {
+    name
+    firstName
+    lastName
+    email
+    hasPaidTuition
+    id
+    portalId
+    student {
+      firstName
+      id
+      portalId
+    }
+  }
+  usersCount(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
+  )
+}
+    `;
+
+export function useGetAllParentsQuery(options: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
+};
+export const GetStudentsByParentDocument = gql`
+    query GetStudentsByParent($email: String!) {
+  students(where: {parent: {email: {equals: $email}}}) {
+    name
+    firstName
+    lastName
+    id
+    portalId
+    courses {
+      name
+      grade
+      feedback
+    }
+  }
+}
+    `;
+
+export function useGetStudentsByParentQuery(options: Omit<Urql.UseQueryArgs<GetStudentsByParentQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStudentsByParentQuery, GetStudentsByParentQueryVariables>({ query: GetStudentsByParentDocument, ...options });
+};
+export const GetUserDocument = gql`
+    query GetUser($id: ID!) {
+  user(where: {id: $id}) {
+    id
+    isAdmin
+    isParent
+    name
+    firstName
+    lastName
+    email
+    portalId
+    hasPaidTuition
+  }
+}
+    `;
+
+export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
 };
 export const CreateStudentDocument = gql`
     mutation CreateStudent($firstName: String!, $lastName: String!) {
@@ -1790,20 +1869,6 @@ export const CreateStudentDocument = gql`
 
 export function useCreateStudentMutation() {
   return Urql.useMutation<CreateStudentMutation, CreateStudentMutationVariables>(CreateStudentDocument);
-};
-export const CreateTeacherDocument = gql`
-    mutation CreateTeacher($name: String!, $password: String!, $email: String!, $admin: Boolean!) {
-  createUser(
-    data: {name: $name, password: $password, email: $email, isAdmin: $admin}
-  ) {
-    id
-    __typename
-  }
-}
-    `;
-
-export function useCreateTeacherMutation() {
-  return Urql.useMutation<CreateTeacherMutation, CreateTeacherMutationVariables>(CreateTeacherDocument);
 };
 export const BulkAddStudentsDocument = gql`
     mutation BulkAddStudents($data: [StudentCreateInput!]!) {
@@ -1831,46 +1896,6 @@ export const CreateCourseDocument = gql`
 export function useCreateCourseMutation() {
   return Urql.useMutation<CreateCourseMutation, CreateCourseMutationVariables>(CreateCourseDocument);
 };
-export const CreateSemesterDocument = gql`
-    mutation CreateSemester($data: SemesterCreateInput!) {
-  createSemester(data: $data) {
-    id
-    year
-    semester
-    reportCardTitle
-    slug
-  }
-}
-    `;
-
-export function useCreateSemesterMutation() {
-  return Urql.useMutation<CreateSemesterMutation, CreateSemesterMutationVariables>(CreateSemesterDocument);
-};
-export const CreateRelatedStudentDocument = gql`
-    mutation CreateRelatedStudent($parentId: ID!, $firstName: String!, $lastName: String!) {
-  createStudent(
-    data: {firstName: $firstName, lastName: $lastName, parent: {connect: {id: $parentId}}}
-  ) {
-    id
-    portalId
-  }
-}
-    `;
-
-export function useCreateRelatedStudentMutation() {
-  return Urql.useMutation<CreateRelatedStudentMutation, CreateRelatedStudentMutationVariables>(CreateRelatedStudentDocument);
-};
-export const DeleteCourseDocument = gql`
-    mutation DeleteCourse($id: ID!) {
-  deleteCourse(where: {id: $id}) {
-    __typename
-  }
-}
-    `;
-
-export function useDeleteCourseMutation() {
-  return Urql.useMutation<DeleteCourseMutation, DeleteCourseMutationVariables>(DeleteCourseDocument);
-};
 export const DeleteStudentDocument = gql`
     mutation DeleteStudent($id: ID!) {
   deleteStudent(where: {id: $id}) {
@@ -1881,17 +1906,6 @@ export const DeleteStudentDocument = gql`
 
 export function useDeleteStudentMutation() {
   return Urql.useMutation<DeleteStudentMutation, DeleteStudentMutationVariables>(DeleteStudentDocument);
-};
-export const DeleteTeacherDocument = gql`
-    mutation DeleteTeacher($id: ID!) {
-  deleteUser(where: {id: $id}) {
-    __typename
-  }
-}
-    `;
-
-export function useDeleteTeacherMutation() {
-  return Urql.useMutation<DeleteTeacherMutation, DeleteTeacherMutationVariables>(DeleteTeacherDocument);
 };
 export const UpdateStudentInfoDocument = gql`
     mutation UpdateStudentInfo($id: ID!, $firstName: String!, $lastName: String!, $isFormer: Boolean!) {
@@ -1908,23 +1922,174 @@ export const UpdateStudentInfoDocument = gql`
 export function useUpdateStudentInfoMutation() {
   return Urql.useMutation<UpdateStudentInfoMutation, UpdateStudentInfoMutationVariables>(UpdateStudentInfoDocument);
 };
-export const UpdateUserDocument = gql`
-    mutation UpdateUser($id: ID!, $data: UserUpdateInput!) {
-  updateUser(where: {id: $id}, data: $data) {
+export const ToggleStudentActiveStatusDocument = gql`
+    mutation ToggleStudentActiveStatus($id: ID!, $isFormer: Boolean!) {
+  updateStudent(where: {id: $id}, data: {isFormer: $isFormer}) {
     id
-    isAdmin
-    isParent
+    isFormer
     firstName
-    lastName
-    email
-    portalId
-    hasPaidTuition
   }
 }
     `;
 
-export function useUpdateUserMutation() {
-  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
+export function useToggleStudentActiveStatusMutation() {
+  return Urql.useMutation<ToggleStudentActiveStatusMutation, ToggleStudentActiveStatusMutationVariables>(ToggleStudentActiveStatusDocument);
+};
+export const UpdateCourseDocument = gql`
+    mutation UpdateCourse($name: String!, $grade: String!, $id: ID, $feedback: String!) {
+  updateCourse(
+    where: {id: $id}
+    data: {name: $name, grade: $grade, feedback: $feedback}
+  ) {
+    id
+    __typename
+  }
+}
+    `;
+
+export function useUpdateCourseMutation() {
+  return Urql.useMutation<UpdateCourseMutation, UpdateCourseMutationVariables>(UpdateCourseDocument);
+};
+export const GetCoursesByStudentAndTeacherDocument = gql`
+    query GetCoursesByStudentAndTeacher($studentId: ID!, $teacherId: ID!) {
+  courses(
+    where: {student: {id: {equals: $studentId}}, teacher: {id: {equals: $teacherId}}}
+    orderBy: {id: asc}
+  ) {
+    __typename
+    name
+    grade
+    feedback
+    id
+  }
+}
+    `;
+
+export function useGetCoursesByStudentAndTeacherQuery(options: Omit<Urql.UseQueryArgs<GetCoursesByStudentAndTeacherQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCoursesByStudentAndTeacherQuery, GetCoursesByStudentAndTeacherQueryVariables>({ query: GetCoursesByStudentAndTeacherDocument, ...options });
+};
+export const GetAllStudentsDocument = gql`
+    query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!, $search: String!) {
+  students(
+    take: $limit
+    skip: $offset
+    orderBy: {lastName: asc}
+    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
+  ) {
+    __typename
+    id
+    name
+    firstName
+    lastName
+    portalId
+    isFormer
+  }
+  studentsCount(
+    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
+  )
+}
+    `;
+
+export function useGetAllStudentsQuery(options: Omit<Urql.UseQueryArgs<GetAllStudentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>({ query: GetAllStudentsDocument, ...options });
+};
+export const GetStudentDocument = gql`
+    query GetStudent($id: ID!) {
+  student(where: {id: $id}) {
+    __typename
+    id
+    firstName
+    lastName
+    portalId
+  }
+}
+    `;
+
+export function useGetStudentQuery(options: Omit<Urql.UseQueryArgs<GetStudentQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStudentQuery, GetStudentQueryVariables>({ query: GetStudentDocument, ...options });
+};
+export const CreateTeacherDocument = gql`
+    mutation CreateTeacher($name: String!, $password: String!, $email: String!, $admin: Boolean!) {
+  createUser(
+    data: {name: $name, password: $password, email: $email, isAdmin: $admin}
+  ) {
+    id
+    __typename
+  }
+}
+    `;
+
+export function useCreateTeacherMutation() {
+  return Urql.useMutation<CreateTeacherMutation, CreateTeacherMutationVariables>(CreateTeacherDocument);
+};
+export const GetAllTeachersDocument = gql`
+    query GetAllTeachers($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
+  users(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: false}}]}
+    orderBy: $sortParams
+    take: $limit
+    skip: $offset
+  ) {
+    __typename
+    id
+    name
+    email
+    isAdmin
+    isParent
+  }
+  usersCount(
+    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}], AND: [{isParent: {equals: false}}]}
+  )
+}
+    `;
+
+export function useGetAllTeachersQuery(options: Omit<Urql.UseQueryArgs<GetAllTeachersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllTeachersQuery, GetAllTeachersQueryVariables>({ query: GetAllTeachersDocument, ...options });
+};
+export const GetMyStudentsDocument = gql`
+    query GetMyStudents($teacherId: ID!) {
+  students(where: {courses: {some: {teacher: {id: {equals: $teacherId}}}}}) {
+    id
+    name
+    firstName
+    lastName
+    portalId
+    courses {
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useGetMyStudentsQuery(options: Omit<Urql.UseQueryArgs<GetMyStudentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetMyStudentsQuery, GetMyStudentsQueryVariables>({ query: GetMyStudentsDocument, ...options });
+};
+export const CreateSemesterDocument = gql`
+    mutation CreateSemester($data: SemesterCreateInput!) {
+  createSemester(data: $data) {
+    id
+    year
+    semester
+    reportCardTitle
+    slug
+  }
+}
+    `;
+
+export function useCreateSemesterMutation() {
+  return Urql.useMutation<CreateSemesterMutation, CreateSemesterMutationVariables>(CreateSemesterDocument);
+};
+export const DeleteCourseDocument = gql`
+    mutation DeleteCourse($id: ID!) {
+  deleteCourse(where: {id: $id}) {
+    __typename
+  }
+}
+    `;
+
+export function useDeleteCourseMutation() {
+  return Urql.useMutation<DeleteCourseMutation, DeleteCourseMutationVariables>(DeleteCourseDocument);
 };
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
@@ -2008,17 +2173,6 @@ export const RegisterDocument = gql`
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
 };
-export const RemoveChildFromParentDocument = gql`
-    mutation RemoveChildFromParent($studentId: ID!) {
-  updateStudent(where: {id: $studentId}, data: {parent: {disconnect: true}}) {
-    id
-  }
-}
-    `;
-
-export function useRemoveChildFromParentMutation() {
-  return Urql.useMutation<RemoveChildFromParentMutation, RemoveChildFromParentMutationVariables>(RemoveChildFromParentDocument);
-};
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
   sendUserPasswordResetLink(email: $email)
@@ -2039,46 +2193,6 @@ export const ToggleAdminDocument = gql`
 
 export function useToggleAdminMutation() {
   return Urql.useMutation<ToggleAdminMutation, ToggleAdminMutationVariables>(ToggleAdminDocument);
-};
-export const TogglePaidTuitionDocument = gql`
-    mutation TogglePaidTuition($id: ID!, $hasPaid: Boolean!) {
-  updateUser(where: {id: $id}, data: {hasPaidTuition: $hasPaid}) {
-    id
-    __typename
-  }
-}
-    `;
-
-export function useTogglePaidTuitionMutation() {
-  return Urql.useMutation<TogglePaidTuitionMutation, TogglePaidTuitionMutationVariables>(TogglePaidTuitionDocument);
-};
-export const ToggleStudentActiveStatusDocument = gql`
-    mutation ToggleStudentActiveStatus($id: ID!, $isFormer: Boolean!) {
-  updateStudent(where: {id: $id}, data: {isFormer: $isFormer}) {
-    id
-    isFormer
-    firstName
-  }
-}
-    `;
-
-export function useToggleStudentActiveStatusMutation() {
-  return Urql.useMutation<ToggleStudentActiveStatusMutation, ToggleStudentActiveStatusMutationVariables>(ToggleStudentActiveStatusDocument);
-};
-export const UpdateCourseDocument = gql`
-    mutation UpdateCourse($name: String!, $grade: String!, $id: ID, $feedback: String!) {
-  updateCourse(
-    where: {id: $id}
-    data: {name: $name, grade: $grade, feedback: $feedback}
-  ) {
-    id
-    __typename
-  }
-}
-    `;
-
-export function useUpdateCourseMutation() {
-  return Urql.useMutation<UpdateCourseMutation, UpdateCourseMutationVariables>(UpdateCourseDocument);
 };
 export const UpdatePasswordDocument = gql`
     mutation UpdatePassword($email: String!, $password: String!) {
@@ -2102,83 +2216,6 @@ export const UpdateSettingsDocument = gql`
 export function useUpdateSettingsMutation() {
   return Urql.useMutation<UpdateSettingsMutation, UpdateSettingsMutationVariables>(UpdateSettingsDocument);
 };
-export const GetUserEmailByIdDocument = gql`
-    query GetUserEmailById($id: ID) {
-  user(where: {id: $id}) {
-    __typename
-    email
-    name
-    firstName
-    lastName
-    isAdmin
-    isParent
-    hasPaidTuition
-  }
-}
-    `;
-
-export function useGetUserEmailByIdQuery(options?: Omit<Urql.UseQueryArgs<GetUserEmailByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUserEmailByIdQuery, GetUserEmailByIdQueryVariables>({ query: GetUserEmailByIdDocument, ...options });
-};
-export const CheckLoginDocument = gql`
-    query CheckLogin {
-  authenticatedItem {
-    __typename
-    ... on User {
-      id
-      email
-      name
-      firstName
-      lastName
-      isAdmin
-      isParent
-      hasPaidTuition
-    }
-  }
-}
-    `;
-
-export function useCheckLoginQuery(options?: Omit<Urql.UseQueryArgs<CheckLoginQueryVariables>, 'query'>) {
-  return Urql.useQuery<CheckLoginQuery, CheckLoginQueryVariables>({ query: CheckLoginDocument, ...options });
-};
-export const CoursesByStudentDocument = gql`
-    query CoursesByStudent($studentId: ID!) {
-  courses(where: {student: {id: {equals: $studentId}}}, orderBy: {id: asc}) {
-    __typename
-    name
-    grade
-    feedback
-    id
-    feedbackLength
-    teacher {
-      name
-      id
-    }
-  }
-}
-    `;
-
-export function useCoursesByStudentQuery(options: Omit<Urql.UseQueryArgs<CoursesByStudentQueryVariables>, 'query'>) {
-  return Urql.useQuery<CoursesByStudentQuery, CoursesByStudentQueryVariables>({ query: CoursesByStudentDocument, ...options });
-};
-export const GetCoursesByStudentAndTeacherDocument = gql`
-    query GetCoursesByStudentAndTeacher($studentId: ID!, $teacherId: ID!) {
-  courses(
-    where: {student: {id: {equals: $studentId}}, teacher: {id: {equals: $teacherId}}}
-    orderBy: {id: asc}
-  ) {
-    __typename
-    name
-    grade
-    feedback
-    id
-  }
-}
-    `;
-
-export function useGetCoursesByStudentAndTeacherQuery(options: Omit<Urql.UseQueryArgs<GetCoursesByStudentAndTeacherQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCoursesByStudentAndTeacherQuery, GetCoursesByStudentAndTeacherQueryVariables>({ query: GetCoursesByStudentAndTeacherDocument, ...options });
-};
 export const FetchSettingsDocument = gql`
     query FetchSettings {
   settings {
@@ -2191,52 +2228,6 @@ export const FetchSettingsDocument = gql`
 
 export function useFetchSettingsQuery(options?: Omit<Urql.UseQueryArgs<FetchSettingsQueryVariables>, 'query'>) {
   return Urql.useQuery<FetchSettingsQuery, FetchSettingsQueryVariables>({ query: FetchSettingsDocument, ...options });
-};
-export const FindStudentsForParentsDocument = gql`
-    query FindStudentsForParents($where: StudentWhereInput!) {
-  students(where: $where) {
-    name
-    id
-    firstName
-    parent {
-      id
-    }
-  }
-}
-    `;
-
-export function useFindStudentsForParentsQuery(options: Omit<Urql.UseQueryArgs<FindStudentsForParentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<FindStudentsForParentsQuery, FindStudentsForParentsQueryVariables>({ query: FindStudentsForParentsDocument, ...options });
-};
-export const GetAllParentsDocument = gql`
-    query GetAllParents($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
-  users(
-    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
-    orderBy: $sortParams
-    take: $limit
-    skip: $offset
-  ) {
-    name
-    firstName
-    lastName
-    email
-    hasPaidTuition
-    id
-    portalId
-    student {
-      firstName
-      id
-      portalId
-    }
-  }
-  usersCount(
-    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: true}}]}
-  )
-}
-    `;
-
-export function useGetAllParentsQuery(options: Omit<Urql.UseQueryArgs<GetAllParentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllParentsQuery, GetAllParentsQueryVariables>({ query: GetAllParentsDocument, ...options });
 };
 export const GetAllSemestersDocument = gql`
     query GetAllSemesters {
@@ -2253,55 +2244,6 @@ export const GetAllSemestersDocument = gql`
 export function useGetAllSemestersQuery(options?: Omit<Urql.UseQueryArgs<GetAllSemestersQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllSemestersQuery, GetAllSemestersQueryVariables>({ query: GetAllSemestersDocument, ...options });
 };
-export const GetAllStudentsDocument = gql`
-    query GetAllStudents($limit: Int!, $offset: Int!, $isFormer: Boolean!, $search: String!) {
-  students(
-    take: $limit
-    skip: $offset
-    orderBy: {lastName: asc}
-    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
-  ) {
-    __typename
-    id
-    name
-    firstName
-    lastName
-    portalId
-    isFormer
-  }
-  studentsCount(
-    where: {AND: [{isFormer: {equals: $isFormer}}, {lastName: {contains: $search, mode: insensitive}}], OR: [{isFormer: {equals: $isFormer}}, {firstName: {contains: $search, mode: insensitive}}]}
-  )
-}
-    `;
-
-export function useGetAllStudentsQuery(options: Omit<Urql.UseQueryArgs<GetAllStudentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>({ query: GetAllStudentsDocument, ...options });
-};
-export const GetAllTeachersDocument = gql`
-    query GetAllTeachers($limit: Int!, $offset: Int!, $searchString: String!, $sortParams: [UserOrderByInput!]!) {
-  users(
-    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}, {student: {some: {firstName: {contains: $searchString, mode: insensitive}}}}], AND: [{isParent: {equals: false}}]}
-    orderBy: $sortParams
-    take: $limit
-    skip: $offset
-  ) {
-    __typename
-    id
-    name
-    email
-    isAdmin
-    isParent
-  }
-  usersCount(
-    where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {email: {contains: $searchString, mode: insensitive}}], AND: [{isParent: {equals: false}}]}
-  )
-}
-    `;
-
-export function useGetAllTeachersQuery(options: Omit<Urql.UseQueryArgs<GetAllTeachersQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllTeachersQuery, GetAllTeachersQueryVariables>({ query: GetAllTeachersDocument, ...options });
-};
 export const GetMyCoursesCountByTeacherDocument = gql`
     query GetMyCoursesCountByTeacher($id: ID!) {
   coursesCount(where: {teacher: {id: {equals: $id}}})
@@ -2311,74 +2253,6 @@ export const GetMyCoursesCountByTeacherDocument = gql`
 export function useGetMyCoursesCountByTeacherQuery(options: Omit<Urql.UseQueryArgs<GetMyCoursesCountByTeacherQueryVariables>, 'query'>) {
   return Urql.useQuery<GetMyCoursesCountByTeacherQuery, GetMyCoursesCountByTeacherQueryVariables>({ query: GetMyCoursesCountByTeacherDocument, ...options });
 };
-export const GetMyProfileDocument = gql`
-    query GetMyProfile($id: ID!) {
-  user(where: {id: $id}) {
-    id
-    name
-    firstName
-    lastName
-  }
-}
-    `;
-
-export function useGetMyProfileQuery(options: Omit<Urql.UseQueryArgs<GetMyProfileQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetMyProfileQuery, GetMyProfileQueryVariables>({ query: GetMyProfileDocument, ...options });
-};
-export const GetMyStudentsDocument = gql`
-    query GetMyStudents($teacherId: ID!) {
-  students(where: {courses: {some: {teacher: {id: {equals: $teacherId}}}}}) {
-    id
-    name
-    firstName
-    lastName
-    portalId
-    courses {
-      id
-      name
-    }
-  }
-}
-    `;
-
-export function useGetMyStudentsQuery(options: Omit<Urql.UseQueryArgs<GetMyStudentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetMyStudentsQuery, GetMyStudentsQueryVariables>({ query: GetMyStudentsDocument, ...options });
-};
-export const GetStudentDocument = gql`
-    query GetStudent($id: ID!) {
-  student(where: {id: $id}) {
-    __typename
-    id
-    firstName
-    lastName
-    portalId
-  }
-}
-    `;
-
-export function useGetStudentQuery(options: Omit<Urql.UseQueryArgs<GetStudentQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStudentQuery, GetStudentQueryVariables>({ query: GetStudentDocument, ...options });
-};
-export const GetStudentsByParentDocument = gql`
-    query GetStudentsByParent($email: String!) {
-  students(where: {parent: {email: {equals: $email}}}) {
-    name
-    firstName
-    lastName
-    id
-    portalId
-    courses {
-      name
-      grade
-      feedback
-    }
-  }
-}
-    `;
-
-export function useGetStudentsByParentQuery(options: Omit<Urql.UseQueryArgs<GetStudentsByParentQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStudentsByParentQuery, GetStudentsByParentQueryVariables>({ query: GetStudentsByParentDocument, ...options });
-};
 export const TotalCourseCountDocument = gql`
     query TotalCourseCount {
   coursesCount(where: {teacher: {id: {not: {lt: 0}}}})
@@ -2387,73 +2261,6 @@ export const TotalCourseCountDocument = gql`
 
 export function useTotalCourseCountQuery(options?: Omit<Urql.UseQueryArgs<TotalCourseCountQueryVariables>, 'query'>) {
   return Urql.useQuery<TotalCourseCountQuery, TotalCourseCountQueryVariables>({ query: TotalCourseCountDocument, ...options });
-};
-export const GetUserDocument = gql`
-    query GetUser($id: ID!) {
-  user(where: {id: $id}) {
-    id
-    isAdmin
-    isParent
-    name
-    firstName
-    lastName
-    email
-    portalId
-    hasPaidTuition
-  }
-}
-    `;
-
-export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
-};
-export const GetUsersByRoleDocument = gql`
-    query GetUsersByRole($tag: String!) {
-  users(where: {role: {some: {name: {equals: $tag}}}}) {
-    id
-    name
-    firstName
-    lastName
-    role {
-      name
-    }
-  }
-}
-    `;
-
-export function useGetUsersByRoleQuery(options: Omit<Urql.UseQueryArgs<GetUsersByRoleQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUsersByRoleQuery, GetUsersByRoleQueryVariables>({ query: GetUsersByRoleDocument, ...options });
-};
-export const SearchStudentsByNamePaginatedDocument = gql`
-    query SearchStudentsByNamePaginated($search: String!, $limit: Int!, $offset: Int!) {
-  students(
-    where: {OR: [{firstName: {contains: $search, mode: insensitive}}, {lastName: {contains: $search, mode: insensitive}}]}
-    take: $limit
-    skip: $offset
-    orderBy: {lastName: asc}
-  ) {
-    __typename
-    id
-    firstName
-    lastName
-    name
-  }
-}
-    `;
-
-export function useSearchStudentsByNamePaginatedQuery(options: Omit<Urql.UseQueryArgs<SearchStudentsByNamePaginatedQueryVariables>, 'query'>) {
-  return Urql.useQuery<SearchStudentsByNamePaginatedQuery, SearchStudentsByNamePaginatedQueryVariables>({ query: SearchStudentsByNamePaginatedDocument, ...options });
-};
-export const SearchStudentsByNameCountDocument = gql`
-    query SearchStudentsByNameCount($search: String!) {
-  studentsCount(
-    where: {OR: [{firstName: {contains: $search, mode: insensitive}}, {lastName: {contains: $search, mode: insensitive}}]}
-  )
-}
-    `;
-
-export function useSearchStudentsByNameCountQuery(options: Omit<Urql.UseQueryArgs<SearchStudentsByNameCountQueryVariables>, 'query'>) {
-  return Urql.useQuery<SearchStudentsByNameCountQuery, SearchStudentsByNameCountQueryVariables>({ query: SearchStudentsByNameCountDocument, ...options });
 };
 export const StudentsCountDocument = gql`
     query StudentsCount($isFormer: Boolean!) {

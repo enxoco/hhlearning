@@ -1,12 +1,12 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, FormControl, FormLabel, Input, Button, useDisclosure, useToast, HStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { useCreateParentMutation } from "#/generated/graphql"
+import { useCreateUserMutation } from "#/generated/graphql"
 
 export default function() {
     const [parentFirstName, setParentFirstName] = useState("");
     const [parentLastName, setParentLastName] = useState("");
     const [parentEmail, setParentEmail] = useState("");
-    const [newParent, createNewParent] = useCreateParentMutation();
+    const [newParent, createNewParent] = useCreateUserMutation();
     const { onOpen, isOpen, onClose } = useDisclosure();
     const toast = useToast({
         position: "top",
@@ -18,10 +18,13 @@ export default function() {
         e.preventDefault()
         let uuid = self.crypto.randomUUID();
         createNewParent({
-            name: parentFirstName,
-            lastName: parentLastName,
-            email: parentEmail,
-            password: uuid
+            data: {
+                name: parentFirstName,
+                lastName: parentLastName,
+                email: parentEmail,
+                password: uuid,
+                isParent: true,
+            }
         })
 
         if (newParent.error) {
