@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`profile badge renders correctly 1`] = `
+exports[`initials render correctly 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -9,12 +9,12 @@ exports[`profile badge renders correctly 1`] = `
         class="chakra-stack css-1dq2vho"
       >
         <div
-          aria-label="Maci Kemmer"
+          aria-label="Mike Conrad"
           class="initials-avatar"
           role="img"
         >
           <div>
-            MK
+            MC
           </div>
         </div>
         <div
@@ -23,15 +23,13 @@ exports[`profile badge renders correctly 1`] = `
         >
           <p
             class="chakra-text css-w75v0a"
-            role="paragraph"
           >
-            Maci Kemmer
+            Mike Conrad
           </p>
           <p
             class="chakra-text css-1s07rjm"
-            role="paragraph"
           >
-            Maci_Kemmer5@yahoo.com
+            mike.conrad.hhl@gmail.com
           </p>
         </div>
       </div>
@@ -42,12 +40,12 @@ exports[`profile badge renders correctly 1`] = `
       class="chakra-stack css-1dq2vho"
     >
       <div
-        aria-label="Maci Kemmer"
+        aria-label="Mike Conrad"
         class="initials-avatar"
         role="img"
       >
         <div>
-          MK
+          MC
         </div>
       </div>
       <div
@@ -56,15 +54,13 @@ exports[`profile badge renders correctly 1`] = `
       >
         <p
           class="chakra-text css-w75v0a"
-          role="paragraph"
         >
-          Maci Kemmer
+          Mike Conrad
         </p>
         <p
           class="chakra-text css-1s07rjm"
-          role="paragraph"
         >
-          Maci_Kemmer5@yahoo.com
+          mike.conrad.hhl@gmail.com
         </p>
       </div>
     </div>

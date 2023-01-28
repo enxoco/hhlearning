@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Sidebar renders correct links for admin users 1`] = `
+exports[`NavLinks > renders correct links for admin users 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -841,7 +841,7 @@ exports[`Sidebar renders correct links for admin users 1`] = `
 }
 `;
 
-exports[`Sidebar renders correct links for non admin users 1`] = `
+exports[`renders correct links for non admin users 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>

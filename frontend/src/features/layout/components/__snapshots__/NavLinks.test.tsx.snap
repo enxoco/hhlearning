@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Sidebar renders correct links for admin users 1`] = `
+exports[`Navlinks renders correct links for admin users 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>

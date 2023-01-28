@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxProps,
   Heading,
   Stack,
   Text,
@@ -7,12 +8,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-interface Props {
+export interface IStatProps {
   label: string;
   value: number | string;
+  boxProps?: BoxProps;
 }
-export default function(props: Props) {
-  const { label, value, ...boxProps } = props;
+export const Stat = ({ label, value, boxProps }: IStatProps) => {
   return (
     <Box
       px={{ base: "4", md: "6" }}
@@ -22,7 +23,7 @@ export default function(props: Props) {
       boxShadow={useColorModeValue("sm", "sm-dark")}
       {...boxProps}
     >
-      <Stack>
+      <Stack data-testid="statWrapper">
         <Text fontSize="sm" color="muted">
           {label}
         </Text>

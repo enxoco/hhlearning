@@ -1,12 +1,12 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 
 type InitialsAvatarProps = {
-  name: string
-  email: string
+  name?: string
+  email?: string
 }
 
-export default function InitialsAvatar({ name, email }: InitialsAvatarProps) {
-  const initials = [...new Set(name.replace(/ /g, "").split(/[a-z]/))].join("");
+export default function InitialsAvatar({ name = "", email = "" }: InitialsAvatarProps) {
+  const initials = [...new Set(name?.replace(/ /g, "").split(/[a-z]/))].join("") ?? "";
   return (
     <HStack spacing="3" ps="2">
       <div aria-label={name} role="img" className="initials-avatar"><div>{initials}</div></div>

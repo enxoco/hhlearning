@@ -1,8 +1,8 @@
 import { Box, Button, Container, Divider, Flex, Heading, Link, SimpleGrid, Stack, Text, Tooltip, useBreakpointValue, useColorModeValue, VStack } from "@chakra-ui/react"
-import Stat from "../components/Stat"
+import { Stat } from "../components/Stat"
 import { ImpersonateUserBanner } from "./ImpersonatedUserBanner"
+import SidebarSkeleton from "./Sidebar/SidebarSkeleton"
 
-import SidebarSkeleton from "./SidebarSkeleton"
 export default function PageSkeleton() {
 
   return (

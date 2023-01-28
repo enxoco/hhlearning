@@ -57,6 +57,7 @@ services:
         ports: 
             - 4000:3000
             - 3010:3010
+            - 6006:6006
         networks:
             - hilger
         command: sh -c "yarn install && yarn dev"

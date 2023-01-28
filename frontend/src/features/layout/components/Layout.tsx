@@ -4,8 +4,8 @@ import { ReactElement } from "react"
 import { useLocation } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { ImpersonateUserBanner } from "./ImpersonatedUserBanner"
-import Sidebar from "./Sidebar"
 import useDocumentTitle from "#/utils/useDocumentTitle"
+import { NavLinks } from "./Sidebar/NavLinks"
 
 interface ILayoutProps {
   children: ReactElement | ReactElement[];
@@ -22,7 +22,7 @@ export default function ({ children, customTitle, description }: ILayoutProps) {
 
   return (
     <Flex as="section" direction={{ base: "column", lg: "row" }} height="100vh" bg="bg-canvas" overflowY="auto">
-      <Sidebar user={user} path={location.pathname} />
+      <NavLinks user={user} path={location.pathname} />
 
       <Box bg="bg-surface" pt={{ base: "0", lg: "3" }} flex="1">
         <Box bg="bg-canvas" borderTopLeftRadius={{ base: "none", lg: "2rem" }} height="full">

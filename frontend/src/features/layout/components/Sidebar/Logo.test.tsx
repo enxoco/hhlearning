@@ -1,6 +1,6 @@
 import { screen, render } from "@testing-library/react"
 
-import Logo from "./Logo";
+import { Logo } from "./Logo";
 
 
 it("renders correctly", async () => {
