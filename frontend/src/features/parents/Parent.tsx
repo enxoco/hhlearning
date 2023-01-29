@@ -1,4 +1,4 @@
-import Pagination from "#/components/Pagination";
+import Pagination from "#/components/Pagination/Pagination";
 import Layout from "#/features/layout/Layout";
 import { useGetAllParentsQuery, useGetStudentsByParentQuery, useGetUserQuery, useUpdateUserMutation } from "#/generated/graphql";
 import usePagination from "#/hooks/usePagination";

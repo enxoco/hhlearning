@@ -1,16 +1,16 @@
-import Pagination from "#/components/Pagination";
+import Pagination from "#/components/Pagination/Pagination";
 import { useGetAllParentsQuery, useTogglePaidTuitionMutation } from "#/generated/graphql";
 import usePagination from "#/hooks/usePagination";
 import { Box, Flex, List, ListItem, Grid, Heading, Input, useDisclosure, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "#/features/layout/Layout";
-import AddParentModal from "./components/AddParentModal";
-import AddStudentModal from "./components/AddStudentModal";
-import TableActions from "./components/ParentsActionBar";
-import StudentsList from "./components/StudentsList";
-import ColumnHeading from "./components/ColumnHeading";
-import ToggleButton from "#/components/buttons/ToggleButton";
+import AddParentModal from "./components/AddParentModal/AddParentModal";
+import AddStudentModal from "./components/AddStudentModal/AddStudentModal";
+import TableActions from "./components/ParentsActionBar/ParentsActionBar";
+import StudentsList from "./components/StudentsList/StudentsList";
+import ColumnHeading from "./components/ColumnHeading/ColumnHeading";
+import ToggleButton from "#/components/Buttons/ToggleButton";
 
 export type SortFields = "firstName" | "lastName" | "email" | "name"
 export default function () {

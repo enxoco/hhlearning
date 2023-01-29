@@ -1,0 +1,1257 @@
+// Vitest Snapshot v1
+
+exports[`NavLinks > renders correct links for admin users 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="chakra-stack css-hxjtip"
+        data-testid="sidebarLinks"
+      >
+        <a
+          href="/dashboard"
+        >
+          <button
+            aria-current="page"
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                />
+                <polyline
+                  points="9 22 9 12 15 12 15 22"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Dashboard
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/students"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Current Students
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/former-students"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Former Students
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/students/1"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                My Students
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/profile"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Profile
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/teachers"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Teachers
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/families"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+                <line
+                  x1="2"
+                  x2="22"
+                  y1="12"
+                  y2="12"
+                />
+                <path
+                  d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Parents
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/emails"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Emails
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/settings"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Settings
+              </p>
+            </div>
+          </button>
+        </a>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="chakra-stack css-hxjtip"
+      data-testid="sidebarLinks"
+    >
+      <a
+        href="/dashboard"
+      >
+        <button
+          aria-current="page"
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+              <polyline
+                points="9 22 9 12 15 12 15 22"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Dashboard
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/students"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Current Students
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/former-students"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Former Students
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/students/1"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              My Students
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/profile"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="3"
+              />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Profile
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/teachers"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Teachers
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/families"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <line
+                x1="2"
+                x2="22"
+                y1="12"
+                y2="12"
+              />
+              <path
+                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Parents
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/emails"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Emails
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/settings"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="3"
+              />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Settings
+            </p>
+          </div>
+        </button>
+      </a>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`renders correct links for non admin users 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="chakra-stack css-hxjtip"
+        data-testid="sidebarLinks"
+      >
+        <a
+          href="/dashboard"
+        >
+          <button
+            aria-current="page"
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                />
+                <polyline
+                  points="9 22 9 12 15 12 15 22"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Dashboard
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/students"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                All Students
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/students/1"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                My Students
+              </p>
+            </div>
+          </button>
+        </a>
+        <a
+          href="/profile"
+        >
+          <button
+            class="chakra-button css-3nynva"
+            type="button"
+          >
+            <div
+              class="chakra-stack css-1tsaady"
+            >
+              <svg
+                class="chakra-icon css-tisoty"
+                fill="none"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                Profile
+              </p>
+            </div>
+          </button>
+        </a>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="chakra-stack css-hxjtip"
+      data-testid="sidebarLinks"
+    >
+      <a
+        href="/dashboard"
+      >
+        <button
+          aria-current="page"
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+              <polyline
+                points="9 22 9 12 15 12 15 22"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Dashboard
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/students"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              All Students
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/students/1"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+              />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87"
+              />
+              <path
+                d="M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              My Students
+            </p>
+          </div>
+        </button>
+      </a>
+      <a
+        href="/profile"
+      >
+        <button
+          class="chakra-button css-3nynva"
+          type="button"
+        >
+          <div
+            class="chakra-stack css-1tsaady"
+          >
+            <svg
+              class="chakra-icon css-tisoty"
+              fill="none"
+              focusable="false"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="3"
+              />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+              />
+            </svg>
+            <p
+              class="chakra-text css-0"
+            >
+              Profile
+            </p>
+          </div>
+        </button>
+      </a>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

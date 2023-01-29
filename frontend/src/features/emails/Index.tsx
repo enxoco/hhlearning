@@ -2,7 +2,7 @@ import Layout from "#/features/layout/Layout"
 import { Box, Grid, Heading, Input, List, ListItem } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
-import Pagination from "#/components/Pagination"
+import Pagination from "#/components/Pagination/Pagination"
 import usePagination from "#/hooks/usePagination"
 import { Link } from "react-router-dom"
 import useGetMessages from "./hooks/useGetMessages"
@@ -17,8 +17,6 @@ export default function Index() {
 
   const [pagination, setPage] = usePagination({
     totalRecords: messages?.TotalCount,
-    initialPage: 1,
-    defaultLimit: 10
   });
 
   // initial messages fetch.

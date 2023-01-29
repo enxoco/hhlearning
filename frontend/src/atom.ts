@@ -91,7 +91,7 @@ export const pageOffset = atom<number>({
   default: 0
 })
 
-export const impersonateUser = atom({
+export const impersonateUser = atom<User | null>({
   key: "impersonate",
   default: null
 })

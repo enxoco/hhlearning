@@ -2,8 +2,8 @@ import { Stack, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 
 import Layout from "#/features/layout/Layout"
-import DeleteStudentModal from "./components/DeleteStudentModal"
-import StudentTable from "./components/StudentTable"
+import DeleteStudentModal from "./components/DeleteStudentModal/DeleteStudentModal"
+import StudentTable from "./components/StudentTable/StudentTable"
 
 export default function ({ isFormer }: { isFormer: boolean }) {
   const [studentId, setStudentId] = useState("");

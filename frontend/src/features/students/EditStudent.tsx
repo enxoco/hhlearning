@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { impersonateUser, loggedInUser, showNewCourseCard as showNewCourseCardAtom } from "#/atom"
 
-import AddStudentCard from "#/features/students/components/AddStudentCard"
-import EditStudentCard from "#/features/students/components/EditCourseCard"
+import AddStudentCard from "#/features/students/components/AddStudentCard/AddStudentCard"
+import EditStudentCard from "#/features/students/components/EditCourseCard/EditCourseCard"
 import Layout from "#/features/layout/Layout"
 import { useGetCoursesByStudentAndTeacherQuery, useGetStudentQuery } from "#/generated/graphql"
 

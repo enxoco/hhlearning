@@ -3,10 +3,10 @@ import { Box, Container, Flex, Heading, Stack, Text, useBreakpointValue, VStack 
 import { ReactElement } from "react"
 import { useLocation } from "react-router-dom"
 import { useRecoilState } from "recoil"
-import { ImpersonateUserBanner } from "./ImpersonatedUserBanner"
+import { ImpersonateUserBanner } from "./ImpersonateUserBanner/ImpersonateUserBanner"
 import useDocumentTitle from "#/utils/useDocumentTitle"
 import { NavLinks } from "./Sidebar/NavLinks"
-
+import {impersonateUser as impersonateUserAtom} from '#/atom'
 interface ILayoutProps {
   children: ReactElement | ReactElement[];
   customTitle?: string;
@@ -15,6 +15,7 @@ interface ILayoutProps {
 }
 export default function ({ children, customTitle, description }: ILayoutProps) {
   const [user] = useRecoilState(loggedInUser)
+  const [impersonatedUser] = useRecoilState(impersonateUserAtom)
 
   const location = useLocation()
   let title = ""
@@ -28,7 +29,7 @@ export default function ({ children, customTitle, description }: ILayoutProps) {
         <Box bg="bg-canvas" borderTopLeftRadius={{ base: "none", lg: "2rem" }} height="full">
           <Container py="8" mx={1} maxWidth="100%">
             <VStack pb={5}>
-              <ImpersonateUserBanner />
+              <ImpersonateUserBanner user={impersonatedUser} callback={() => window.location.href = "/teachers" } />
             </VStack>
             <Stack spacing={{ base: "8", lg: "6" }}>
               <Stack spacing="4" direction={{ base: "column", lg: "row" }} justify="space-between" align={{ base: "start", lg: "center" }}>
