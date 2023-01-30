@@ -1,10 +1,10 @@
 import { Box, Button, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, useBreakpointValue, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import Logo from "#/features/layout/components/Logo"
 import { PasswordField } from "#/components/PasswordField"
 import { useLoginMutation } from "#/generated/graphql"
 import useDocumentTitle from "#/utils/useDocumentTitle"
+import { Logo } from "#/features/layout/components/Sidebar/Logo/Logo"
 
 
 function Login() {

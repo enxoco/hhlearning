@@ -5,8 +5,8 @@ import { Box, Flex, List, ListItem, Grid, Heading, Input, useDisclosure, Stack }
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "#/features/layout/Layout";
-import AddParentModal from "./components/AddParentModal/AddParentModal";
-import AddStudentModal from "./components/AddStudentModal/AddStudentModal";
+import {AddParentModal} from "./components/AddParentModal/AddParentModal";
+import {AddStudentModal} from "./components/AddStudentModal/AddStudentModal";
 import TableActions from "./components/ParentsActionBar/ParentsActionBar";
 import StudentsList from "./components/StudentsList/StudentsList";
 import ColumnHeading from "./components/ColumnHeading/ColumnHeading";

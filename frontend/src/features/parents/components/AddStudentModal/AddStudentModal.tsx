@@ -4,7 +4,7 @@ import { useAddChildToParentMutation, useCreateRelatedStudentMutation, useFindSt
 import { AddIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { OperationContext } from "urql";
 
-type IAddStudentProps = {
+export type IAddStudentProps = {
     lastName: string,
     parentId: string,
     setParentId: Dispatch<SetStateAction<String>>;
@@ -14,7 +14,7 @@ type IAddStudentProps = {
     onClose: () => void;
     fetchParents: (opts?: Partial<OperationContext>) => void;
 }
-export default function ({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose, fetchParents }: IAddStudentProps) {
+export const AddStudentModal = ({ lastName, parentId, setParentId, setParentName, onOpen, isOpen, onClose, fetchParents }: IAddStudentProps) => {
     const [relation, createRelation] = useCreateRelatedStudentMutation();
     const [childrenSearchResults, findChildren] = useFindStudentsForParentsQuery({ variables: { where: { lastName: { contains: lastName } } }, pause: !lastName })
     const [connectedStudent, setConnectedStudent] = useAddChildToParentMutation();

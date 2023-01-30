@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import { ImpersonateUserBanner } from "./ImpersonateUserBanner/ImpersonateUserBanner"
 import useDocumentTitle from "#/utils/useDocumentTitle"
-import { NavLinks } from "./Sidebar/NavLinks"
 import {impersonateUser as impersonateUserAtom} from '#/atom'
+import { NavLinks } from "./Sidebar/NavLinks/NavLinks"
 interface ILayoutProps {
   children: ReactElement | ReactElement[];
   customTitle?: string;

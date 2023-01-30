@@ -5,7 +5,7 @@ import { Button, HStack, Stack } from "@chakra-ui/react"
 import { FiDownloadCloud } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import ActionBar from "./components/ActionBar/ActionBar"
-import AdminToggle from "#/components/AdminToggle/AdminToggle"
+import {AdminToggle} from "#/components/AdminToggle/AdminToggle"
 import Table from "./components/Table/Table"
 
 export default function Teachers() {

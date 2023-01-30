@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil"
 import { loggedInUser } from "#/atom"
 import Layout from "#/features/layout/Layout"
 import { useGetMyCoursesCountByTeacherQuery, useStudentsCountQuery, useTotalCourseCountQuery } from "../generated/graphql"
-import { Stats } from "#/features/layout/components/Stats"
+import { Stats } from "#/features/layout/components/Stats/Stats"
 export const Dashboard = () => {
   const [studentCountQuery] = useStudentsCountQuery({ variables: { isFormer: false } })
   const [user] = useRecoilState(loggedInUser)

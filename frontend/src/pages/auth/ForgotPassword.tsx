@@ -1,7 +1,7 @@
+import { Logo } from "#/features/layout/components/Sidebar/Logo/Logo"
 import { Alert, AlertIcon, AlertTitle, Box, Button, Container, FormControl, FormLabel, Heading, HStack, Input, Stack, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import Logo from "#/features/layout/components/Logo"
 import { useForgotPasswordMutation } from "../../generated/graphql"
 import useDocumentTitle from "../../utils/useDocumentTitle"
 

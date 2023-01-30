@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
-import { Logo } from "../Sidebar/Logo";
+import { Logo } from './Logo';
 export default {
     title: 'Layout/Sidebar/BrandLogo',
     component: Logo,
