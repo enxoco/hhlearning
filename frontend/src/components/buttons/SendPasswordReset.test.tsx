@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 
 import { render, fireEvent } from "@testing-library/react"
 import { act } from "react-test-renderer"
-import SendPasswordReset from "./SendPasswordReset"
 import { expect, vi } from 'vitest'
+import { SendPasswordReset } from './SendPasswordReset';
 
 test("calls handlePasswordReset when clicked", async () => {
     const component = render(<SendPasswordReset email="mikeconrad@onmail.com" />)

@@ -3,7 +3,7 @@ import { Tooltip, IconButton } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FiCheck, FiSend } from "react-icons/fi";
 
-export default function SendPasswordReset({ email }: { email: User["email"] }) {
+export const SendPasswordReset = ({ email }: { email: User["email"] }) => {
   const [fetchPasswordData, fetchPasswordReset] = useForgotPasswordMutation();
   const [hideCheckMark, setHideCheckMark] = useState(false);
   const handleRequestPasswordReset = () => {
