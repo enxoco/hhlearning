@@ -8,7 +8,12 @@ export default {
 
 const Template: ComponentStory<typeof AdminToggle> = (args) => <AdminToggle {...args} />;
 
-export const admin_toggle = Template.bind({});
-admin_toggle.args = {
+export const ToggledOn = Template.bind({});
+ToggledOn.args = {
     isAdmin: true,
+};
+
+export const ToggledOff = Template.bind({});
+ToggledOff.args = {
+    isAdmin: false,
 };

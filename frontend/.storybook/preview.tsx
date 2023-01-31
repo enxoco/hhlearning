@@ -1,3 +1,4 @@
+import React from "react";
 import "../src/index.css"
 import "../src/App.css"
 import { theme } from "@chakra-ui/pro-theme"
@@ -5,6 +6,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import { RecoilRoot } from "recoil"
 import { MemoryRouter } from 'react-router-dom';
 import { createClient, Provider } from "urql"
+import { Story } from "@storybook/react";
 
 const myTheme = extendTheme(
   {
@@ -23,7 +25,7 @@ export const parameters = {
 }
 
 export const decorators = [
-  (Story) => (
+  (Story: Story) => (
     <ChakraProvider theme={myTheme}>
       <RecoilRoot>
     <div style={{ margin: '3em' }}>
