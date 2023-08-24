@@ -5,7 +5,6 @@ RUN apk --no-cache add dumb-init
 RUN mkdir -p /home/node/app && chown node:node /home/node/app
 WORKDIR /home/node/app
 USER node
-RUN mkdir tmp
 
 FROM base AS dependencies
 COPY --chown=node:node ./package.json ./
@@ -18,22 +17,43 @@ RUN yarn build
 
 
 # FROM trafex/php-nginx as prod
-FROM trafex/php-nginx as prod
+FROM php:8.1-rc-apache-bullseye as prod
 # Copy our React build files
-# Install composer from the official image
 COPY --from=build /home/node/app/dist /var/www/html/
+
+# Install composer from the official image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# Run composer install to install the dependencies
-COPY ../frontend-php/* /var/www/html/
 USER root
+# Run composer install to install the dependencies
+WORKDIR /var/www/html
+
+COPY ../frontend-php/composer.* .
+COPY ../frontend-php .
+# COPY ./frontend-php/composer.lock /var/www/html/
+# USER root
 # RUN mkdir /var/www/html/parents
 
-RUN mkdir -p /var/www/html/archived-reports
-RUN chown -R nobody:nobody /var/www/html/archived-reports
-RUN apk add --no-cache php81-pdo php81-pdo_pgsql php81-bcmath php81-gd php81-iconv
+# RUN mkdir -p /var/www/html/archived-reports
+# RUN chown -R nobody:nobody /var/www/html/archived-reports
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl
+# RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install bcmath
 
-
-WORKDIR /var/www/html
-RUN composer install --optimize-autoloader --no-interaction --no-progress
-USER nobody
+#RUN apk add --no-cache php81-pdo php81-pdo_pgsql php81-bcmath php81-gd php81-iconv
+RUN composer update
+# RUN composer install --optimize-autoloader --no-interaction --no-progress
+# COPY ./vendor /var/www/html/vendor
+#USER nobody
